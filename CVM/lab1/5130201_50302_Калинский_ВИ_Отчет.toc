@@ -1,0 +1,5 @@
+\babel@toc {russian}{}\relax 
+\contentsline {section}{Введение}{3}{section*.2}%
+\contentsline {section}{Заключение}{4}{section*.3}%
+\contentsline {section}{Список литературы.}{5}{section*.4}%
+\contentsline {section}{Приложение А. Полный программный код бота-игрока}{6}{section*.6}%
