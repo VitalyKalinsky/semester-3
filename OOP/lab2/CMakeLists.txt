@@ -7,10 +7,17 @@ add_library(mylib STATIC
     src/MyString.hpp 
     src/MyVector.cpp 
     src/MyVector.h
+    src/MyStack.hpp 
 )
 
 add_executable(lab2_exe 
-    src/Main.cpp
+    src/Lab3.cpp
 )
 
 target_link_libraries(lab2_exe mylib)
+
+add_executable(main 
+    src/Main.cpp
+)
+
+target_link_libraries(main mylib)

@@ -1,6 +1,8 @@
 #include "MyVector.h"
 #include "MyString.hpp"
+#include "MyStack.hpp"
 #include <iostream>
+#include <vector>
 using namespace std;
 template <class T>
 void pr(T &v, MyString s)
@@ -27,21 +29,16 @@ void Swap(T &a, T &b)
 }
 int main(int argc, char const *argv[])
 {
+    int i;
+    vector<vector<double>> vdd(5);
+    for (i = 0; i < vdd.size(); i++)
+        vdd[i] = vector<double>(i + 1, double(i + 0.1 * i));
+
+    cout << "\n\n\tTest vector of vector<double>\n";
+    for (i = 0; i < vdd.size(); i++)
     {
-        int i = 1, j = -1;
-        Swap(i, j);
-
-        double a = 0.5, b = -5.5;
-        Swap(a, b);
-
-        Vector u(1, 2), w(-3, -4);
-        Swap(u, w);
-
-        // Если вы достаточно развили класс MyString в предыдущей работе,
-        // то следующий фрагмент тоже должен работать корректно.
-
-        MyString s1("Your fault"), s2("My forgiveness");
-        Swap(s1, s2);
+        cout << endl;
+        for (int j = 0; j < vdd[i].size(); j++)
+            cout << vdd[i][j] << "  ";
     }
-    return 0;
 }

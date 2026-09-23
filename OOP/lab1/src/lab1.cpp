@@ -18,7 +18,6 @@ namespace space // В пространстве имен - space
 {
     int n = 1; // Объявлена переменная n
 } // space определяет область видимости этой переменной
-// cmake -DCMAKE_CXX_FLAGS="-O0 -g" ..
 int main()
 {
     setlocale(LC_ALL, "");
@@ -39,7 +38,10 @@ int main()
 
     unsigned char uc = 0x41; // 65 'A' 0x41
     uc = 'B';                // 66 'B' 0x42
-    uc = -1;                 // 255 '' 0xff, ascii - 'ÿ'
+    uc = -128;                 // 255 '' 0xff, ascii - 'ÿ'
+    cout << int(uc) << endl;
+    // 127 -> 111.1111 -> 0111.1111 -> 1000.0000 -> 1000.0001 -> 129
+    // 256 - |uc|
     stop;
 
     int i = 1; // 1 0x00000001
@@ -84,7 +86,7 @@ int main()
     d = DBL_MAX;                               // 1.7976931348623157e+308
     d = DBL_MIN;                               // 2.2250738585072014e-308
     d = DBL_EPSILON;                           // 2.2204460492503131e-16
-
+    //x1 - x2 < DBL_EPSILON
     uc = ~0; // 255 ''
     i = ~0;  // ~(0x00000000) = 0xffffffff = -1
     stop;
@@ -109,7 +111,7 @@ int main()
     i = 100;
     f = d = i / 3;                      // (3) целочисленное деление, f = d = 33.0
     f = d = (double)i / 3;              // (4) i приведено к double, деление вещественное d = 33.333333333333336, f = 33.3333321, i / 3 = 33.(3)
-    f = d = double(i) / 3;              // (4) то же самое, что и выше
+    f = d = double(i) / 3;              // (4) то же самое, что и выше T(x)
     f = d = static_cast<double>(i) / 3; // (4) безопасное C++ приведение
     stop;
 
@@ -181,7 +183,7 @@ int main()
     {
         // Любой целочисленной переменной можно присвоить enum-переменную
         int i = r;
-        r = RANK(i++); // Обратное преобразование надо указывать явно
+        r = RANK(i++); // r=7 i=8     Обратное преобразование надо указывать явно
         i = r;
         r = RANK(++i);
         i = r;
@@ -264,7 +266,7 @@ int main()
         cout << "\n\nShow even-odd:\n\n";
         for (int i = 0; i < 10; i++)
         {
-            if (i & 1)
+            if (2 & 3) // 10 & 11 = 10 
                 cout << i << " - odd\n";
             else
                 cout << i << " - even\n";
@@ -392,7 +394,7 @@ int main()
     unsigned char byte = 0x26;
     byte |= (1 << 3); // 1000
     cout << "\n0x" << static_cast<int>(byte);
-    byte ^= 0x03; // 0011
+    byte ^= 0x03; // 10000001 = 0x81 
     cout << "\n0x" << static_cast<int>(byte);
     byte &= 0xF0; // 11110000
     cout << "\n0x" << static_cast<int>(byte);

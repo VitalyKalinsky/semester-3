@@ -12,7 +12,10 @@ public:
 
     //====== Переопределение операций =====//
     Vector &operator=(const Vector &v); // Присвоение
-    void Out();
+    void Out() const;
 
     friend std::ostream &operator<<(std::ostream &os, const Vector &s);
+
+    bool operator<(const Vector &s);
+    bool operator==(const Vector &s);
 };
