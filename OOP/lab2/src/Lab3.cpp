@@ -41,6 +41,22 @@ void Swap(T &a, T &b)
     cout << "a=" << a << ", b=" << b << endl;
 }
 
+bool predicate_5b(const Vector v)
+{
+    return v.getX() > 2.0 && v.getY() > 2.0;
+}
+
+class StringEquals
+{
+    string target;
+
+public:
+    StringEquals(const string t) : target(t) {};
+    bool operator()(const string &s) const
+    {
+        return s == target;
+    }
+};
 int main()
 {
 
@@ -427,7 +443,7 @@ int main()
     // задания с помощью алгоритма for_each()
 
     for_each(ptList1.begin(), ptList1.end(), [](const Vector &pt)
-             { pt.Out(); }); 
+             { pt.Out(); });
 
     // 5б.С помощью алгоритма find() найдите итератор на элемент Vector с
     // определенным значением. С помощью алгоритма find_if() найдите
@@ -437,10 +453,26 @@ int main()
     // и возвращает boolean-значение (предикат может быть как глобальной
     // функцией, так и методом класса)
 
+    list<Vector>::iterator it = find(ptList1.begin(), ptList1.end(), Vector(2, 2));
+    cout << "\n\nfound ";
+    it->Out();
+
+    list<Vector>::iterator it_if = find_if(ptList1.begin(), ptList1.end(), predicate_5b);
+    cout << "\n\nfound >2";
+    it_if->Out();
+
     // Создайте список из указателей на элеметы Vector. С помощью
     // алгоритма find_if() и предиката (можно использовать предикат -
     // метод класса Vector, определенный в предыдущем задании) найдите в
     // последовательности элемент, удовлетворяющий условию
+
+    Vector vI1(1, 1), vI2(2, 2), vI3(3, 3);
+    list<Vector *> vptr_list = {&vI1, &vI2, &vI3};
+
+    list<Vector *>::iterator it_if_list = find_if(vptr_list.begin(), vptr_list.end(), [](const Vector *vec)
+                                                  { return predicate_5b(*vec); });
+    cout << "\n\nfound >2 in list";
+    (*it_if_list)->Out();
 
     // 5в. Создайте список элементов Vector. Наполните список
     // значениями. С помощью алгоритма replace() замените элемент
@@ -448,6 +480,19 @@ int main()
     // replace_if() замените элемент, удовлетворяющий какому-либо
     // условию на определенное значение. Подсказка: условие
     // задается предикатом.
+    list<Vector> list_5v;
+
+    for (i = 0; i < 4; i++)
+    {
+        list_5v.push_back(Vector(i, i));
+        list_5v.push_front(Vector(i, i));
+    }
+
+    pr(list_5v, "list_5v before replace");
+    replace(list_5v.begin(), list_5v.end(), Vector(1, 1), Vector(100, 100));
+    pr(list_5v, "list_5v after replace");
+    replace_if(list_5v.begin(), list_5v.end(), predicate_5b, Vector(200, 200));
+    pr(list_5v, "list_5v after replace_if");
 
     // Сформировали значения элементов списка
 
@@ -456,9 +501,21 @@ int main()
     // count_if() сосчитайте количество строк, начинающихся с заданной
     // буквы
 
+    vector<string> strVec = {"a", "b", "c", "a", "aa", "b", "cc", "abc", "abc"};
+    int count_b = count(strVec.begin(), strVec.end(), "a");
+    cout << "\ncount_b: " << count_b << endl;
+
+    char search_first_char = 'a';
+    int count_first_a = count_if(strVec.begin(), strVec.end(), [=](const string &s)
+                                 { return !s.empty() && s[0] == search_first_char; });
+    cout << "count_first_a: " << count_first_a << endl;
+
     // 5д. С помощью алгоритма count_if() сосчитайте количество строк,
     // которые совпадают с заданной строкой. Подсказка: смотри тему
     // объекты-функции
+
+    int count_match_func = count_if(strVec.begin(), strVec.end(), StringEquals("abc"));
+    cout << "\ncount_match_func: " << count_match_func << endl;
 
     cout
         << "\n\n";

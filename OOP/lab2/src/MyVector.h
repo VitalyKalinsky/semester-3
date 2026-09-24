@@ -18,4 +18,7 @@ public:
 
     bool operator<(const Vector &s);
     bool operator==(const Vector &s);
+
+    double getX() const { return x; }
+    double getY() const { return y; }
 };
