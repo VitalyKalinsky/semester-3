@@ -49,6 +49,7 @@ void print_stack(T stack, const string &message = "")
     cout << "======================================" << endl;
     while (!stack.empty())
     {
+        // requires требует с++ 20, constexpr требует с++ 11
         if constexpr (requires { stack.top(); })
         {
             cout << stack.top() << endl;
@@ -97,9 +98,7 @@ public:
     }
 };
 
-int g_n = 2;
-int g_m = 10;
-
+template <int g_n, int g_m>
 bool Pred1_1(const Point &p)
 {
     return (p.getX() >= -g_n && p.getX() <= g_m) && (p.getY() >= -g_n && p.getY() <= g_m);
@@ -146,7 +145,7 @@ int main()
                             "a",
                             "",
                             "Beer"};
-    for (auto &&i : values)
+    for (auto &i : values)
     {
         mstrDeque.push_back(i);
         mstrStack.push(i);
@@ -375,6 +374,12 @@ int main()
             cout << it->second << "; ";
         }
         cout << "\n";
+        cout << "\n";
+        for (auto it = dict.begin(); it != dict.end(); ++it)
+        {
+            cout << it->second << "; ";
+        }
+        cout << "\n";
     }
     ///////////////////////////////////////////////////////////////////
 
@@ -464,7 +469,7 @@ int main()
             cout << "Найден элемент " << target << " на позиции " << found++ - ptsVector.begin() << endl;
         }
     }
-    
+
     printf("\n\n//////////////////////////////////////////////////////////////////\n \t sort \n//////////////////////////////////////////////////////////////////\n");
     // С помощью алгоритма sort() отсортируйте любую последовательность элементов Point.
     ////По умолчанию алгоритм сортирует последовательность по возрастанию.
@@ -483,9 +488,9 @@ int main()
     //[-n, +m].
     printf("\n\n//////////////////////////////////////////////////////////////////\n \t Points [-n, +m] \n//////////////////////////////////////////////////////////////////\n");
     {
-        g_n = 1;
-        g_m = 10;
-        auto itPred = find_if(ptsVector.begin(), ptsVector.end(), Pred1_1);
+        const int g_n = 1;
+        const int g_m = 10;
+        auto itPred = find_if(ptsVector.begin(), ptsVector.end(), Pred1_1<g_n, g_m>);
         if (itPred != ptsVector.end())
         {
             cout << "Первый элемент в промежутке [-" << g_n << ", +" << g_m << "]: " << *itPred << "\n";
@@ -505,7 +510,7 @@ int main()
         sort(rectVector.begin(), rectVector.end());
         pr(rectVector, "rectVector after sort");
     }
-    
+
     printf("\n\n//////////////////////////////////////////////////////////////////\n \t transform \n//////////////////////////////////////////////////////////////////\n");
     { // transform
       // Напишите функцию, которая с помощью алгоритма transform переводит
@@ -527,15 +532,16 @@ int main()
                                "AlPenGold",
                                "ORANGE",
                                "bEEr"};
-        set<string> sWords;
+        vector<string> sWords;
+        sWords.resize(100);
 
-        transform(lWords.begin(), lWords.end(), inserter(sWords, sWords.begin()), [](string &s)
+        transform(lWords.begin(), lWords.end(),  sWords.begin(), [](string &s)
                   {toLowerString(s);
                     return s; });
         pr(sWords, "sWords (уникальные строки в нижнем регистре)");
         // stop
     }
-    
+
     printf("\n\n//////////////////////////////////////////////////////////////////\n \t frequences \n//////////////////////////////////////////////////////////////////\n");
     { // map
 
