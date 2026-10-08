@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.9.9)  1 OCT 2026 16:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.9.9)  8 OCT 2026 13:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -960,12 +960,12 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.164 
+l.165 
        <./1.png>]
 <2.png, id=33, 317.68687pt x 466.74374pt>
 File: 2.png Graphic file (type png)
 <use 2.png>
-Package pdftex.def Info: 2.png  used on input line 168.
+Package pdftex.def Info: 2.png  used on input line 169.
 (pdftex.def)             Requested size: 290.22107pt x 426.42537pt.
 
 
@@ -974,24 +974,24 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.174 
+l.175 
       
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.174 
+l.175 
        <./2.png>]
 <scheme3.png, id=41, 457.71pt x 541.27219pt>
 File: scheme3.png Graphic file (type png)
 <use scheme3.png>
-Package pdftex.def Info: scheme3.png  used on input line 177.
+Package pdftex.def Info: scheme3.png  used on input line 178.
 (pdftex.def)             Requested size: 411.14528pt x 486.2237pt.
-<3.png, id=42, 396.7322pt x 408.77719pt>
+<3.png, id=42, 450.9347pt x 456.95718pt>
 File: 3.png Graphic file (type png)
 <use 3.png>
-Package pdftex.def Info: 3.png  used on input line 184.
-(pdftex.def)             Requested size: 411.14528pt x 423.63997pt.
+Package pdftex.def Info: 3.png  used on input line 185.
+(pdftex.def)             Requested size: 411.14528pt x 416.6614pt.
 
 
 [5
@@ -999,7 +999,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.188 
+l.189 
        <./scheme3.png>]
 
 [6
@@ -1007,7 +1007,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.200 
+l.201 
        <./3.png>]
 
 [7] (5130201_50302_Калинский_ВИ_Отчет.aux)
@@ -1038,7 +1038,7 @@ bx1440.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi60
 /Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/Programs/MiKTeX/f
 onts/type1/public/amsfonts/cm/cmsy10.pfb>
 Output written on 5130201_50302_Калинский_ВИ_Отчет.pdf (7 pages
-, 173239 bytes).
+, 177326 bytes).
 PDF statistics:
  230 PDF objects out of 1000 (max. 8388607)
  14 named destinations out of 1000 (max. 500000)
