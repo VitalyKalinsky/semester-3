@@ -1,4 +1,3 @@
-
 // Реализовать программу генерации бинарного кода Грея для заполнения универсума мультмножеств (заданной пользователем разрядности). На основе универсума формируются два мультимножества двумя способами заполнения - вручную и автоматически (выбирает пользователь). Мощности множеств задает пользователь. В результате на экран выводятся результаты действий над множествами: объединение, пересечение, разность (оба варианта), симметрическая разность, дополнение (оба варианта), арифметические сумма, разность, произведение и деление. Кроме того, требуется реализовать защиту от некорректного пользовательского ввода и пользовательское меню.
 // input_number()
 // input_sequence()
@@ -17,6 +16,7 @@
 #include <bitset>
 #include <format>
 #include <algorithm>
+#include <chrono>
 #include "MultiSet.hpp"
 
 int U_SIZE = 0;
@@ -141,17 +141,25 @@ void fillAutomatically(MultiSet &ms, const vector<int> &multi_universe, int targ
 
 int main(int argc, char const *argv[])
 {
-    int bitrate = getValidatedInt("Введите разрядность кода Грея (1-10): ", 1, 10);
+    // при bitrate = 30 время вычисления кода грея составило в среднем 5.2 секунды. при 29 - 2.6 сек.
+    int bitrate = getValidatedInt("Введите разрядность кода Грея (1-29): ", 1, 29);
+    auto start = std::chrono::steady_clock::now();
     vector<int> universe(1 << bitrate, 0);
     generateGrayCode(bitrate, universe);
     U_SIZE = universe.size();
 
-    for (int i = 0; i < universe.size(); ++i)
-    {
-        cout << i + 1 << ". [";
-        printBinary(universe[i], bitrate);
-        cout << "]\n";
-    }
+    cout << U_SIZE << endl;
+    auto end = std::chrono::steady_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+
+    std::cout << "Прошло времени: " << elapsed.count() << " сек.\n";
+
+    // for (int i = 0; i < universe.size(); ++i)
+    // {
+    //     cout << i + 1 << ". [";
+    //     printBinary(universe[i], bitrate);
+    //     cout << "]\n";
+    // }
 
     int lower_capacity = 0;
     int upper_capacity = 100;
