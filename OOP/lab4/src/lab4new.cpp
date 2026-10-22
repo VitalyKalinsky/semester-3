@@ -27,13 +27,13 @@ using namespace std;
 
 template <class T>
 concept Printable = requires(T val) {
-    std::cout << val;
+    cout << val;
 };
 
 template <Printable T>
 void printValue(T val)
 {
-    std::cout << val << '\n';
+    cout << val << '\n';
 }
 
 template <class T>
@@ -48,7 +48,8 @@ void print_adapter(T stack, const string &message = "")
     cout << "\n======================================" << endl;
     if (!message.empty())
         printf("%*s\n", int((40 + message.length()) / 2), message.c_str());
-    cout << "print_adapter\n";
+    else
+        cout << "print_adapter\n";
     cout << "======================================" << endl;
     while (!stack.empty())
     {
@@ -70,7 +71,7 @@ void print_adapter(T stack, const string &message = "")
 
 template <class T>
 concept PrintableRange = ranges::input_range<T> && requires(ranges::range_reference_t<T> element) {
-    { std::cout << element };
+    { cout << element };
 };
 
 template <PrintableRange T>
@@ -93,18 +94,16 @@ T sumTwo(T a, K b)
     return a + b;
 }
 
-template <std::integral T>
-T factorial(T n)
+template <integral T, T N>
+constexpr T factorial()
 {
-    constexpr T max_n = 20;
-    if (n > max_n)
-    {
-        std::cout << "Ошибка: n превышает максимум (" << max_n << ")\n";
-        return 0;
-    }
-    if (n <= 1)
+    static_assert(N >= 0, "Ошибка: n не может быть отрицательным\n");
+    static_assert(N <= 20, "Ошибка: n превышает максимум\n");
+
+    if constexpr (N <= 1)
         return 1;
-    return n * factorial(n - 1);
+    else
+        return N * factorial<T, N - 1>();
 }
 
 struct QuadraticRoots
@@ -163,11 +162,11 @@ struct Box
         return width * height * depth;
     }
 
-    std::partial_ordering operator<=>(const Box &other) const
+    partial_ordering operator<=>(const Box &other) const
     {
         if (volume() == 0 || other.volume() == 0)
         {
-            return std::partial_ordering::unordered;
+            return partial_ordering::unordered;
         }
         return volume() <=> other.volume();
     }
@@ -328,7 +327,8 @@ int main()
     // Перепишите шаблон функции для вывода значений stack, queue, priority_queue из Лаб. 3 через концепты и constexpr в единую функцию
     cout << "\n/////////////////////////////////////\n"
          << "1.1" << "\n/////////////////////////////////////\n";
-    printValue(42);
+    Point p(1.0, 2.0);
+    printValue(p);
 
     stack<int> s_adapter;
     s_adapter.push(1);
@@ -352,17 +352,16 @@ int main()
     cout << "\n/////////////////////////////////////\n"
          << "1.2" << "\n/////////////////////////////////////\n";
 
-    cout << "sumTwo: " << sumTwo(10, 5) << '\n';
+    cout << "sumTwo: " << sumTwo(10, 5.5) << '\n';
     // Задание 1.3
     // Используйте стандартный концепт std::integral для ограничения вычислений рекурсивной функции
     // factorial(T n), которая вычисляет факториал только для целых чисел и указывает максимальное значение n.
     cout << "\n/////////////////////////////////////\n"
          << "1.3" << "\n/////////////////////////////////////\n";
-
-    cout << "factorial(5): " << factorial(5) << '\n';
-    cout << "factorial(0): " << factorial(0) << '\n';
-    cout << "factorial(-1): " << factorial(-1) << '\n';
-    cout << "factorial(21): " << factorial(21) << '\n';
+    constexpr int evnum = 5;
+    auto fact = factorial<int, evnum>();
+    cout << "factorial(5): " << fact << '\n';
+    cout << "factorial(0): " << factorial<int, 4>() << '\n';
 
     // РАЗДЕЛ 2: RANGES (Диапазоны)
 
@@ -411,12 +410,12 @@ int main()
 
     string joined_buffer(joined_view.begin(), joined_view.end());
     string_view joined_sv = joined_buffer;
-    auto upper_view = joined_sv | std::views::split('.') | std::views::filter([](auto r)
-                                                                              { return !std::ranges::empty(r); }) |
-                      std::views::transform([](auto r)
-                                            {     string s;
+    auto upper_view = joined_sv | views::split('.') | views::filter([](auto r)
+                                                                    { return !ranges::empty(r); }) |
+                      views::transform([](auto r)
+                                       {     string s;
     for (char c : r) 
-        s += static_cast<char>(std::toupper(c));
+        s += static_cast<char>(toupper(c));
     return s; });
 
     pr(upper_view);
@@ -435,7 +434,7 @@ int main()
     // Напишите функцию вычисления квадратного уравнения через consteval
     // ТОЛЬКО на этапе компиляции. Создайте constexpr переменную со значением и выведите результат.
     constexpr QuadraticRoots quad_roots = solve_quadratic(1.0, -5.0, 6.0);
-    std::cout << "Корни: " << quad_roots.x1 << ", " << quad_roots.x2 << '\n';
+    cout << "Корни: " << quad_roots.x1 << ", " << quad_roots.x2 << '\n';
     // Задание 3.2
     cout << "\n/////////////////////////////////////\n"
          << "3.2" << "\n/////////////////////////////////////\n";
@@ -452,9 +451,9 @@ int main()
     int fib_rt_10 = fibonacci(runtime_n_10);
     int fib_rt_0 = fibonacci(runtime_n_0);
     int fib_rt_1 = fibonacci(runtime_n_1);
-    std::cout << "fib compile-time: " << fib_ct_10 << ", run-time: " << fib_rt_10 << '\n';
-    std::cout << "fib compile-time: " << fib_ct_0 << ", run-time: " << fib_rt_0 << '\n';
-    std::cout << "fib compile-time: " << fib_ct_1 << ", run-time: " << fib_rt_1 << '\n';
+    cout << "fib compile-time: " << fib_ct_10 << ", run-time: " << fib_rt_10 << '\n';
+    cout << "fib compile-time: " << fib_ct_0 << ", run-time: " << fib_rt_0 << '\n';
+    cout << "fib compile-time: " << fib_ct_1 << ", run-time: " << fib_rt_1 << '\n';
     // РАЗДЕЛ 4: Трёхстороннее сравнение (Оператор космического корабля <=>)
 
     // Задание 4.1
@@ -465,10 +464,10 @@ int main()
     // Модифицируйте оператор через std::weak_ordering, где критерием сравнения будет являться
     // порядок точек плоскости, определяемый удалённостью от центра.
     Point pt_a{3.0, 4.0}, pt_b{0.0, 5.0}, pt_c{1.0, 1.0};
-    cout << (pt_a < pt_b) << ' '
-         << (pt_c > pt_a) << ' '
-         << (pt_a == pt_c) << ' '
-         << (pt_a != pt_c) << '\n';
+    cout << (pt_a >= pt_b) << ' '
+         << (pt_c <= pt_a) << ' '
+         << (pt_a != pt_c) << ' '
+         << (pt_a == pt_c) << '\n';
     // Задание 4.2
     cout << "\n/////////////////////////////////////\n"
          << "4.2" << "\n/////////////////////////////////////\n";
@@ -479,7 +478,10 @@ int main()
     // Отсортируйте вектор из трёх Box (std::ranges::sort) и выведите объёмы.
 
     vector<Box> boxes_vec = {{3.0, 4.0, 5.0}, {1.0, 2.0, 3.0}, {2.0, 2.0, 2.0}};
+    vector<Box> boxes_vec1 = {{}, {}};
+    cout << (boxes_vec1[0] == boxes_vec1[1]) << endl;
     ranges::sort(boxes_vec);
+
     for (const auto &b : boxes_vec)
         cout << b.volume() << ' ';
     cout << '\n';
@@ -623,16 +625,23 @@ int main()
     // Напиши одной лямбдой на C++20, которая вычисляет сумму элементов двух массивов (std::array) разных типов с явными шаблонными параметрами.
     auto sum_arrays = []<class T1, size_t N1, class T2, size_t N2>(const array<T1, N1> &a1, const array<T2, N2> &a2)
     {
-        decltype(std::declval<T1>() + std::declval<T2>()) total = 0;
-        for (const auto &val : a1)
-            total += val;
-        for (const auto &val : a2)
-            total += val;
-        return total;
+        using res_type = decltype(declval<T1>() + declval<T2>());
+        array<res_type, N1> sum_array;
+
+        for (int i = 0; i < N1; i++)
+        {
+            sum_array[i] = a1[i] + a2[i];
+        }
+
+        return sum_array;
     };
+
     array<int, 2> arr1 = {1, 2};
     array<double, 2> arr2 = {3.5, 4.5};
-    cout << "Сумма массивов: " << sum_arrays(arr1, arr2) << '\n';
+    auto result = sum_arrays(arr1, arr2);
+    for (int i = 0; i < 2; i++)
+        cout << result[i] << ' ';
+    cout << "\n";
 
     // РАЗДЕЛ 9: Атрибуты [[likely]] / [[unlikely]] и std::jthread
 
@@ -664,8 +673,6 @@ int main()
     worker_thread.request_stop();
     cout << "STOP!" << endl;
     // необязательно, но я хочу, чтобы вывод был последовательным
-    if (worker_thread.joinable())
-        worker_thread.join();
     cout << '\n';
 
     // РАЗДЕЛ 10: Range-for с инициализатором и std::views::iota
@@ -675,7 +682,7 @@ int main()
          << "10.1" << "\n/////////////////////////////////////\n";
     // Напишите функцию getNumbers(), возвращающую vector<int> со случайными значениями.
     // Используйте range-for с инициализатором C++20. Выведите все элементы.
-    auto getNumbers = [](int len) -> vector<int>
+    auto getNumbers = [](int len)
     {
         vector<int> out;
         for (int i = 0; i < len; i++)
@@ -684,7 +691,7 @@ int main()
         return out;
     };
 
-    for (auto numbers_vec = getNumbers(5); int num : numbers_vec)
+    for (auto num : getNumbers(5))
     {
         cout << num << ' ';
     }
@@ -707,8 +714,8 @@ int main()
     // Напишите шаблонную функцию принимающую два контейнера из целых чисел и выполняющую поэлементное деление всех элементов одного контейнера на другой
     // В случае, если произошла ошибка: разный размер контейнеров, либо деление на ноль, то вернуть std::nullopt и применить монадическую операцию or_else
     // Вывести номера индексов, с которыми не получилось выполнить деление.
-    vector<int> div_c1 = {10, 20, 30, 40};
-    vector<int> div_c2 = {2, 0, 5, 0, 3};
+    vector<int> div_c1 = {10, 20, 30, 40, 50};
+    vector<int> div_c2 = {2, 0, 5, 0};
     auto divide_containers = []<class C1, class C2>(const C1 &c1, const C2 &c2) -> optional<vector<int>>
     {
         if (c1.size() != c2.size())
@@ -727,32 +734,33 @@ int main()
 
     auto div_res = divide_containers(div_c1, div_c2);
 
-    if (!div_res.has_value())
-    {
-        if (div_c1.size() != div_c2.size())
-        {
-            cout << "Ошибка: размеры контейнеров не совпадают ("
-                 << div_c1.size() << " и " << div_c2.size() << ")\n";
-        }
-        cout << "Ошибки деления на индексах: ";
-        for (size_t i = 0; i < min(div_c1.size(), div_c2.size()); i++)
-        {
-            if (div_c2[i] == 0)
-            {
-                cout << i << ' ';
-            }
-        }
-        cout << '\n';
-    }
-    else
-    {
-        cout << "Результат деления: ";
-        for (int val : *div_res)
-        {
-            cout << val << ' ';
-        }
-        cout << '\n';
-    }
+    div_res
+        .and_then([&div_res, &div_c1, &div_c2](const vector<int> &res) -> optional<vector<int>>
+                  {
+                        cout << "Результат деления: ";
+                        for (int val : div_res.value())
+                        {
+                            cout << val << ' ';
+                        }
+                        cout << '\n'; 
+                        return res; })
+        .or_else([&div_res, &div_c1, &div_c2]() -> optional<vector<int>>
+                 {
+                if (div_c1.size() != div_c2.size())
+                {
+                    cout << "Ошибка: размеры контейнеров не совпадают ("
+                            << div_c1.size() << " и " << div_c2.size() << ")\n";
+                }
+                cout << "Ошибки деления на индексах: ";
+                for (size_t i = 0; i < min(div_c1.size(), div_c2.size()); i++)
+                {
+                    if (div_c2[i] == 0)
+                    {
+                        cout << i << ' ';
+                    }
+                }
+                cout << '\n';
+                return nullopt; });
 
     return 0;
 }

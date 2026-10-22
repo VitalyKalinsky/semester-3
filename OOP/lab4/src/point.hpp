@@ -30,18 +30,19 @@ public:
         out << "(" << p.getX() << ", " << p.getY() << ")";
         return out;
     }
-    std::weak_ordering operator<=>(const Point &other) const
-    {
-        if (this->center_dist() < other.center_dist())
-            return std::weak_ordering::less;
-        if (this->center_dist() > other.center_dist())
-            return std::weak_ordering::greater;
-        return std::weak_ordering::equivalent;
-    }
-    bool operator==(const Point &other) const
-    {
-        return (*this <=> other) == 0;
-    }
+    // std::weak_ordering operator<=>(const Point &other) const
+    // {
+    //     if (this->center_dist() < other.center_dist())
+    //         return std::weak_ordering::less;
+    //     if (this->center_dist() > other.center_dist())
+    //         return std::weak_ordering::greater;
+    //     return std::weak_ordering::equivalent;
+    // }
+    auto operator<=>(const Point &other) const = default;
+    // bool operator==(const Point &other) const
+    // {
+    //     return (*this <=> other) == 0;
+    // }
     double center_dist() const
     {
         return sqrt(pow(this->x, 2) + pow(this->y, 2));

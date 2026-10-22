@@ -21,6 +21,7 @@ public:
             return std::weak_ordering::greater;
         return std::weak_ordering::equivalent;
     }
+    
     bool operator==(const Point3D &other) const
     {
         return (*this <=> other) == 0;
