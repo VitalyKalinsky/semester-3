@@ -27,7 +27,7 @@ MultiSet insertion(MultiSet &A, MultiSet &B)
 
 // дополнение: m - a, m - кратность эл-та в универсуме
 MultiSet complement(MultiSet &A)
-{    
+{
     MultiSet result;
     transform(A.begin(), A.end(), multi_universe.begin(), result.begin(), [](int a, int m)
               { return m - a; });
@@ -53,9 +53,11 @@ MultiSet sym_difference(MultiSet &A, MultiSet &B)
 MultiSet operator+(MultiSet &A, MultiSet &B)
 {
     MultiSet result;
-    // не нужны ограничения, у каждого эл-та универсума кратность равна сумму кратностей эл-ов А и Б
     transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
               { return a + b; });
+
+    transform(result.begin(), result.end(), multi_universe.begin(), result.begin(), [](int sum, int m)
+              { return min(sum, m); });
     return result;
 }
 

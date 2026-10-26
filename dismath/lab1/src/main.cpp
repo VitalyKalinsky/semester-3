@@ -81,113 +81,168 @@ void printBinary(int code, int bitrate)
     }
 }
 
-void printMultiSet(MultiSet &ms, const vector<int> &multi_universe, int bitrate)
+void printMultiSet(MultiSet &ms, const vector<int> &u, int bitrate)
 {
     if (ms.size() == 0)
     {
         cout << "Мультимножество пустое!\n";
     }
 
+    size_t limit = u.size();
+    bool is_truncated = false;
+
+    if (u.size() > 32)
+    {
+        cout << "\nМножество слишком большое для вывода, будут выведены первые 32 элемента:\n";
+        limit = 32;
+        is_truncated = true;
+    }
+
     bool first = true;
     cout << "{";
-    for (int i = 0; i < multi_universe.size(); ++i)
+    for (size_t i = 0; i < limit; ++i)
     {
         if (ms[i] > 0)
         {
             if (!first)
                 cout << ", ";
             cout << "'";
-            printBinary(multi_universe[i], bitrate);
+            printBinary(u[i], bitrate);
             cout << "': " << ms[i];
             first = false;
         }
     }
+
+    if (is_truncated)
+    {
+        if (!first)
+            cout << ", ...";
+        else
+            cout << "...";
+    }
     cout << "}\n";
 }
 
-void fillManually(MultiSet &ms, const vector<int> &multi_universe, int bitrate, int target_capacity)
+long long createUniverse(MultiSet &u)
+{
+    srand(time(nullptr));
+    u.resize(U_SIZE, 0);
+    if (U_SIZE == 0)
+        return 0;
+    long long total_capacity = 0;
+    for (int i = 0; i < U_SIZE; ++i)
+    {
+        u[i] = 1 + rand() % 10; // случайное число от 1 до 10
+        total_capacity += u[i];
+    }
+    return total_capacity;
+}
+
+void fillManually(MultiSet &ms, const vector<int> &universe, int bitrate, int target_capacity)
 {
     int current_capacity = 0;
 
-    cout << "\nДоступные элементы универсума:\n";
-    for (int i = 0; i < multi_universe.size(); ++i)
+    cout << "\nДоступные элементы универсума (код и максимальная кратность в U):\n";
+    for (int i = 0; i < universe.size(); ++i)
     {
         cout << i + 1 << ". [";
-        printBinary(multi_universe[i], bitrate);
-        cout << "]\n";
+        printBinary(universe[i], bitrate);
+        cout << "] — кратность в U: " << multi_universe[i] << "\n";
     }
 
     while (current_capacity < target_capacity)
     {
         cout << "\nТекущая мощность: " << current_capacity << " из " << target_capacity << "\n";
-        int idx = getValidatedInt("Выберите номер элемента для добавления (нумерация от 1): ", 1, multi_universe.size()) - 1;
-        int count = getValidatedInt("Введите кратность для этого элемента: ", 1, target_capacity - current_capacity);
+        int idx = getValidatedInt("Выберите номер элемента для добавления (нумерация от 1): ", 1, universe.size()) - 1;
+
+        int remaining_in_u = multi_universe[idx] - ms[idx];
+        if (remaining_in_u <= 0)
+        {
+            cout << "Этот элемент недоступен (оставшаяся ёмкость в универсуме равна 0). Выберите другой элемент.\n";
+            continue;
+        }
+
+        int max_allowed = min(remaining_in_u, target_capacity - current_capacity);
+        string prompt = format("Введите кратность от 1 до {} (оставшаяся ёмкость в U: {}): ", max_allowed, remaining_in_u);
+        int count = getValidatedInt(prompt, 1, max_allowed);
 
         ms[idx] += count;
         current_capacity += count;
     }
 }
 
-void fillAutomatically(MultiSet &ms, const vector<int> &multi_universe, int target_capacity)
+void fillAutomatically(MultiSet &ms, const vector<int> &universe, int target_capacity)
 {
-    srand(time(nullptr));
-
-    for (int i = 0; i < target_capacity; ++i)
+    int current_capacity = 0;
+    while (current_capacity < target_capacity)
     {
-        int idx = rand() % target_capacity;
-        ms[idx]++;
+        int idx = rand() % U_SIZE;
+        if (ms[idx] < multi_universe[idx])
+        {
+            ms[idx]++;
+            current_capacity++;
+        }
     }
 }
 
 int main(int argc, char const *argv[])
 {
-    // при bitrate = 30 время вычисления кода грея составило в среднем 5.2 секунды. при 29 - 2.6 сек.
-    int bitrate = getValidatedInt("Введите разрядность кода Грея (1-29): ", 1, 29);
-    auto start = std::chrono::steady_clock::now();
-    vector<int> universe(1 << bitrate, 0);
-    generateGrayCode(bitrate, universe);
-    U_SIZE = universe.size();
-
-    cout << U_SIZE << endl;
-    auto end = std::chrono::steady_clock::now();
-    std::chrono::duration<double> elapsed = end - start;
-
-    std::cout << "Прошло времени: " << elapsed.count() << " сек.\n";
-
-    // for (int i = 0; i < universe.size(); ++i)
-    // {
-    //     cout << i + 1 << ". [";
-    //     printBinary(universe[i], bitrate);
-    //     cout << "]\n";
-    // }
-
-    int lower_capacity = 0;
-    int upper_capacity = 100;
-    int capacityA = getValidatedInt(format("\nВведите мощность мультимножества A (от {} до {}): ", lower_capacity, upper_capacity),
-                                    lower_capacity, upper_capacity);
-    int capacityB = getValidatedInt(format("\nВведите мощность мультимножества B (от {} до {}): ", lower_capacity, upper_capacity), lower_capacity, upper_capacity);
-
+    // при bitrate = 28 время вычисления кода грея составило в среднем 7.3 секунды. при 27 - 3.6 сек.
+    int bitrate = getValidatedInt("Введите разрядность кода Грея (0-27): ", 0, 27);
+    auto start = chrono::steady_clock::now();
     MultiSet A, B;
-    if (capacityA > 0)
+    vector<int> universe;
+    if (bitrate == 0)
     {
-        int choiceA = getValidatedInt("\nВыберите способ заполнения множества A (1 - Вручную, 2 - Автоматически): ", 1, 2);
-        if (choiceA == 1)
-            fillManually(A, universe, bitrate, capacityA);
-        else
-            fillAutomatically(A, universe, capacityA);
+        cout << "\nУниверсум пуст (мощность равна 0). Множества A и B автоматически оставлены пустыми.\n";
     }
-    if (capacityB > 0)
+    else
     {
-        int choiceB = getValidatedInt("\nВыберите способ заполнения множества B (1 - Вручную, 2 - Автоматически): ", 1, 2);
-        if (choiceB == 1)
-            fillManually(B, universe, bitrate, capacityB);
-        else
-            fillAutomatically(B, universe, capacityB);
-    }
+        universe.resize(1 << bitrate, 0);
+        generateGrayCode(bitrate, universe);
+        U_SIZE = universe.size();
 
-    multi_universe = A + B;
-    cout << "\n\nПолученный универсум на множествах А и Б: ";
-    printMultiSet(multi_universe, universe, bitrate);
+        A.resize(U_SIZE, 0);
+        B.resize(U_SIZE, 0);
+
+        long long total_u_capacity = createUniverse(multi_universe);
+
+        auto end = chrono::steady_clock::now();
+        chrono::duration<double> elapsed = end - start;
+        cout << "Количество кодов: " << U_SIZE << ". Прошло времени: " << elapsed.count() << " сек.\n";
+
+        cout << "\nСгенерированный универсум U: ";
+        printMultiSet(multi_universe, universe, bitrate);
+
+        int lower_capacity = 0;
+        int upper_capacity;
+        if (100LL < total_u_capacity)
+            upper_capacity = 100;
+        else
+            upper_capacity = total_u_capacity;
+
+        int capacityA = getValidatedInt(format("\nВведите мощность мультимножества A (от {} до {}): ", lower_capacity, upper_capacity),
+                                        lower_capacity, upper_capacity);
+        int capacityB = getValidatedInt(format("\nВведите мощность мультимножества B (от {} до {}): ", lower_capacity, upper_capacity),
+                                        lower_capacity, upper_capacity);
+
+        if (capacityA > 0)
+        {
+            int choiceA = getValidatedInt("\nВыберите способ заполнения множества A (1 - Вручную, 2 - Автоматически): ", 1, 2);
+            if (choiceA == 1)
+                fillManually(A, universe, bitrate, capacityA);
+            else
+                fillAutomatically(A, universe, capacityA);
+        }
+        if (capacityB > 0)
+        {
+            int choiceB = getValidatedInt("\nВыберите способ заполнения множества B (1 - Вручную, 2 - Автоматически): ", 1, 2);
+            if (choiceB == 1)
+                fillManually(B, universe, bitrate, capacityB);
+            else
+                fillAutomatically(B, universe, capacityB);
+        }
+    }
 
     while (true)
     {
