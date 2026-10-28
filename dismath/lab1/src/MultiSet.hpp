@@ -6,6 +6,7 @@
 class MultiSet
 {
     std::vector<int> counts;
+
 public:
     MultiSet();
     std::vector<int>::iterator begin()
@@ -16,6 +17,10 @@ public:
     {
         return counts.size();
     }
+    void clear()
+    {
+        counts.clear();
+    }
     std::vector<int>::iterator end()
     {
         return counts.end();
@@ -24,8 +29,21 @@ public:
     {
         return counts[pos];
     }
-    void resize(size_t new_size, const int val){
+    void resize(size_t new_size, const int val)
+    {
         counts.resize(new_size, val);
+    }
+    bool isBigSize()
+    {
+        int count = 0;
+        for (size_t i = 0; i < size(); i++)
+        {
+            if (count >= 32)
+                return true;
+            if (counts[i] > 0)
+                count++;
+        }
+        return false;
     }
 };
 

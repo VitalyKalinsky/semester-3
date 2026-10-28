@@ -62,11 +62,6 @@ void generateGrayCode(int n, vector<int> &target)
 
     for (int i = 1; i < total_steps; i++)
     {
-        // n=8
-        // p_index = 1
-        // B[1]
-        // B=00000000
-        // B=01000000
         int p_index = Q(i) - 1;
         B ^= 1 << p_index;
         target.push_back(B);
@@ -86,21 +81,22 @@ void printMultiSet(MultiSet &ms, const vector<int> &u, int bitrate)
     if (ms.size() == 0)
     {
         cout << "Мультимножество пустое!\n";
+        return;
     }
 
     size_t limit = u.size();
-    bool is_truncated = false;
+    bool is_truncated = ms.isBigSize();
 
-    if (u.size() > 32)
+    if (is_truncated)
     {
         cout << "\nМножество слишком большое для вывода, будут выведены первые 32 элемента:\n";
         limit = 32;
-        is_truncated = true;
     }
 
     bool first = true;
     cout << "{";
-    for (size_t i = 0; i < limit; ++i)
+    int count = 0;
+    for (size_t i = 0; count < limit && i < u.size(); ++i)
     {
         if (ms[i] > 0)
         {
@@ -110,6 +106,7 @@ void printMultiSet(MultiSet &ms, const vector<int> &u, int bitrate)
             printBinary(u[i], bitrate);
             cout << "': " << ms[i];
             first = false;
+            count++;
         }
     }
 
@@ -125,14 +122,13 @@ void printMultiSet(MultiSet &ms, const vector<int> &u, int bitrate)
 
 long long createUniverse(MultiSet &u)
 {
-    srand(time(nullptr));
     u.resize(U_SIZE, 0);
     if (U_SIZE == 0)
         return 0;
     long long total_capacity = 0;
     for (int i = 0; i < U_SIZE; ++i)
     {
-        u[i] = 1 + rand() % 10; // случайное число от 1 до 10
+        u[i] = 1 + rand() % 10;
         total_capacity += u[i];
     }
     return total_capacity;
@@ -153,7 +149,7 @@ void fillManually(MultiSet &ms, const vector<int> &universe, int bitrate, int ta
     while (current_capacity < target_capacity)
     {
         cout << "\nТекущая мощность: " << current_capacity << " из " << target_capacity << "\n";
-        int idx = getValidatedInt("Выберите номер элемента для добавления (нумерация от 1): ", 1, universe.size()) - 1;
+        int idx = getValidatedInt(format("Выберите номер элемента для добавления (от {} до {}): ", 1, universe.size()), 1, universe.size()) - 1;
 
         int remaining_in_u = multi_universe[idx] - ms[idx];
         if (remaining_in_u <= 0)
@@ -169,6 +165,8 @@ void fillManually(MultiSet &ms, const vector<int> &universe, int bitrate, int ta
         ms[idx] += count;
         current_capacity += count;
     }
+
+    cout << "==============================================\n";
 }
 
 void fillAutomatically(MultiSet &ms, const vector<int> &universe, int target_capacity)
@@ -177,21 +175,28 @@ void fillAutomatically(MultiSet &ms, const vector<int> &universe, int target_cap
     while (current_capacity < target_capacity)
     {
         int idx = rand() % U_SIZE;
-        if (ms[idx] < multi_universe[idx])
-        {
-            ms[idx]++;
-            current_capacity++;
-        }
+        int max_delta = min(multi_universe[idx] - ms[idx], target_capacity - current_capacity);
+        if (max_delta <= 0)
+            continue;
+        int delta = 1 + rand() % max_delta;
+        cout << delta << " ";
+        ms[idx] += delta;
+        current_capacity += delta;
     }
+    cout << "\nАвтоматическое заполнение выполнено! \n";
+    cout << "==============================================\n";
 }
 
-int main(int argc, char const *argv[])
+int createMultiSets(MultiSet &A, MultiSet &B, vector<int> &universe)
 {
     // при bitrate = 28 время вычисления кода грея составило в среднем 7.3 секунды. при 27 - 3.6 сек.
+    A.clear();
+    B.clear();
+    universe.clear();
+    multi_universe.clear();
+    U_SIZE = 0;
     int bitrate = getValidatedInt("Введите разрядность кода Грея (0-27): ", 0, 27);
     auto start = chrono::steady_clock::now();
-    MultiSet A, B;
-    vector<int> universe;
     if (bitrate == 0)
     {
         cout << "\nУниверсум пуст (мощность равна 0). Множества A и B автоматически оставлены пустыми.\n";
@@ -204,7 +209,6 @@ int main(int argc, char const *argv[])
 
         A.resize(U_SIZE, 0);
         B.resize(U_SIZE, 0);
-
         long long total_u_capacity = createUniverse(multi_universe);
 
         auto end = chrono::steady_clock::now();
@@ -221,9 +225,8 @@ int main(int argc, char const *argv[])
         else
             upper_capacity = total_u_capacity;
 
+        cout << "\n\n================ Заполнение A ================\n";
         int capacityA = getValidatedInt(format("\nВведите мощность мультимножества A (от {} до {}): ", lower_capacity, upper_capacity),
-                                        lower_capacity, upper_capacity);
-        int capacityB = getValidatedInt(format("\nВведите мощность мультимножества B (от {} до {}): ", lower_capacity, upper_capacity),
                                         lower_capacity, upper_capacity);
 
         if (capacityA > 0)
@@ -234,6 +237,11 @@ int main(int argc, char const *argv[])
             else
                 fillAutomatically(A, universe, capacityA);
         }
+
+        cout << "\n\n================ Заполнение B ================\n";
+        int capacityB = getValidatedInt(format("\nВведите мощность мультимножества B (от {} до {}): ", lower_capacity, upper_capacity),
+                                        lower_capacity, upper_capacity);
+
         if (capacityB > 0)
         {
             int choiceB = getValidatedInt("\nВыберите способ заполнения множества B (1 - Вручную, 2 - Автоматически): ", 1, 2);
@@ -243,7 +251,14 @@ int main(int argc, char const *argv[])
                 fillAutomatically(B, universe, capacityB);
         }
     }
-
+    return bitrate;
+}
+int main(int argc, char const *argv[])
+{
+    srand(time(nullptr));
+    MultiSet A, B;
+    vector<int> universe;
+    int bitrate = createMultiSets(A, B, universe);
     while (true)
     {
         cout << "\n\n================ Главное меню ================\n";
@@ -260,13 +275,25 @@ int main(int argc, char const *argv[])
         cout << "10. Арифметическое деление\n";
         cout << "==============================================\n";
 
-        // Диапазон изменен с 0-8 на 0-10, чтобы пускало во все пункты
         int menuChoice = getValidatedInt("Выберите действие: ", 0, 10);
 
         if (menuChoice == 0)
         {
-            cout << "Программа завершена.\n";
-            break;
+            cout << "\n\n========== Вы хотите начать заново? ==========\n";
+            cout << "0. Выход\n";
+            cout << "1. Начать заново\n";
+            cout << "==============================================\n";
+            menuChoice = getValidatedInt("Выберите действие: ", 0, 1);
+            if (menuChoice == 1)
+            {
+                bitrate = createMultiSets(A, B, universe);
+                continue;
+            }
+            else
+            {
+                cout << "Программа завершена.\n";
+                break;
+            }
         }
 
         MultiSet result;

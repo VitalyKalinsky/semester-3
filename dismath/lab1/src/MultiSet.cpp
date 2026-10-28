@@ -35,6 +35,7 @@ MultiSet complement(MultiSet &A)
 }
 
 // разность: A n -B
+// A \ B = A n (not B)
 MultiSet difference(MultiSet &A, MultiSet &B)
 {
     MultiSet notB = complement(B);
