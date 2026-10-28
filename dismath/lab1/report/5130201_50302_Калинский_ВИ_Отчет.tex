@@ -105,14 +105,14 @@
 	
 	{\bf Постановка задачи:}
 	\begin{enumerate}[label=\arabic*.]
-		\item Разработать алгоритм и программный модуль генерации $n$-разрядного бинарного кода Грея, где разрядность $n \in [1, 10]$ задается пользователем. Результирующая последовательность кодовых слов длины $N = 2^n$ служит упорядоченным носителем элементов универсума.
-		\item Реализовать создание двух мультимножеств $A$ и $B$ над построенным носителем с мощностями, задаваемыми пользователем в диапазоне от 0 до 100.
+				\item Разработать алгоритм и программный модуль генерации $n$-разрядного бинарного кода Грея, где разрядность $n \in [0, 27]$ задается пользователем. Верхняя граница разрядности выбрана исходя из критерия времени генерации до 5 секунд (при $n = 28$ среднее время составляет 7.3 с, при $n = 27$ -- 3.6 с). Предусмотреть обработку краевого случая пустого универсума при $n = 0$.
+		\item Сформировать упорядоченный универсум $U$, кратности элементов которого генерируются случайным образом в диапазоне от 1 до 10 (при $n = 0$ универсум пуст).
+		\item Реализовать создание двух мультимножеств $A$ и $B$ над построенным носителем с мощностями, задаваемыми пользователем в диапазоне от 0 до доступной суммарной емкости универсума (не более 100).
 		\item Предусмотреть два альтернативных режима наполнения мультимножеств:
 		\begin{itemize}
-			\item ручной ввод пользователем (выбор номера элемента носителя и задание его кратности с контролем непревышения целевой мощности);
-			\item автоматическая генерация кратностей элементов на основе псевдослучайных чисел.
+			\item ручной ввод пользователем (выбор номера элемента носителя и задание его кратности с контролем непревышения как целевой мощности, так и доступной емкости элемента в универсуме);
+			\item автоматическая генерация кратностей элементов на основе датчика псевдослучайных чисел с контролем лимитов универсума.
 		\end{itemize}
-		\item Сформировать универсальное мультимножество $U$ как арифметическую сумму исходных множеств ($U = A + B$), что гарантирует достаточность кратности универсума для корректного выполнения всех теоретико-множественных операций.
 		\item Реализовать вычисление следующих операций над мультимножествами:
 		\begin{itemize}
 			\item объединение ($A \cup B$);
@@ -125,7 +125,7 @@
 			\item арифметическое произведение ($A \cdot B$);
 			\item арифметическое деление ($A : B$ и $B : A$).
 		\end{itemize}
-		\item Реализовать строгую фильтрацию некорректного пользовательского ввода и интерактивное меню управления.
+		\item Предусмотреть ограничение вывода мультимножеств в консоль, строгую фильтрацию некорректного пользовательского ввода и интерактивное меню управления.
 	\end{enumerate}
 	
 	\newpage
@@ -155,15 +155,15 @@
 	\end{equation}
 	ограничивающее сверху максимальную кратность элементов любого рассматриваемого мультимножества: $\forall i \; (\alpha_i \le m_i)$.
 	
-	В рамках разработанной программы универсум формируется динамически на основе исходных мультимножеств $A$ и $B$ по правилу арифметической суммы:
+	В рамках разработанной программы универсум $U$ формируется следующим образом: кратности его элементов $m_i$ задаются псевдослучайными числами в диапазоне от 1 до 10:
 	\begin{equation}
-		U = A + B \implies m_i = \alpha_{1,i} + \alpha_{2,i},
+		U = \{x_1^{m_1}, x_2^{m_2}, \dots, x_N^{m_N}\}, \quad m_i \in [1, 10].
 	\end{equation}
-	что математически гарантирует выполнимость базовых операций над операндами $A$ и $B$ внутри универсума $U$.
+	В краевом случае нулевой разрядности кода Грея ($n = 0$) носитель элементов отсутствует, универсум является пустым ($U = \varnothing$, $|U| = 0$), а мультимножества $A$ и $B$ автоматически инициализируются как пустые.
 	
 	\subsection{Теоретико-множественные и арифметические операции}
 	
-	Пусть $A = \{x_i^{\alpha_1}\}$ и $B = \{x_i^{\alpha_2}\}$ -- два мультимножества над носителем $X$, а $U = \{x_i^{m}\}$ -- соответствующий универсум ($m = \alpha_1 + \alpha_2$). Правила вычисления кратностей результирующих мультимножеств определяются следующим образом:
+	Пусть $A = \{x_i^{\alpha_1}\}$ и $B = \{x_i^{\alpha_2}\}$ -- два мультимножества над носителем $X$, а $U = \{x_i^{m_i}\}$ -- универсум с кратностями $m_i \in [1, 10]$. Правила вычисления кратностей результирующих мультимножеств определяются следующим образом:
 	
 	\begin{enumerate}
 		\item {\bf Пересечение ($A \cap B$):}
@@ -205,9 +205,9 @@
 		\end{equation}
 		
 		\item {\bf Арифметическая сумма ($A + B$):}
-		В общем теоретическом случае для произвольного универсума с кратностями $m_i$ кратность суммы ограничивается сверху: $k = \min(\alpha_1 + \alpha_2, m)$. Однако в разработанной программе универсум сам формируется как сумма $A + B$, поэтому $m_i = \alpha_{1,i} + \alpha_{2,i}$. Следовательно, ограничение избыточно, и формула имеет вид:
+		Кратность каждого элемента в сумме мультимножеств ограничивается сверху его максимальной кратностью в универсуме $U$:
 		\begin{equation}
-			k_{A + B}(x_i) = \alpha_{1,i} + \alpha_{2,i}.
+			k_{A + B}(x_i) = \min(\alpha_{1,i} + \alpha_{2,i}, \; m_i).
 		\end{equation}
 		
 		\item {\bf Арифметическая разность ($A - B$ и $B - A$):}
@@ -229,13 +229,13 @@
 		Целочисленное деление кратностей. В соответствии с договоренностью при делении на 0 результирующая кратность принимается равной 0:
 		\begin{equation}
 			k_{A / B}(x_i) = \begin{cases}
-				\lfloor \alpha_{1,i} / \alpha_{2,i} \rfloor, & \alpha_{2,i} \ne 0, \\
+			 \alpha_{1,i} / \alpha_{2,i} , & \alpha_{2,i} \ne 0, \\
 				0, & \alpha_{2,i} = 0.
 			\end{cases}
 		\end{equation}
 		\begin{equation}
 			k_{B / A}(x_i) = \begin{cases}
-				\lfloor \alpha_{2,i} / \alpha_{1,i} \rfloor, & \alpha_{1,i} \ne 0, \\
+				 \alpha_{2,i} / \alpha_{1,i} , & \alpha_{1,i} \ne 0, \\
 				0, & \alpha_{1,i} = 0.
 			\end{cases}
 		\end{equation}
@@ -264,6 +264,8 @@
 		B_0 = 0, \quad B_i = B_{i-1} \oplus (1 \ll (Q(i) - 1)), \quad i = 1, \dots, 2^n - 1,
 	\end{equation}
 	где $\oplus$ -- побитовая операция XOR, $\ll$ -- побитовый сдвиг влево. Вектор сгенерированных целых чисел служит базисом упорядоченного универсума.
+	
+	Разрядность генерируемого кода ограничена диапазоном $n \in [0, 27]$. Выбор верхней границы обусловлен временным критерием: время построения носителя не должно превышать 5 секунд. В ходе экспериментальных замеров при $n = 28$ среднее время работы генератора составило 7.3 секунды, тогда как при $n = 27$ оно составило 3.6 секунды, что удовлетворяет установленному критерию быстродействия. При $n = 0$ генерация не выполняется, и универсум остаётся пустым.
 	
 	\newpage
 	\newpage
@@ -307,37 +309,39 @@
 	
 	\texttt{int Q(int i)} & Целое число $i \ge 1$ (шаг генерации) & Целое число $q \ge 1$ -- номер изменяемого разряда в коде Грея. \\ \hline
 	
-	\texttt{void generateGrayCode(int n, vector<int> \&target)} & Разрядность $n$, ссылка на вектор \texttt{target} & Заполнение вектора $2^n$ кодовыми словами Грея. \\ \hline
+	\texttt{void generateGrayCode (int n, vector<int> \&target)} & Разрядность $n \in [0, 27]$, ссылка на вектор \texttt{target} & Заполнение вектора $2^n$ кодовыми словами Грея. \\ \hline
 	
-	\texttt{void printBinary(int code, int bitrate)} & Число \texttt{code}, разрядность \texttt{bitrate} & Побитовый вывод числа в консоль. \\ \hline
+	\texttt{void printBinary (int code, int bitrate)} & Число \texttt{code}, разрядность \texttt{bitrate} & Побитовый вывод числа в консоль. \\ \hline
 	
-	\texttt{void printMultiSet(MultiSet \&ms, const vector<int> \&multi\_universe)} & Ссылка на мультимножество \texttt{ms}, вектор универсума \texttt{universe} & Форматированный вывод пар вида \texttt{'код': кратность}. \\ \hline
+	\texttt{void printMultiSet (MultiSet \&ms, const vector<int> \&u, int bitrate)} & Ссылка на мультимножество \texttt{ms}, вектор универсума \texttt{u}, разрядность \texttt{bitrate} & Форматированный вывод пар вида \texttt{'код': кратность} (при $|u| > 32$ выводятся первые 32 элемента). \\ \hline
 	
-	\texttt{int getValidatedInt(const string \&prompt, int min\_val, int max\_val)} & Приглашение ввода, границы диапазона \texttt{min\_val}, \texttt{max\_val} & Целое число типа \texttt{int}, прошедшее валидацию диапазона и типа. \\ \hline
+	\texttt{long long createUniverse (MultiSet \&u)} & Ссылка на универсум \texttt{u} & Число типа \texttt{long long} -- суммарная ёмкость универсума; заполнение кратностей случайными числами от 1 до 10. \\ \hline
 	
-	\texttt{void fillManually(MultiSet \&ms, const vector<int> \&multi\_universe, int bitrate, int target\_capacity)} & Ссылка на множество \texttt{ms}, вектор универсума, разрядность, целевая мощность & Поэлементное ручное заполнение с контролем лимита мощности). \\ \hline
+	\texttt{int getValidatedInt (const string \&prompt, int min\_val, int max\_val)} & Приглашение ввода, границы диапазона \texttt{min\_val}, \texttt{max\_val} & Целое число типа \texttt{int}, прошедшее валидацию диапазона и типа. \\ \hline
 	
-	\texttt{void fillAutomatically (MultiSet \&ms, const vector<int> \&multi\_universe, int target\_capacity)} & Ссылка на множество \texttt{ms}, вектор универсума, целевая мощность & Случайное распределение кратностей по элементам носителя. \\ \hline
+	\texttt{void fillManually (MultiSet \&ms, const vector<int> \&universe, int bitrate, int target\_capacity)} & Ссылка на множество \texttt{ms}, вектор универсума, разрядность, целевая мощность & Поэлементное ручное заполнение с контролем доступной ёмкости каждого элемента в универсуме. \\ \hline
 	
-	\texttt{MultiSet uni(MultiSet \&A, MultiSet \&B)} & Ссылки на мультимножества $A$ и $B$ & Объект \texttt{MultiSet} -- объединение $A \cup B$ ($\max(a_i, b_i)$. \\ \hline
+	\texttt{void fillAutomatically (MultiSet \&ms, const vector<int> \&universe, int target\_capacity)} & Ссылка на множество \texttt{ms}, вектор универсума, целевая мощность & Случайное распределение кратностей с контролем лимитов кратностей универсума. \\ \hline
 	
-	\texttt{MultiSet insertion(MultiSet \&A, MultiSet \&B)} & Ссылки на мультимножества $A$ и $B$ & Объект \texttt{MultiSet} -- пересечение $A \cap B$ ($\min(a_i, b_i)$. \\ \hline
+	\texttt{MultiSet uni (MultiSet \&A, MultiSet \&B)} & Ссылки на мультимножества $A$ и $B$ & Объект \texttt{MultiSet} -- объединение $A \cup B$ ($\max(a_i, b_i)$). \\ \hline
 	
-	\texttt{MultiSet complement(MultiSet \&A)} & Ссылка на мультимножество $A$ & Объект \texttt{MultiSet} -- дополнение $\overline{A} = U \setminus A$. \\ \hline
+	\texttt{MultiSet insertion (MultiSet \&A, MultiSet \&B)} & Ссылки на мультимножества $A$ и $B$ & Объект \texttt{MultiSet} -- пересечение $A \cap B$ ($\min(a_i, b_i)$). \\ \hline
 	
-	\texttt{MultiSet difference(MultiSet \&A, MultiSet \&B)} & Ссылки на мультимножества $A$ и $B$ & Объект \texttt{MultiSet} -- разность $A \setminus B = A \cap \overline{B}$. \\ \hline
+	\texttt{MultiSet complement (MultiSet \&A)} & Ссылка на мультимножество $A$ & Объект \texttt{MultiSet} -- дополнение $\overline{A} = U \setminus A$. \\ \hline
 	
-	\texttt{MultiSet sym\_difference(MultiSet \&A, MultiSet \&B)} & Ссылки на мультимножества $A$ и $B$ & Объект \texttt{MultiSet} -- симметрическая разность $(A \cup B) \setminus (A \cap B)$. \\ \hline
+	\texttt{MultiSet difference (MultiSet \&A, MultiSet \&B)} & Ссылки на мультимножества $A$ и $B$ & Объект \texttt{MultiSet} -- разность $A \setminus B = A \cap \overline{B}$. \\ \hline
 	
-	\texttt{MultiSet operator+(MultiSet \&A, MultiSet \&B)} & Ссылки на операнды $A$ и $B$ & Объект \texttt{MultiSet} -- арифметическая сумма $A + B$. \\ \hline
+	\texttt{MultiSet sym\_difference (MultiSet \&A, MultiSet \&B)} & Ссылки на мультимножества $A$ и $B$ & Объект \texttt{MultiSet} -- симметрическая разность $(A \cup B) \setminus (A \cap B)$. \\ \hline
 	
-	\texttt{MultiSet operator-(MultiSet \&A, MultiSet \&B)} & Ссылки на операнды $A$ и $B$ & Объект \texttt{MultiSet} -- арифметическая разность $A - B$. \\ \hline
+	\texttt{MultiSet operator+ (MultiSet \&A, MultiSet \&B)} & Ссылки на операнды $A$ и $B$ & Объект \texttt{MultiSet} -- арифметическая сумма $\min(a_i + b_i, m_i)$. \\ \hline
 	
-	\texttt{MultiSet operator*(MultiSet \&A, MultiSet \&B)} & Ссылки на операнды $A$ и $B$ & Объект \texttt{MultiSet} -- произведение $A \cdot B$, ограниченное $U$. \\ \hline
+	\texttt{MultiSet operator- (MultiSet \&A, MultiSet \&B)} & Ссылки на операнды $A$ и $B$ & Объект \texttt{MultiSet} -- арифметическая разность $A - B$. \\ \hline
 	
-	\texttt{MultiSet operator/(MultiSet \&A, MultiSet \&B)} & Ссылки на операнды $A$ и $B$ & Объект \texttt{MultiSet} -- результат деления $A : B$ (с защитой от нуля. \\ \hline
+	\texttt{MultiSet operator* (MultiSet \&A, MultiSet \&B)} & Ссылки на операнды $A$ и $B$ & Объект \texttt{MultiSet} -- произведение $A \cdot B$, ограниченное $U$. \\ \hline
 	
-	\texttt{int main(int argc, char const *argv[])} & Инициализация параметров программы (\texttt{argc}, \texttt{argv}) & Код возврата операционной системы \texttt{0}. \\ \hline
+	\texttt{MultiSet operator/ (MultiSet \&A, MultiSet \&B)} & Ссылки на операнды $A$ и $B$ & Объект \texttt{MultiSet} -- результат деления $A : B$ (с защитой от нуля). \\ \hline
+	
+	\texttt{int main (int argc, char const *argv[])} & Инициализация параметров программы (\texttt{argc}, \texttt{argv}) & Код возврата операционной системы \texttt{0}. \\ \hline
 \end{longtable}
 	
 	Полный исходный код каждого файла проекта вынесен в отдельные приложения:
@@ -350,32 +354,35 @@
 	
 	\newpage
 	\section{Результаты работы}
-
 	
-	Для всестороннего тестирования разработанного программного комплекса рассмотрены типовые сценарии работы программы, охватывающие как штатную обработку математических операций, так и проверку отказоустойчивости при некорректном пользовательском вводе.
+	Для проверки разработанного программного комплекса проведены серии тестов, охватывающие как штатную обработку теоретико-множественных и арифметических операций, так и проверку отказоустойчивости при некорректном вводе данных и обработку граничных состояний (краевой случай нулевой разрядности, предельная разрядность носителя).
 	
-	\subsection{Сценарий 1. Генерация универсума на основе \\3-разрядного кода Грея}
+	\subsection{Сценарий 1. Тестирование краевого случая: пустой универсум ($n = 0$)}
 	
-	Пользователь запускает программу и задает разрядность кода Грея $n = 3$. Программа генерирует $N = 2^3 = 8$ элементов универсума. На экран выводится упорядоченный список бинарных комбинаций: \texttt{000}, \texttt{001}, \texttt{011}, \texttt{010}, \texttt{110}, \texttt{111}, \texttt{101}, \texttt{100}. Отчетливо видно свойство кода Грея: каждый следующий вектор отличается от предыдущего ровно в одном разряде.
+	Пользователь задает нулевую разрядность кода Грея ($n = 0$). В этом случае базовый носитель элементов отсутствует ($N = 2^0 = 0$ кодов в логике программы), поэтому универсум является пустым. Программа выводит диагностическое сообщение: \texttt{<<Универсум пуст (мощность равна 0). Множества A и B автоматически оставлены пустыми.>>} и сразу переходит к главному меню без запроса мощностей и режимов заполнения.
+	
+	При выборе пункта меню 1 на экран выводится статус отсутствия элементов во всех трех множествах. Выполнение любой из операций (пункты меню 2--10) не приводит к аварийному завершению программы или ошибкам сегментации (SEGV): циклы преобразования по нулевому диапазону корректно завершаются, и в качестве результата выводится пустое мультимножество $\varnothing$.
+		
+	На рис.~\ref{fig:empty_universe} представлен вывод консоли при вводе разрядности 0: зафиксированы сообщение об автоматической инициализации пустых множеств $A$, $B$ и универсума, а также корректное отображение пустого состояния на примере вызова второго пункта меню без сбоев адресного пространства.
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.85\textwidth]{gray_code_gen.png}
-		\caption{Генерация 3-разрядного кода Грея и вывод элементов носителя}
-		\label{fig:gray_code}
+		\includegraphics[width=0.85\textwidth]{scenario_empty_universe.png}
+		\caption{Работа программы в режиме нулевой разрядности кода Грея ($n = 0$)}
+		\label{fig:empty_universe}
 	\end{figure}
-	На рис.~\ref{fig:gray_code} продемонстрирован вывод консоли: после ввода числа 3 сформирован упорядоченный список из 8 двоичных чисел универсума с номерами от 1 до 8.
 	
 	\subsection{Сценарий 2. Тестирование защиты от некорректного пользовательского ввода}
 	
-	В рамках сценария выполняется попытка передачи некорректных значений в функцию \texttt{getValidatedInt()}:
+	В рамках сценария проверяется реакция подсистемы валидации \\ \texttt{getValidatedInt()}:
 	\begin{enumerate}
-		\item Ввод строковых данных (\texttt{"abc"}, \texttt{"!?"}) вместо целочисленного значения;
-		\item Ввод отрицательного числа ($-5$ при допустимом минимуме $1$);
-		\item Ввод числа, превышающего допустимый диапазон ($15$ при максимуме $10$).
+		\item Ввод нечисловых символов (\texttt{"abc"}, \texttt{"!?"}) на этапе выбора разрядности;
+		\item Ввод отрицательного числа ($-5$ при допустимом минимуме $0$);
+		\item Ввод числа, превышающего допустимый диапазон быстродействия ($28$ или $35$ при максимуме $27$);
+		\item Попытка задать кратность элемента при ручном заполнении, превышающую оставшуюся емкость данного элемента в сгенерированном универсуме $U$.
 	\end{enumerate}
 	
-	Программа перехватывает сбой потока \texttt{cin}, сбрасывает флаг ошибки с помощью \texttt{cin.clear()}, очищает входной буфер вызовом \texttt{cin.ignore()} и выводит информативное предупреждение с повторным запросом до момента ввода корректного значения.
+	При нарушении формата потока ввода \texttt{cin} программа очищает флаги ошибок вызовом \texttt{cin.clear()}, освобождает входной буфер методом \texttt{cin.ignore()} и выводит сообщение с указанием корректных границ допустимого диапазона, предотвращая зацикливание.
 	
 	\begin{figure}[H]
 		\centering
@@ -383,72 +390,60 @@
 		\caption{Отработка защиты от некорректного пользовательского ввода}
 		\label{fig:validation}
 	\end{figure}
-	На рис.~\ref{fig:validation} показана реакция терминала: при вводе символьной строки и чисел вне диапазона программа сигнализирует об ошибке и не допускает аварийного завершения процесса.
+	На рис.~\ref{fig:validation} показана реакция терминала: ввод символьных строк и чисел вне диапазона $[0, 27]$ блокируется с выводом диагностических предупреждений и повторным запросом ввода до получения корректного значения.
 	
-	\subsection{Сценарий 3. Заполнение мультимножеств в ручном и автоматическом режимах}
+	\subsection{Сценарий 3. Генерация универсума и заполнение мультимножеств}
 	
-	Задаются параметры: мощность множества $A$ равна 5 (ручной ввод), мощность множества $B$ равна 7 (автоматический ввод). 
-	При ручном заполнении множества $A$ пользователь последовательно выбирает элементы носителя и указывает их кратности. При попытке задать кратность, превышающую оставшийся лимит целевой мощности, срабатывает ограничение валидатора.
-	Множество $B$ генерируется автоматически вызовом функции \texttt{fillAutomatically()}, которая распределяет суммарную кратность 7 по элементам универсума. Универсум $U$ автоматически формируется как $A + B$.
+	Пользователь задает разрядность $n = 3$. Программа генерирует $N = 2^3 = 8$ комбинаций бинарного кода Грея. Пользователь задает мощности: $|A| = 5$ (ручное заполнение), $|B| = 8$ (автоматическое заполнение).
+	При ручном заполнении множества $A$ интерфейс отображает доступную кратность элементов в $U$ и динамически ограничивает максимальный ввод. Множество $B$ наполняется автоматически функцией \texttt{fillAutomatically()} со случайным распределением кратностей с обязательным контролем наличия элементов в универсуме.
 	
+	На рис.~\ref{fig:filling} показан вывод консоли при генерации 8 кодов Грея, случайном задании кратностей универсума, а также пошаговый процесс ручного ввода множества $A$ с контролем лимитов емкости $U$ и автоматической генерации множества $B$. Полученные мультимножества А и В показаны при вызове пункта 1 меню.
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.75\textwidth]{fill_sets.png}
-		\caption{Ручное заполнение множества A и автоматическая генерация множества B}
+		\includegraphics[width=0.85\textwidth]{fill_sets.png}
+		\caption{Протокол генерации универсума и наполнения мультимножеств A и B}
 		\label{fig:filling}
 	\end{figure}
-	На рис.~\ref{fig:filling} представлен протокол формирования множеств: отображаются текущая мощность, запрос выбора элементов, распределение кратностей и результирующее состояние универсума $U$.
 	
-	\subsection{Сценарий 4. Отображение исходных мультимножеств (пункт меню 1)}
-	
-	В главном меню выбирается пункт 1. Программа отображает сформированные множества $A$, $B$ и универсум $U$ в формате пар \texttt{'код': кратность}:
-	\begin{itemize}
-		\item Мультимножество $A$: $\{'011': 2, '100': 3\}$;
-		\item Мультимножество $B$: $\{'000': 1, '001': 1, '011': 1, '010': 2, '111': 1, \\'101': 1\}$;
-		\item Универсум: $\{'000': 1, '001': 1, '011': 3, '010': 2, '111': 1, '101': 1, \\'100': 3\}$.
-	\end{itemize}
-	
+	\subsection{Сценарий 4. Проверка теоретико-множественных операций (пункты меню 2--6)}
+	На полученных мультимножествах из предыдущих сценариев протестированы операции из пунктов меню 2--6.	Полученные результаты строго согласуются с ручным теоретическим расчетом по формулам, приведенным в подразделе~1.2.
+	На рис.~\ref{fig:set_ops1} зафиксированы экранные снимки консоли при вызове пунктов меню 2--4, а на  рис.~\ref{fig:set_ops2} -- пунктов 5 и 6 меню: для каждого пункта отображается правильный результат.
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.85\textwidth]{show_sets.png}
-		\caption{Вывод содержимого мультимножеств A, B и универсума}
-		\label{fig:show_sets}
+		\includegraphics[width=0.85\textwidth]{set_operations1.png}
+		\caption{Результаты выполнения теоретико-множественных операций (пункты меню 2--4)}
+		\label{fig:set_ops1}
 	\end{figure}
-	На рис.~\ref{fig:show_sets} зафиксирован результат работы пункта 1 главного меню: все непустые элементы корректно выведены на экран с указанием их кратностей.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.85\textwidth]{set_operations2.png}
+		\caption{Результаты выполнения теоретико-множественных операций (пункты меню 5 и 6)}
+		\label{fig:set_ops2}
+	\end{figure}
 	
-	\subsection{Сценарий 5. Проверка теоретико-множественных операций (пункты меню 2--6)}
+	\subsection{Сценарий 5. Проверка арифметических операций \\ (пункты меню 7--10)}
 	
-	После определения мультимножеств в сценарии 5 были выполнены пункты меню 2--6. Получены следующие результаты: 
-	\begin{itemize}
-		\item Объединение $A \cup B$ ($\max(a_i, b_i)$): $\{'000': 1, '001': 1, '011': 2, '010': 2, '111': 1, '101': 1, '100': 3\}$
-		\item Пересечение $A \cap B$ ($\min(a_i, b_i)$): $\{'011': 1\}$
-		\item Разность $A \setminus B$ ($\min(a_i, m_i - b_i)$): $\{'011': 2, \;'100': 3\}$
-		\item Разность $B \setminus A$ ($\min(b_i, m_i - a_i)$): $\{'000': 1, '001': 1, '011': 1, '010': 2, '111': 1, '101': 1\}$
-		\item Симметрическая разность $A \triangle B$ ($(A \cup B) \setminus (A \cap B)$): $\{'000': 1, '001': 1, '011': 2, '010': 2, '111': 1, '101': 1, '100': 3\}$
-		\item Дополнение $\mathcal{U} \setminus A$ ($m_i - a_i$): $\{'000': 1, '001': 1, '011': 1, '010': 2, '111': 1, '101': 1\}$
-		\item Дополнение $\mathcal{U} \setminus B$ ($m_i - b_i$): $\{'011': 2, \;'100': 3\}$
-	\end{itemize}
-	Все полученные программой результаты строго совпадают с ручным теоретическим расчетом.
-	
-	\subsection{Сценарий 6. Проверка арифметических операций (пункты меню 7--10)}
-	
-	После определения мультимножеств в сценарии 5 были выполнены пункты меню 7--10. Получены следующие результаты:
-	\begin{itemize}
-		\item Арифметическая сумма $A + B$ ($a_i + b_i$): $\{'000': 1, \;'001': 1, \;'011': 3, \;'010': 2, \;'111': 1, \;'101': 1, \;'100': 3\}$
-		\item Арифметическая разность $A - B$ ($\max(0, a_i - b_i)$): $\{'011': 1, \;'100': 3\}$
-		\item Арифметическая разность $B - A$ ($\max(0, b_i - a_i)$): $\{'000': 1, \;'001': 1, \;'010': 2, \;'111': 1, \;'101': 1\}$
-		\item Арифметическое произведение $A \cdot B$ ($\min(a_i \cdot b_i, m_i)$): $\{'011': 2\}$
-		\item Арифметическое деление $A / B$ ($a_i / b_i$): $\{'011': 2\}$
-		\item Арифметическое деление $B / A$ ($b_i / a_i$): $\{\}$
-	\end{itemize}
+	На полученных мультимножествах из предыдущих сценариев протестированы операции из пунктов меню 7--10. Полученные результаты строго согласуются с ручным теоретическим расчетом по формулам, приведенным в подразделе~1.2.
+	На рис.~\ref{fig:arithmetic_ops} зафиксированы экранные снимки консоли при вызове пунктов меню 7--10: для каждого пункта отображается правильный результат.
 	
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.85\textwidth]{arithmetic_operations.png}
-		\caption{Результаты выполнения арифметических операций и проверка деления на ноль}
+		\caption{Результаты выполнения арифметических операций (пункты меню 7--10)}
 		\label{fig:arithmetic_ops}
 	\end{figure}
-	На рис.~\ref{fig:arithmetic_ops} отражен корректный вывод арифметических операций, подтверждающий усечение произведения универсумом и безаварийное деление на ноль.
+	
+	\subsection{Сценарий 6. Тестирование при большой разрядности и ограничение вывода}
+	
+	Для проверки масштабируемости программы проведен запуск с повышенной разрядностью. При предельной разрядности $n = 27$ размер носителя составляет $N = 2^{27} = 134\,217\,728$ кодовых комбинаций. Зафиксированное время генерации составило $3.72468$ секунды, что удовлетворяет требованию быстродействия до 5 секунд.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.85\textwidth]{large_universe_limit.png}
+		\caption{Ограничение вывода до 32 элементов и замер времени генерации при больших $n$}
+		\label{fig:large_universe}
+	\end{figure}
+	На рис.~\ref{fig:large_universe} продемонстрирована работа механизма усечения вывода для размерностей более 32 элементов, а также замер времени работы генератора кода Грея при $n = 27$.
 	
 	\newpage
 	\thispagestyle{empty}
@@ -456,7 +451,7 @@
 	\addcontentsline{toc}{section}{Заключение}
 	{\LARGE\bf Заключение}\\
 	
-	В ходе лабораторной работы на языке C++20 разработан программный комплекс для генерации бинарного кода Грея и выполнения полного набора операций над мультимножествами. В рамках реализации спроектирован класс \texttt{MultiSet} на базе вектора кратностей, поддержаны ручной и автоматический режимы ввода, а также динамическое построение универсума $U = A + B$. Реализованы все требуемые теоретико-множественные и арифметические операции, обеспечена строгая валидация пользовательского ввода и проведено тестирование под AddressSanitizer, подтвердившее отсутствие утечек памяти и корректность граничных вычислений.
+	В ходе лабораторной работы на языке C++20 разработан программный комплекс для генерации бинарного кода Грея и выполнения полного набора операций над мультимножествами. В рамках реализации спроектирован класс \texttt{MultiSet} на базе вектора кратностей, поддержаны ручной и автоматический режимы ввода, независимая генерация кратностей элементов универсума случайными числами от 1 до 10, а также корректная обработка краевого случая пустого универсума ($n = 0$). По критерию допустимого времени генерации ($\le 5$ с) максимальная разрядность кода Грея зафиксирована равной $n = 27$ со средним временем построения, равном 3.6 секунды. Реализованы все требуемые теоретико-множественные и арифметические операции, обеспечена строгая валидация пользовательского ввода и проведено тестирование, подтвердившее надежность и корректность выполнения программы.
 	
 	{\bf Достоинства реализованного решения:}
 	\begin{itemize}
@@ -480,7 +475,7 @@
 	\begin{thebibliography}{9}
 		
 		\bibitem{novikov}
-		Новиков Ф. А. Дискретная математика для программистов : Учебник для вузов / Ф. А. Новиков. -- 3-е изд. -- СПб. : Питер, 2009. -- 384 с.
+		Новиков Ф. А. Дискретная математика для программистов : Учебник для вузов / Ф. А. Новиков. -- 3-е изд. -- СПб. : Питер, 2009. -- 384 с. (Дата обращения -- 10.10.2026)
 	
 	\end{thebibliography}
 	
@@ -550,95 +545,97 @@
 	\label{appendix:B}
 	
 	\begin{lstlisting}[caption={Файл реализации MultiSet.cpp}, label={lst:multiset_cpp}]
-		#include "MultiSet.hpp"
-		#include <algorithm>
-		#include <cmath>
-		#include <iostream>
+	#include "MultiSet.hpp"
+	#include <algorithm>
+	#include <cmath>
+	#include <iostream>
+	
+	using namespace std;
+	
+	MultiSet::MultiSet() : counts(U_SIZE, 0) {}
+	
+	// объединение: max(a, b)
+	MultiSet uni(MultiSet &A, MultiSet &B)
+	{
+		MultiSet result;
+		transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
+		{ return max(a, b); });
+		return result;
+	}
+	
+	// пересечение: min(a, b)
+	MultiSet insertion(MultiSet &A, MultiSet &B)
+	{
+		MultiSet result;
+		transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
+		{ return min(a, b); });
+		return result;
+	}
+	
+	// дополнение: m - a, m - кратность эл-та в универсуме
+	MultiSet complement(MultiSet &A)
+	{
+		MultiSet result;
+		transform(A.begin(), A.end(), multi_universe.begin(), result.begin(), [](int a, int m)
+		{ return m - a; });
+		return result;
+	}
+	
+	// разность: A n -B
+	MultiSet difference(MultiSet &A, MultiSet &B)
+	{
+		MultiSet notB = complement(B);
+		return insertion(A, notB);
+	}
+	
+	// симметрическая разность: (A u B) \ (A n B)
+	MultiSet sym_difference(MultiSet &A, MultiSet &B)
+	{
+		MultiSet AuB = uni(A, B);
+		MultiSet AnB = insertion(A, B);
+		return difference(AuB, AnB);
+	}
+	
+	// арифметическая сумма
+	MultiSet operator+(MultiSet &A, MultiSet &B)
+	{
+		MultiSet result;
+		transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
+		{ return a + b; });
 		
-		using namespace std;
-		
-		MultiSet::MultiSet() : counts(U_SIZE, 0) {}
-		
-		// объединение: max(a, b)
-		MultiSet uni(MultiSet &A, MultiSet &B)
+		transform(result.begin(), result.end(), multi_universe.begin(), result.begin(), [](int sum, int m)
+		{ return min(sum, m); });
+		return result;
+	}
+	
+	// арифметическая разность
+	MultiSet operator-(MultiSet &A, MultiSet &B)
+	{
+		MultiSet result;
+		transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
+		{ return max(0, a - b); });
+		return result;
+	}
+	
+	// арифметическое произведение
+	MultiSet operator*(MultiSet &A, MultiSet &B)
+	{
+		MultiSet result;
+		for (int i = 0; i < U_SIZE; i++)
 		{
-			MultiSet result;
-			transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
-			{ return max(a, b); });
-			return result;
+			result[i] = min(A[i] * B[i], multi_universe[i]);
 		}
-		
-		// пересечение: min(a, b)
-		MultiSet insertion(MultiSet &A, MultiSet &B)
-		{
-			MultiSet result;
-			transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
-			{ return min(a, b); });
-			return result;
-		}
-		
-		// дополнение: m - a, m - кратность эл-та в универсуме
-		MultiSet complement(MultiSet &A)
-		{    
-			MultiSet result;
-			transform(A.begin(), A.end(), multi_universe.begin(), result.begin(), [](int a, int m)
-			{ return m - a; });
-			return result;
-		}
-		
-		// разность: A n -B
-		MultiSet difference(MultiSet &A, MultiSet &B)
-		{
-			MultiSet notB = complement(B);
-			return insertion(A, notB);
-		}
-		
-		// симметрическая разность: (A u B) \ (A n B)
-		MultiSet sym_difference(MultiSet &A, MultiSet &B)
-		{
-			MultiSet AuB = uni(A, B);
-			MultiSet AnB = insertion(A, B);
-			return difference(AuB, AnB);
-		}
-		
-		// арифметическая сумма
-		MultiSet operator+(MultiSet &A, MultiSet &B)
-		{
-			MultiSet result;
-			// не нужны ограничения, у каждого эл-та универсума кратность равна сумме кратностей эл-ов А и Б
-			transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
-			{ return a + b; });
-			return result;
-		}
-		
-		// арифметическая разность
-		MultiSet operator-(MultiSet &A, MultiSet &B)
-		{
-			MultiSet result;
-			transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
-			{ return max(0, a - b); });
-			return result;
-		}
-		
-		// арифметическое произведение
-		MultiSet operator*(MultiSet &A, MultiSet &B)
-		{
-			MultiSet result;
-			for (int i = 0; i < U_SIZE; i++)
-			{
-				result[i] = min(A[i] * B[i], multi_universe[i]);
-			}
-			return result;
-		}
-		
-		// арифметическое деление
-		MultiSet operator/(MultiSet &A, MultiSet &B)
-		{
-			MultiSet result;
-			transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
-			{ return (b == 0) ? 0 : (a / b); });
-			return result;
-		}
+		return result;
+	}
+	
+	// арифметическое деление
+	MultiSet operator/(MultiSet &A, MultiSet &B)
+	{
+		MultiSet result;
+		transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
+		{ return (b == 0) ? 0 : (a / b); });
+		return result;
+	}
 	\end{lstlisting}
 	
 	\clearpage
@@ -650,149 +647,223 @@
 	\label{appendix:C}
 	
 	\begin{lstlisting}[caption={Файл точки входа и интерфейса main.cpp}, label={lst:main_cpp}]
-		#include <string>
-		#include <limits>
-		#include <iostream>
-		#include <vector>
-		#include <bitset>
-		#include <format>
-		#include <algorithm>
-		#include "MultiSet.hpp"
-		
-		int U_SIZE = 0;
-		MultiSet multi_universe;
-		
-		using namespace std;
-		int getValidatedInt(const string &prompt = "", int min_val = 0, int max_val = numeric_limits<int>::max())
+	#include <string>
+	#include <limits>
+	#include <iostream>
+	#include <vector>
+	#include <bitset>
+	#include <format>
+	#include <algorithm>
+	#include <chrono>
+	#include "MultiSet.hpp"
+	
+	int U_SIZE = 0;
+	MultiSet multi_universe;
+	
+	using namespace std;
+	int getValidatedInt(const string &prompt = "", int min_val = 0, int max_val = numeric_limits<int>::max())
+	{
+		int value;
+		while (true)
 		{
-			int value;
-			while (true)
+			cout << prompt;
+			if (cin >> value && value >= min_val && value <= max_val)
 			{
-				cout << prompt;
-				if (cin >> value && value >= min_val && value <= max_val)
-				{
-					cin.ignore(numeric_limits<streamsize>::max(), '\n');
-					return value;
-				}
-				cout << "Ошибка ввода! Пожалуйста, введите корректное число от " << min_val << " до " << max_val << ".\n";
-				cin.clear();
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				return value;
 			}
+			cout << "Ошибка ввода! Пожалуйста, введите корректное число от " << min_val << " до " << max_val << ".\n";
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
-		
-		int Q(int i)
+	}
+	
+	int Q(int i)
+	{
+		int q = 1;
+		int j = i;
+		while (j % 2 == 0)
 		{
-			int q = 1;
-			int j = i;
-			while (j % 2 == 0)
-			{
-				j = j / 2;
-				q = q + 1;
-			}
-			return q;
+			j = j / 2;
+			q = q + 1;
 		}
+		return q;
+	}
+	
+	void generateGrayCode(int n, vector<int> &target)
+	{
+		target.clear();
+		int B = 0;
+		target.push_back(B);
 		
-		void generateGrayCode(int n, vector<int> &target)
+		int total_steps = 1 << n;
+		
+		for (int i = 1; i < total_steps; i++)
 		{
-			target.clear();
-			int B = 0;
+			// n=8
+			// p_index = 1
+			// B[1]
+			// B=00000000
+			// B=01000000
+			int p_index = Q(i) - 1;
+			B ^= 1 << p_index;
 			target.push_back(B);
-			
-			int total_steps = 1 << n;
-			
-			for (int i = 1; i < total_steps; i++)
-			{
-				int p_index = Q(i) - 1;
-				B ^= 1 << p_index;
-				target.push_back(B);
-			}
+		}
+	}
+	
+	void printBinary(int code, int bitrate)
+	{
+		for (int i = bitrate - 1; i >= 0; i--)
+		{
+			cout << ((code >> i) & 1);
+		}
+	}
+	
+	void printMultiSet(MultiSet &ms, const vector<int> &u, int bitrate)
+	{
+		if (ms.size() == 0)
+		{
+			cout << "Мультимножество пустое!\n";
 		}
 		
-		void printBinary(int code, int bitrate)
+		size_t limit = u.size();
+		bool is_truncated = false;
+		
+		if (u.size() > 32)
 		{
-			for (int i = bitrate - 1; i >= 0; i--)
-			{
-				cout << ((code >> i) & 1);
-			}
+			cout << "\nМножество слишком большое для вывода, будут выведены первые 32 элемента:\n";
+			limit = 32;
+			is_truncated = true;
 		}
 		
-		void printMultiSet(MultiSet &ms, const vector<int> &multi_universe)
-		{
-			if (ms.size() == 0)
+		bool first = true;
+		cout << "{";
+			for (size_t i = 0; i < limit; ++i)
 			{
-				cout << "Мультимножество пустое!\n";
-			}
-			
-			bool first = true;
-			cout << "{";
-				for (int i = 0; i < multi_universe.size(); ++i)
+				if (ms[i] > 0)
 				{
-					if (ms[i] > 0)
-					{
-						if (!first)
-						cout << ", ";
-						cout << "'" << multi_universe[i] << "': " << ms[i];
-						first = false;
-					}
+					if (!first)
+					cout << ", ";
+					cout << "'";
+					printBinary(u[i], bitrate);
+					cout << "': " << ms[i];
+					first = false;
 				}
-				cout << "}\n";
-		}
-		
-		void fillManually(MultiSet &ms, const vector<int> &multi_universe, int bitrate, int target_capacity)
-		{
-			int current_capacity = 0;
-			
-			cout << "\nДоступные элементы универсума:\n";
-			for (int i = 0; i < multi_universe.size(); ++i)
-			{
-				cout << i + 1 << ". [";
-				printBinary(multi_universe[i], bitrate);
-				cout << "]\n";
 			}
 			
-			while (current_capacity < target_capacity)
+			if (is_truncated)
 			{
-				cout << "\nТекущая мощность: " << current_capacity << " из " << target_capacity << "\n";
-				int idx = getValidatedInt("Выберите номер элемента для добавления (нумерация от 1): ", 1, multi_universe.size()) - 1;
-				int count = getValidatedInt("Введите кратность для этого элемента: ", 1, target_capacity - current_capacity);
-				
-				ms[idx] += count;
-				current_capacity += count;
+				if (!first)
+				cout << ", ...";
+				else
+				cout << "...";
 			}
+			cout << "}\n";
+	}
+	
+	long long createUniverse(MultiSet &u)
+	{
+		srand(time(nullptr));
+		u.resize(U_SIZE, 0);
+		if (U_SIZE == 0)
+		return 0;
+		long long total_capacity = 0;
+		for (int i = 0; i < U_SIZE; ++i)
+		{
+			u[i] = 1 + rand() % 10; // случайное число от 1 до 10
+			total_capacity += u[i];
+		}
+		return total_capacity;
+	}
+	
+	void fillManually(MultiSet &ms, const vector<int> &universe, int bitrate, int target_capacity)
+	{
+		int current_capacity = 0;
+		
+		cout << "\nДоступные элементы универсума (код и максимальная кратность в U):\n";
+		for (int i = 0; i < universe.size(); ++i)
+		{
+			cout << i + 1 << ". [";
+			printBinary(universe[i], bitrate);
+			cout << "] — кратность в U: " << multi_universe[i] << "\n";
 		}
 		
-		void fillAutomatically(MultiSet &ms, const vector<int> &multi_universe, int target_capacity)
+		while (current_capacity < target_capacity)
 		{
-			srand(time(nullptr));
+			cout << "\nТекущая мощность: " << current_capacity << " из " << target_capacity << "\n";
+			int idx = getValidatedInt("Выберите номер элемента для добавления (нумерация от 1): ", 1, universe.size()) - 1;
 			
-			for (int i = 0; i < target_capacity; ++i)
+			int remaining_in_u = multi_universe[idx] - ms[idx];
+			if (remaining_in_u <= 0)
 			{
-				int idx = rand() % target_capacity;
+				cout << "Этот элемент недоступен (оставшаяся ёмкость в универсуме равна 0). Выберите другой элемент.\n";
+				continue;
+			}
+			
+			int max_allowed = min(remaining_in_u, target_capacity - current_capacity);
+			string prompt = format("Введите кратность от 1 до {} (оставшаяся ёмкость в U: {}): ", max_allowed, remaining_in_u);
+			int count = getValidatedInt(prompt, 1, max_allowed);
+			
+			ms[idx] += count;
+			current_capacity += count;
+		}
+	}
+	
+	void fillAutomatically(MultiSet &ms, const vector<int> &universe, int target_capacity)
+	{
+		int current_capacity = 0;
+		while (current_capacity < target_capacity)
+		{
+			int idx = rand() % U_SIZE;
+			if (ms[idx] < multi_universe[idx])
+			{
 				ms[idx]++;
+				current_capacity++;
 			}
 		}
-		
-		int main(int argc, char const *argv[])
+	}
+	
+	int main(int argc, char const *argv[])
+	{
+		// при bitrate = 28 время вычисления кода грея составило в среднем 7.3 секунды. при 27 - 3.6 сек.
+		int bitrate = getValidatedInt("Введите разрядность кода Грея (0-27): ", 0, 27);
+		auto start = chrono::steady_clock::now();
+		MultiSet A, B;
+		vector<int> universe;
+		if (bitrate == 0)
 		{
-			int bitrate = getValidatedInt("Введите разрядность кода Грея (1-10): ", 1, 10);
-			vector<int> universe(1 << bitrate, 0);
+			cout << "\nУниверсум пуст (мощность равна 0). Множества A и B автоматически оставлены пустыми.\n";
+		}
+		else
+		{
+			universe.resize(1 << bitrate, 0);
 			generateGrayCode(bitrate, universe);
 			U_SIZE = universe.size();
 			
-			for (int i = 0; i < universe.size(); ++i)
-			{
-				cout << i + 1 << ". [";
-				printBinary(universe[i], bitrate);
-				cout << "]\n";
-			}
+			A.resize(U_SIZE, 0);
+			B.resize(U_SIZE, 0);
+			
+			long long total_u_capacity = createUniverse(multi_universe);
+			
+			auto end = chrono::steady_clock::now();
+			chrono::duration<double> elapsed = end - start;
+			cout << "Количество кодов: " << U_SIZE << ". Прошло времени: " << elapsed.count() << " сек.\n";
+			
+			cout << "\nСгенерированный универсум U: ";
+			printMultiSet(multi_universe, universe, bitrate);
 			
 			int lower_capacity = 0;
-			int upper_capacity = 100;
+			int upper_capacity;
+			if (100LL < total_u_capacity)
+			upper_capacity = 100;
+			else
+			upper_capacity = total_u_capacity;
+			
 			int capacityA = getValidatedInt(format("\nВведите мощность мультимножества A (от {} до {}): ", lower_capacity, upper_capacity),
 			lower_capacity, upper_capacity);
-			int capacityB = getValidatedInt(format("\nВведите мощность мультимножества B (от {} до {}): ", lower_capacity, upper_capacity), lower_capacity, upper_capacity);
+			int capacityB = getValidatedInt(format("\nВведите мощность мультимножества B (от {} до {}): ", lower_capacity, upper_capacity),
+			lower_capacity, upper_capacity);
 			
-			MultiSet A, B;
 			if (capacityA > 0)
 			{
 				int choiceA = getValidatedInt("\nВыберите способ заполнения множества A (1 - Вручную, 2 - Автоматически): ", 1, 2);
@@ -809,113 +880,111 @@
 				else
 				fillAutomatically(B, universe, capacityB);
 			}
+		}
+		
+		while (true)
+		{
+			cout << "\n\n================ Главное меню ================\n";
+			cout << "0. Выход\n";
+			cout << "1. Показать исходные мультимножества\n";
+			cout << "2. Объединение (A u B)\n";
+			cout << "3. Пересечение (A n B)\n";
+			cout << "4. Разность (A \\ B и B \\ A)\n";
+			cout << "5. Симметрическая разность (A /\\ B)\n";
+			cout << "6. Дополнение (U \\ A и U \\ B)\n";
+			cout << "7. Арифметическая сумма\n";
+			cout << "8. Арифметическая разность\n";
+			cout << "9. Арифметическое произведение\n";
+			cout << "10. Арифметическое деление\n";
+			cout << "==============================================\n";
 			
-			multi_universe = A + B;
-			cout << "\n\nПолученный универсум на множествах А и Б: ";
-			printMultiSet(multi_universe, universe);
+			int menuChoice = getValidatedInt("Выберите действие: ", 0, 10);
 			
-			while (true)
+			if (menuChoice == 0)
 			{
-				cout << "\n\n================ Главное меню ================\n";
-				cout << "0. Выход\n";
-				cout << "1. Показать исходные мультимножества\n";
-				cout << "2. Объединение (A u B)\n";
-				cout << "3. Пересечение (A n B)\n";
-				cout << "4. Разность (A \\ B и B \\ A)\n";
-				cout << "5. Симметрическая разность (A /\\ B)\n";
-				cout << "6. Дополнение (U \\ A и U \\ B)\n";
-				cout << "7. Арифметическая сумма\n";
-				cout << "8. Арифметическая разность\n";
-				cout << "9. Арифметическое произведение\n";
-				cout << "10. Арифметическое деление\n";
-				cout << "==============================================\n";
-				
-				int menuChoice = getValidatedInt("Выберите действие: ", 0, 10);
-				
-				if (menuChoice == 0)
-				{
-					cout << "Программа завершена.\n";
-					break;
-				}
-				
-				MultiSet result;
-				
-				switch (menuChoice)
-				{
-					case 1:
-					cout << "\nМультимножество A: ";
-					printMultiSet(A, universe);
-					cout << "Мультимножество B: ";
-					printMultiSet(B, universe);
-					cout << "Универсум: ";
-					printMultiSet(multi_universe, universe);
-					break;
-					case 2:
-					result = uni(A, B);
-					cout << "Объединение (A u B): ";
-					printMultiSet(result, universe);
-					break;
-					case 3:
-					result = insertion(A, B);
-					cout << "Пересечение (A n B): ";
-					printMultiSet(result, universe);
-					break;
-					case 4:
-					result = difference(A, B);
-					cout << "Разность (A \\ B): ";
-					printMultiSet(result, universe);
-					
-					result = difference(B, A);
-					cout << "Разность (B \\ A): ";
-					printMultiSet(result, universe);
-					break;
-					case 5:
-					result = sym_difference(A, B);
-					cout << "Симметрическая разность (A /\\ B): ";
-					printMultiSet(result, universe);
-					break;
-					case 6:
-					result = complement(A);
-					cout << "Дополнение (U \\ A): ";
-					printMultiSet(result, universe);
-					
-					result = complement(B);
-					cout << "Дополнение (U \\ B): ";
-					printMultiSet(result, universe);
-					break;
-					case 7:
-					result = A + B;
-					cout << "Арифметическая сумма (A + B): ";
-					printMultiSet(result, universe);
-					break;
-					case 8:
-					result = A - B;
-					cout << "Арифметическая разность (A - B): ";
-					printMultiSet(result, universe);
-					
-					result = B - A;
-					cout << "Арифметическая разность (B - A): ";
-					printMultiSet(result, universe);
-					break;
-					case 9:
-					result = A * B;
-					cout << "Арифметическое произведение (A * B): ";
-					printMultiSet(result, universe);
-					break;
-					case 10:
-					result = A / B;
-					cout << "Арифметическое деление (A / B): ";
-					printMultiSet(result, universe);
-					
-					result = B / A;
-					cout << "Арифметическое деление (B / A): ";
-					printMultiSet(result, universe);
-					break;
-				}
+				cout << "Программа завершена.\n";
+				break;
 			}
 			
-			return 0;
+			MultiSet result;
+			
+			switch (menuChoice)
+			{
+				case 1:
+				cout << "\nМультимножество A: ";
+				printMultiSet(A, universe, bitrate);
+				cout << "Мультимножество B: ";
+				printMultiSet(B, universe, bitrate);
+				cout << "Универсум: ";
+				printMultiSet(multi_universe, universe, bitrate);
+				break;
+				case 2:
+				result = uni(A, B);
+				cout << "Объединение (A u B): ";
+				printMultiSet(result, universe, bitrate);
+				break;
+				case 3:
+				result = insertion(A, B);
+				cout << "Пересечение (A n B): ";
+				printMultiSet(result, universe, bitrate);
+				break;
+				case 4:
+				result = difference(A, B);
+				cout << "Разность (A \\ B): ";
+				printMultiSet(result, universe, bitrate);
+				
+				result = difference(B, A);
+				cout << "Разность (B \\ A): ";
+				printMultiSet(result, universe, bitrate);
+				break;
+				case 5:
+				result = sym_difference(A, B);
+				cout << "Симметрическая разность (A /\\ B): ";
+				printMultiSet(result, universe, bitrate);
+				break;
+				case 6:
+				result = complement(A);
+				cout << "Дополнение (U \\ A): ";
+				printMultiSet(result, universe, bitrate);
+				
+				result = complement(B);
+				cout << "Дополнение (U \\ B): ";
+				printMultiSet(result, universe, bitrate);
+				break;
+				case 7:
+				result = A + B;
+				cout << "Арифметическая сумма (A + B): ";
+				printMultiSet(result, universe, bitrate);
+				break;
+				case 8:
+				result = A - B;
+				cout << "Арифметическая разность (A - B): ";
+				printMultiSet(result, universe, bitrate);
+				
+				result = B - A;
+				cout << "Арифметическая разность (B - A): ";
+				printMultiSet(result, universe, bitrate);
+				break;
+				case 9:
+				result = A * B;
+				cout << "Арифметическое произведение (A * B): ";
+				printMultiSet(result, universe, bitrate);
+				break;
+				case 10:
+				result = A / B;
+				cout << "Арифметическое деление (A / B): ";
+				printMultiSet(result, universe, bitrate);
+				
+				result = B / A;
+				cout << "Арифметическое деление (B / A): ";
+				printMultiSet(result, universe, bitrate);
+				break;
+			}
 		}
+		
+		return 0;
+	}
+	
 	\end{lstlisting}
 	
 	\clearpage
