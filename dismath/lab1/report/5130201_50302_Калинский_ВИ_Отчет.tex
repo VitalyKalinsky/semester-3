@@ -117,9 +117,9 @@
 		\begin{itemize}
 			\item объединение ($A \cup B$);
 			\item пересечение ($A \cap B$);
-			\item разность в обоих направлениях ($A \setminus B$ и $B \setminus A$);
+			\item теоретико-множественная разность ($A \setminus B$);
 			\item симметрическая разность ($A \triangle B$);
-			\item дополнение до универсума ($\overline{A} = U \setminus A$ и $\overline{B} = U \setminus B$);
+			\item дополнение ($\overline{A} = U \setminus A$);
 			\item арифметическая сумма ($A + B$);
 			\item арифметическая разность ($A - B$ и $B - A$);
 			\item арифметическое произведение ($A \cdot B$);
@@ -136,17 +136,15 @@
 	
 	Классическим \textit{множеством} называется совокупность определенных, различимых объектов (элементов), мыслимая как единое целое, причем каждый элемент либо принадлежит множеству, либо не принадлежит ему.
 	
-	\textit{Мультимножеством} над базовым множеством $X = \{x_1, x_2, \dots, x_N\}$ называется пара $\hat{A} = (X, k_A)$, где $k_A: X \to \mathbb{N} \cup \{0\} $ -- характеристическая функция кратности, сопоставляющая каждому элементу $x_i \in X$ целое неотрицательное число $\alpha_i \ge 0$, называемое \textit{кратностью} (степенью вхождения) элемента в мультимножество. 
-	
-	Символически мультимножество записывается в виде:
+	\textit{Мультимножество} над базовым множеством $X = \{x_1, x_2, \dots, x_N\}$ записывается в виде:
 	\begin{equation}
-		\hat{A} = \{x_1^{\alpha_1}, x_2^{\alpha_2}, \dots, x_N^{\alpha_N}\}, \quad \alpha_i \in [0, k],
+		\hat{A} = \{x_1^{\alpha_1}, x_2^{\alpha_2}, \dots, x_N^{\alpha_N}\},
 	\end{equation}
-	где $x_i^{\alpha_i}$ обозначает вхождение элемента $x_i$ ровно $\alpha_i$ раз. Если $\alpha_i = 0$, элемент фактически отсутствует в мультимножестве. Пустое мультимножество обозначается вектором нулевых кратностей: $\varnothing = (0, 0, \dots, 0)$.
+	где каждому элементу $x_i \in X$ сопоставляется $\alpha_i \in \mathbb{N} \cup \{0\}$, называемое \textit{кратностью} (степенью вхождения) элемента в мультимножество, а $x_i^{\alpha_i}$ обозначает вхождение элемента $x_i$ ровно $\alpha_i$ раз. Если $\alpha_i = 0$, элемент фактически отсутствует в мультимножестве. Пустое мультимножество обозначается вектором нулевых кратностей: $\varnothing = (0, 0, \dots, 0)$.
 	
 	\textit{Мощностью мультимножества} $|\hat{A}|$ называется сумма кратностей всех его элементов:
 	\begin{equation}
-		|\hat{A}| = \sum_{i=1}^{N} k_A(x_i) = \sum_{i=1}^{N} \alpha_i.
+		|\hat{A}| = \sum_{i=1}^{N} \alpha_i.
 	\end{equation}
 	
 	\textit{Универсумом мультимножеств} $U$ называется фиксированное мультимножество над тем же носителем $X$:
@@ -178,26 +176,22 @@
 			k_{A \cup B}(x_i) = \max(\alpha_{1,i}, \alpha_{2,i}).
 		\end{equation}
 		
-		\item {\bf Дополнение ($\overline{A}$ и $\overline{B}$):}
+		\item {\bf Дополнение ($\overline{A}$):}
 		Дополнение мультимножества вычисляется относительно универсума $U$:
 		\begin{equation}
-			k_{\overline{A}}(x_i) = m_i - \alpha_{1,i}, \quad k_{\overline{B}}(x_i) = m_i - \alpha_{2,i}.
+			k_{\overline{A}}(x_i) = m_i - \alpha_{1,i}.
 		\end{equation}
 		
-		\item {\bf Разность ($A \setminus B$ и $B \setminus A$):}
+		\item {\bf Разность ($A \setminus B$):}
 		В теоретическом конспекте разность определяется через пересечение с дополнением: $A \setminus B = A \cap \overline{B}$. Подставляя формулу дополнения, получаем:
 		\begin{equation}
 			k_{A \setminus B}(x_i) = \min(\alpha_{1,i}, m_i - \alpha_{2,i}).
-		\end{equation}
-		Аналогично, для обратной разности:
-		\begin{equation}
-			k_{B \setminus A}(x_i) = \min(\alpha_{2,i}, m_i - \alpha_{1,i}).
 		\end{equation}
 		
 		\item {\bf Симметрическая разность ($A \triangle B$):}
 		Определяется как разность между объединением и пересечением мультимножеств:
 		\begin{equation}
-			A \triangle B = (A \cup B) \setminus (A \cap B) = (A \cup B) \cap \overline{(A \cap B)}.
+			A \triangle B = (A \cup B) \setminus (A \cap B).
 		\end{equation}
 		Кратность элемента:
 		\begin{equation}
@@ -210,13 +204,10 @@
 			k_{A + B}(x_i) = \min(\alpha_{1,i} + \alpha_{2,i}, \; m_i).
 		\end{equation}
 		
-		\item {\bf Арифметическая разность ($A - B$ и $B - A$):}
+		\item {\bf Арифметическая разность ($A - B$):}
 		Кратность представляет собой усеченную разность (не может быть отрицательной):
 		\begin{equation}
 			k_{A - B}(x_i) = \max(0, \alpha_{1,i} - \alpha_{2,i}),
-		\end{equation}
-		\begin{equation}
-			k_{B - A}(x_i) = \max(0, \alpha_{2,i} - \alpha_{1,i}).
 		\end{equation}
 		
 		\item {\bf Арифметическое произведение ($A \cdot B$):}
@@ -225,18 +216,12 @@
 			k_{A \cdot B}(x_i) = \min(\alpha_{1,i} \cdot \alpha_{2,i}, m_i).
 		\end{equation}
 		
-		\item {\bf Арифметическое деление ($A : B$ и $B : A$):}
+		\item {\bf Арифметическое деление ($A : B$):}
 		Целочисленное деление кратностей. В соответствии с договоренностью при делении на 0 результирующая кратность принимается равной 0:
 		\begin{equation}
 			k_{A / B}(x_i) = \begin{cases}
-			 \alpha_{1,i} / \alpha_{2,i} , & \alpha_{2,i} \ne 0, \\
+			 \left[ \alpha_{1,i} / \alpha_{2,i} \right], & \alpha_{2,i} \ne 0, \\
 				0, & \alpha_{2,i} = 0.
-			\end{cases}
-		\end{equation}
-		\begin{equation}
-			k_{B / A}(x_i) = \begin{cases}
-				 \alpha_{2,i} / \alpha_{1,i} , & \alpha_{1,i} \ne 0, \\
-				0, & \alpha_{1,i} = 0.
 			\end{cases}
 		\end{equation}
 	\end{enumerate}
@@ -287,63 +272,208 @@
 	
 	\subsection{Спецификация функций и методов}
 	
-	В таблице~\ref{tab:functions_spec} приведено исчерпывающее описание всех функций и методов программного комплекса с указанием их входных и выходных параметров.
+	В данном подразделе приведено описание всех функций программы с указанием их входов, выходов и алгоритмического принципа работы, сгруппированных по функциональному назначению.
 	
-\begin{longtable}{|p{0.32\textwidth}|p{0.28\textwidth}|p{0.35\textwidth}|}
-	\caption{Спецификация функций и методов программы} \label{tab:functions_spec} \\
-	\hline
-	\textbf{Сигнатура} & \textbf{Входные параметры} & \textbf{Выходные параметры / Результат} \\ \hline
-	\endhead
+	\subsubsection*{Методы класса MultiSet}
+	\begin{enumerate}[label=\arabic*.]
+		\item Конструктор \textbf{\texttt{MultiSet::MultiSet()}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} инициализация параметров функции.
+			\item \textbf{Выход:} инициализированный объект класса \texttt{MultiSet}.
+			\item \textbf{Описание:} конструктор по умолчанию; выделяет непрерывный блок памяти под вектор кратностей \texttt{counts} размера \texttt{U\_SIZE} и заполняет его нулями.
+		\end{itemize}
+		
+		\item \textbf{\texttt{std::vector<int>::iterator MultiSet::begin()}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} инициализация параметров функции.
+			\item \textbf{Выход:} итератор на начало вектора кратностей \texttt{counts}.
+			\item \textbf{Описание:} возвращает начальный итератор вектора кратностей.
+		\end{itemize}
+		
+		\item \textbf{\texttt{std::vector<int>::iterator MultiSet::end()}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} инициализация параметров функции.
+			\item \textbf{Выход:} итератор на позицию за последним элементом вектора кратностей.
+			\item \textbf{Описание:} возвращает конечный итератор вектора кратностей.
+		\end{itemize}
+		
+		\item \textbf{\texttt{int MultiSet::size()}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} инициализация параметров функции.
+			\item \textbf{Выход:} целое число типа \texttt{int} -- размер вектора кратностей.
+			\item \textbf{Описание:} возвращает физическое количество ячеек во внутреннем векторе \texttt{counts}, равное мощности носителя универсума.
+		\end{itemize}
+		
+		\item \textbf{\texttt{void MultiSet::clear()}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} инициализация параметров функции.
+			\item \textbf{Выход:} отсутствует (\texttt{void}).
+			\item \textbf{Описание:} полностью очищает внутренний вектор кратностей \texttt{counts}, обнуляя его размер.
+		\end{itemize}
+		
+		\item \textbf{\texttt{int\& MultiSet::operator[](size\_t pos)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} индекс позиции \texttt{pos} типа \texttt{size\_t}.
+			\item \textbf{Выход:} ссылка \texttt{int\&} на значение кратности элемента.
+			\item \textbf{Описание:} предоставляет прямой доступ по индексу к кратности элемента мультимножества для чтения и модификации.
+		\end{itemize}
+		
+		\item \textbf{\texttt{void MultiSet::resize(size\_t new\_size, const int val)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} новый размер \texttt{new\_size} типа \texttt{size\_t}, значение инициализации \texttt{val} типа \texttt{const int}.
+			\item \textbf{Выход:} изменение внутреннего вектора кратностей.
+			\item \textbf{Описание:} перераспределяет память контейнера под размер \texttt{new\_size}, заполняя новые ячейки значением \texttt{val}.
+		\end{itemize}
+		
+		\item \textbf{\texttt{bool MultiSet::isBigSize()}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} инициализация параметров функции.
+			\item \textbf{Выход:} превышает ли количество ненулевых кратностей 32 (тип bool).
+			\item \textbf{Описание:} выполняет подсчет элементов с ненулевой кратностью ($\alpha_i > 0$); если их количество превышает либо равно 32, возвращает \texttt{true}, инициируя безопасное усечение консольного вывода.
+		\end{itemize}
+	\end{enumerate}
 	
-	\texttt{MultiSet::MultiSet()} & Инициализация параметров программы & Инициализированный объект мультимножества размера \texttt{U\_SIZE}, заполненный нулями. \\ \hline
+	\subsubsection*{Функции генерации, кодирования и валидации}
+	\begin{enumerate}[label=\arabic*., resume]
+		\item \textbf{\texttt{int Q(int i)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} натуральное число $i \ge 1$ (номер шага генерации).
+			\item \textbf{Выход:} целое число $q \ge 1$ -- номер позиции младшей единицы.
+			\item \textbf{Описание:} определяет номер позиции младшей единицы (начиная с 1) в двоичном представлении числа $i$ путём циклического деления на 2 до получения нечетного остатка.
+		\end{itemize}
+		
+		\item \textbf{\texttt{void generateGrayCode(int n, vector<int> \&target)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} разрядность кода $n \in [0, 27]$, ссылка на вектор \texttt{target}.
+			\item \textbf{Выход:} заполненный вектор кодовых слов \texttt{target} длины $2^n$.
+			\item \textbf{Описание:} формирует $n$-разрядную последовательность бинарного кода Грея, начиная с 0 и инвертируя бит с индексом $Q(i) - 1$ на каждом $i$-м шаге.
+		\end{itemize}
+		
+		\item \textbf{\texttt{int getValidatedInt(const string \&prompt, int min\_val, int max\_val)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} строка приглашения \texttt{prompt}, нижняя граница \texttt{min\_val}, верхняя граница \texttt{max\_val}.
+			\item \textbf{Выход:} целое число типа \texttt{int} от пользователя.
+			\item \textbf{Описание:} выводит приглашение, считывает число и проверяет, попадает ли значение в диапазон $[\text{min\_val}, \text{max\_val}]$; в случае некорректного ввода очищает буфер и запрашивает число повторно.
+		\end{itemize}
+		
+		\item \textbf{\texttt{long long createUniverse(MultiSet \&u)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} ссылка на объект универсума \texttt{u}.
+			\item \textbf{Выход:} суммарная ёмкость универсума типа \texttt{long long}.
+			\item \textbf{Описание:} изменяет размер контейнера \texttt{u} под \texttt{U\_SIZE} $=2^N$ и заполняет кратность каждого элемента случайным числом от 1 до 10.
+		\end{itemize}
+	\end{enumerate}
 	
-	\texttt{MultiSet::begin()} & Инициализация параметров программы & Итератор \texttt{std::vector<int>:: iterator} на первый элемент вектора кратностей. \\ \hline
+	\subsubsection*{Функции консольного отображения и наполнения множеств}
+	\begin{enumerate}[label=\arabic*., resume]
+		\item \textbf{\texttt{void printBinary(int code, int bitrate)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} числовой эквивалент кода \texttt{code}, разрядность \texttt{bitrate}.
+			\item \textbf{Выход:} прямой вывод в выходной поток .
+			\item \textbf{Описание:} побитово выводит целое число в двоичном формате заданной разрядности.
+		\end{itemize}
+		
+		\item \textbf{\texttt{void printMultiSet(MultiSet \&ms, const vector<int> \\ \&u, int bitrate)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} ссылка на мультимножество \texttt{ms}, вектор кодовых слов универсума \texttt{u}, разрядность \texttt{bitrate}.
+			\item \textbf{Выход:} прямой вывод в поток \texttt{std::cout}.
+			\item \textbf{Описание:} выводит элементы с ненулевой кратностью в виде пар вида \texttt{'код': кратность}; при срабатывании метода \texttt{ms.isBigSize()} выводит первые 32 ненулевых элемента и символ многоточия.
+		\end{itemize}
+		
+		\item \textbf{\texttt{void fillManually(MultiSet \&ms, const vector<int> \&universe, int bitrate, int target\_capacity)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} ссылка на мультимножество \texttt{ms}, вектор универсума, разрядность, целевая мощность множества.
+			\item \textbf{Выход:} модифицированное мультимножество \texttt{ms}.
+			\item \textbf{Описание:} поэлементный выбор элементов по номеру и ввод кратностей с контролем остатка емкости каждого элемента в универсуме $U$.
+		\end{itemize}
+		
+		\item \textbf{\texttt{void fillAutomatically(MultiSet \&ms, const vector<int> \&universe, int target\_capacity)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} ссылка на мультимножество \texttt{ms}, вектор универсума, целевая мощность множества.
+			\item \textbf{Выход:} модифицированное мультимножество \texttt{ms}.
+			\item \textbf{Описание:} генерирует наполнение мультимножества, добавляя случайное число к $\Delta \in [1, \min(m_i - \alpha_i, \text{rem})]$ к случайному элементу мультимножества \texttt{ms} до достижения целевой мощности.
+		\end{itemize}
+		
+		\item \textbf{\texttt{int createMultiSets(MultiSet \&A, MultiSet \&B, \\ vector<int> \&universe)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} ссылки на мультимножества $A$, $B$ и вектор носителя \texttt{universe}.
+			\item \textbf{Выход:} выбранная разрядность кода Грея \texttt{bitrate} типа \texttt{int}.
+			\item \textbf{Описание:} выполняет полный цикл начальной инициализации: очищает контейнеры, сбрасывает размер \texttt{U\_SIZE}, запрашивает разрядность $n$, генерирует код Грея и универсум $U$, после чего запускает процедуры заполнения множеств $A$ и $B$.
+		\end{itemize}
+	\end{enumerate}
 	
-	\texttt{MultiSet::end()} & Инициализация параметров программы & Итератор \texttt{std::vector<int>:: iterator} на конец вектора кратностей. \\ \hline
-	
-	\texttt{MultiSet::size()} & Инициализация параметров программы & Целое число типа \texttt{int} -- размер вектора кратностей. \\ \hline
-	
-	\texttt{int\& MultiSet::operator[] (size\_t pos)} & Позиция элемента \texttt{pos} типа \texttt{size\_t} & Ссылка \texttt{int\&} на кратность элемента по индексу \texttt{pos}. \\ \hline
-	
-	\texttt{void MultiSet::resize (size\_t new\_size, const int val)} & Новый размер \texttt{new\_size}, значение заполнения \texttt{val} & Модификация размера внутреннего контейнера. \\ \hline
-	
-	\texttt{int Q(int i)} & Целое число $i \ge 1$ (шаг генерации) & Целое число $q \ge 1$ -- номер изменяемого разряда в коде Грея. \\ \hline
-	
-	\texttt{void generateGrayCode (int n, vector<int> \&target)} & Разрядность $n \in [0, 27]$, ссылка на вектор \texttt{target} & Заполнение вектора $2^n$ кодовыми словами Грея. \\ \hline
-	
-	\texttt{void printBinary (int code, int bitrate)} & Число \texttt{code}, разрядность \texttt{bitrate} & Побитовый вывод числа в консоль. \\ \hline
-	
-	\texttt{void printMultiSet (MultiSet \&ms, const vector<int> \&u, int bitrate)} & Ссылка на мультимножество \texttt{ms}, вектор универсума \texttt{u}, разрядность \texttt{bitrate} & Форматированный вывод пар вида \texttt{'код': кратность} (при $|u| > 32$ выводятся первые 32 элемента). \\ \hline
-	
-	\texttt{long long createUniverse (MultiSet \&u)} & Ссылка на универсум \texttt{u} & Число типа \texttt{long long} -- суммарная ёмкость универсума; заполнение кратностей случайными числами от 1 до 10. \\ \hline
-	
-	\texttt{int getValidatedInt (const string \&prompt, int min\_val, int max\_val)} & Приглашение ввода, границы диапазона \texttt{min\_val}, \texttt{max\_val} & Целое число типа \texttt{int}, прошедшее валидацию диапазона и типа. \\ \hline
-	
-	\texttt{void fillManually (MultiSet \&ms, const vector<int> \&universe, int bitrate, int target\_capacity)} & Ссылка на множество \texttt{ms}, вектор универсума, разрядность, целевая мощность & Поэлементное ручное заполнение с контролем доступной ёмкости каждого элемента в универсуме. \\ \hline
-	
-	\texttt{void fillAutomatically (MultiSet \&ms, const vector<int> \&universe, int target\_capacity)} & Ссылка на множество \texttt{ms}, вектор универсума, целевая мощность & Случайное распределение кратностей с контролем лимитов кратностей универсума. \\ \hline
-	
-	\texttt{MultiSet uni (MultiSet \&A, MultiSet \&B)} & Ссылки на мультимножества $A$ и $B$ & Объект \texttt{MultiSet} -- объединение $A \cup B$ ($\max(a_i, b_i)$). \\ \hline
-	
-	\texttt{MultiSet insertion (MultiSet \&A, MultiSet \&B)} & Ссылки на мультимножества $A$ и $B$ & Объект \texttt{MultiSet} -- пересечение $A \cap B$ ($\min(a_i, b_i)$). \\ \hline
-	
-	\texttt{MultiSet complement (MultiSet \&A)} & Ссылка на мультимножество $A$ & Объект \texttt{MultiSet} -- дополнение $\overline{A} = U \setminus A$. \\ \hline
-	
-	\texttt{MultiSet difference (MultiSet \&A, MultiSet \&B)} & Ссылки на мультимножества $A$ и $B$ & Объект \texttt{MultiSet} -- разность $A \setminus B = A \cap \overline{B}$. \\ \hline
-	
-	\texttt{MultiSet sym\_difference (MultiSet \&A, MultiSet \&B)} & Ссылки на мультимножества $A$ и $B$ & Объект \texttt{MultiSet} -- симметрическая разность $(A \cup B) \setminus (A \cap B)$. \\ \hline
-	
-	\texttt{MultiSet operator+ (MultiSet \&A, MultiSet \&B)} & Ссылки на операнды $A$ и $B$ & Объект \texttt{MultiSet} -- арифметическая сумма $\min(a_i + b_i, m_i)$. \\ \hline
-	
-	\texttt{MultiSet operator- (MultiSet \&A, MultiSet \&B)} & Ссылки на операнды $A$ и $B$ & Объект \texttt{MultiSet} -- арифметическая разность $A - B$. \\ \hline
-	
-	\texttt{MultiSet operator* (MultiSet \&A, MultiSet \&B)} & Ссылки на операнды $A$ и $B$ & Объект \texttt{MultiSet} -- произведение $A \cdot B$, ограниченное $U$. \\ \hline
-	
-	\texttt{MultiSet operator/ (MultiSet \&A, MultiSet \&B)} & Ссылки на операнды $A$ и $B$ & Объект \texttt{MultiSet} -- результат деления $A : B$ (с защитой от нуля). \\ \hline
-	
-	\texttt{int main (int argc, char const *argv[])} & Инициализация параметров программы (\texttt{argc}, \texttt{argv}) & Код возврата операционной системы \texttt{0}. \\ \hline
-\end{longtable}
-	
+	\subsubsection*{Операции над мультимножествами}
+	\begin{enumerate}[label=\arabic*., resume]
+		\item \textbf{\texttt{MultiSet uni(MultiSet \&A, MultiSet \&B)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} ссылки на мультимножества $A$ и $B$.
+			\item \textbf{Выход:} объект \texttt{MultiSet} -- объединение $A \cup B$.
+			\item \textbf{Описание:} вычисляет объединение по правилу $\max(a_i, b_i)$ с использованием алгоритма \texttt{std::transform}.
+		\end{itemize}
+		
+		\item \textbf{\texttt{MultiSet insertion(MultiSet \&A, MultiSet \&B)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} ссылки на мультимножества $A$ и $B$.
+			\item \textbf{Выход:} объект \texttt{MultiSet} -- пересечение $A \cap B$.
+			\item \textbf{Описание:} вычисляет пересечение по правилу $\min(a_i, b_i)$ с использованием алгоритма \texttt{std::transform}.
+		\end{itemize}
+		
+		\item \textbf{\texttt{MultiSet complement(MultiSet \&A)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} ссылка на мультимножество $A$.
+			\item \textbf{Выход:} объект \texttt{MultiSet} -- дополнение $\overline{A} = U \setminus A$.
+			\item \textbf{Описание:} вычисляет разность кратностей универсума и множества A ($m_i - a_i$) с помощью \texttt{std::transform}.
+		\end{itemize}
+		
+		\item \textbf{\texttt{MultiSet difference(MultiSet \&A, MultiSet \&B)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} ссылки на мультимножества $A$ и $B$.
+			\item \textbf{Выход:} объект \texttt{MultiSet} -- теоретико-множественная разность $A \setminus B$.
+			\item \textbf{Описание:} реализует формулу $A \cap \overline{B}$ через композицию вызовов \texttt{insertion(A, complement(B))}.
+		\end{itemize}
+		
+		\item \textbf{\texttt{MultiSet sym\_difference(MultiSet \&A, MultiSet \&B)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} ссылки на мультимножества $A$ и $B$.
+			\item \textbf{Выход:} объект \texttt{MultiSet} -- симметрическая разность $A \triangle B$.
+			\item \textbf{Описание:} вычисляет разность объединения и пересечения: \\ \texttt{difference(uni(A, B), insertion(A, B))}.
+		\end{itemize}
+		
+		\item \textbf{\texttt{MultiSet operator+(MultiSet \&A, MultiSet \&B)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} ссылки на мультимножества $A$ и $B$.
+			\item \textbf{Выход:} объект \texttt{MultiSet} -- арифметическая сумма $A + B$.
+			\item \textbf{Описание:} в два прохода \texttt{std::transform} рассчитывает сумму кратностей $a_i + b_i$ и ограничивает результат емкостью универсума $\min(a_i + b_i, m_i)$.
+		\end{itemize}
+		
+		\item \textbf{\texttt{MultiSet operator-(MultiSet \&A, MultiSet \&B)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} ссылки на мультимножества $A$ и $B$.
+			\item \textbf{Выход:} объект \texttt{MultiSet} -- арифметическая разность $A - B$.
+			\item \textbf{Описание:} вычисляет неотрицательную разность кратностей $\max(0, a_i - b_i)$ через \texttt{std::transform}.
+		\end{itemize}
+		
+		\item \textbf{\texttt{MultiSet operator*(MultiSet \&A, MultiSet \&B)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} ссылки на мультимножества $A$ и $B$.
+			\item \textbf{Выход:} объект \texttt{MultiSet} -- арифметическое произведение $A \cdot B$.
+			\item \textbf{Описание:} поэлементно перемножает кратности с отсечением по емкости универсума $\min(a_i \cdot b_i, m_i)$.
+		\end{itemize}
+		
+		\item \textbf{\texttt{MultiSet operator/(MultiSet \&A, MultiSet \&B)}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} ссылки на мультимножества $A$ и $B$.
+			\item \textbf{Выход:} объект \texttt{MultiSet} -- результат арифметического деления $A : B$.
+			\item \textbf{Описание:} выполняет целочисленное деление $\lfloor a_i / b_i \rfloor$; при нулевом делителе ($b_i = 0$) возвращает 0.
+		\end{itemize}
+		
+		\item \textbf{\texttt{int main(int argc, char const *argv[])}}
+		\begin{itemize}[leftmargin=*, noitemsep]
+			\item \textbf{Вход:} аргументы командной строки (\texttt{argc}, \texttt{argv}).
+			\item \textbf{Выход:} код возврата процесса \texttt{0}.
+			\item \textbf{Описание:} точка входа в программу; выполняет запуск генератора псевдослучайных чисел, координирует вызовы подсистемы перезапуска \texttt{createMultiSets} и цикл интерактивного меню операций.
+		\end{itemize}
+	\end{enumerate}
 	Полный исходный код каждого файла проекта вынесен в отдельные приложения:
 	\begin{itemize}
 		\item заголовочный файл \texttt{MultiSet.hpp} -- в Приложении~А (см. листинг~\ref{lst:multiset_hpp});
@@ -357,13 +487,13 @@
 	
 	Для проверки разработанного программного комплекса проведены серии тестов, охватывающие как штатную обработку теоретико-множественных и арифметических операций, так и проверку отказоустойчивости при некорректном вводе данных и обработку граничных состояний (краевой случай нулевой разрядности, предельная разрядность носителя).
 	
-	\subsection{Сценарий 1. Тестирование краевого случая: пустой универсум ($n = 0$)}
+	\subsection{Сценарий 1. Пустой универсум ($n = 0$)}
 	
 	Пользователь задает нулевую разрядность кода Грея ($n = 0$). В этом случае базовый носитель элементов отсутствует ($N = 2^0 = 0$ кодов в логике программы), поэтому универсум является пустым. Программа выводит диагностическое сообщение: \texttt{<<Универсум пуст (мощность равна 0). Множества A и B автоматически оставлены пустыми.>>} и сразу переходит к главному меню без запроса мощностей и режимов заполнения.
 	
 	При выборе пункта меню 1 на экран выводится статус отсутствия элементов во всех трех множествах. Выполнение любой из операций (пункты меню 2--10) не приводит к аварийному завершению программы или ошибкам сегментации (SEGV): циклы преобразования по нулевому диапазону корректно завершаются, и в качестве результата выводится пустое мультимножество $\varnothing$.
 		
-	На рис.~\ref{fig:empty_universe} представлен вывод консоли при вводе разрядности 0: зафиксированы сообщение об автоматической инициализации пустых множеств $A$, $B$ и универсума, а также корректное отображение пустого состояния на примере вызова второго пункта меню без сбоев адресного пространства.
+	На рис.~\ref{fig:empty_universe} представлен вывод консоли при вводе разрядности 0: зафиксированы сообщение об автоматической инициализации пустых множеств $A$, $B$ и универсума, а также корректное отображение пустого состояния объединения множеств на примере вызова второго пункта меню.
 	
 	\begin{figure}[H]
 		\centering
@@ -372,7 +502,7 @@
 		\label{fig:empty_universe}
 	\end{figure}
 	
-	\subsection{Сценарий 2. Тестирование защиты от некорректного пользовательского ввода}
+	\subsection{Сценарий 2. Некорректный пользовательский ввод}
 	
 	В рамках сценария проверяется реакция подсистемы валидации \\ \texttt{getValidatedInt()}:
 	\begin{enumerate}
@@ -405,7 +535,7 @@
 		\label{fig:filling}
 	\end{figure}
 	
-	\subsection{Сценарий 4. Проверка теоретико-множественных операций (пункты меню 2--6)}
+	\subsection{Сценарий 4. Теоретико-множественные операции (пункты меню 2--6)}
 	На полученных мультимножествах из предыдущих сценариев протестированы операции из пунктов меню 2--6.	Полученные результаты строго согласуются с ручным теоретическим расчетом по формулам, приведенным в подразделе~1.2.
 	На рис.~\ref{fig:set_ops1} зафиксированы экранные снимки консоли при вызове пунктов меню 2--4, а на  рис.~\ref{fig:set_ops2} -- пунктов 5 и 6 меню: для каждого пункта отображается правильный результат.
 	\begin{figure}[H]
@@ -421,7 +551,7 @@
 		\label{fig:set_ops2}
 	\end{figure}
 	
-	\subsection{Сценарий 5. Проверка арифметических операций \\ (пункты меню 7--10)}
+	\subsection{Сценарий 5. Арифметические операции \\ (пункты меню 7--10)}
 	
 	На полученных мультимножествах из предыдущих сценариев протестированы операции из пунктов меню 7--10. Полученные результаты строго согласуются с ручным теоретическим расчетом по формулам, приведенным в подразделе~1.2.
 	На рис.~\ref{fig:arithmetic_ops} зафиксированы экранные снимки консоли при вызове пунктов меню 7--10: для каждого пункта отображается правильный результат.
@@ -433,9 +563,9 @@
 		\label{fig:arithmetic_ops}
 	\end{figure}
 	
-	\subsection{Сценарий 6. Тестирование при большой разрядности и ограничение вывода}
+	\subsection{Сценарий 6. Большая разрядность кода грея и ограничение вывода}
 	
-	Для проверки масштабируемости программы проведен запуск с повышенной разрядностью. При предельной разрядности $n = 27$ размер носителя составляет $N = 2^{27} = 134\,217\,728$ кодовых комбинаций. Зафиксированное время генерации составило $3.72468$ секунды, что удовлетворяет требованию быстродействия до 5 секунд.
+	Для проверки масштабируемости программы проведен запуск с повышенной разрядностью. При предельной разрядности $n = 27$ размер носителя составляет $N = 2^{27} = 134\,217\,728$ кодовых комбинаций. Зафиксированное время генерации составило $4.65122$ секунды, что удовлетворяет требованию быстродействия до 5 секунд.
 	
 	\begin{figure}[H]
 		\centering
@@ -444,29 +574,40 @@
 		\label{fig:large_universe}
 	\end{figure}
 	На рис.~\ref{fig:large_universe} продемонстрирована работа механизма усечения вывода для размерностей более 32 элементов, а также замер времени работы генератора кода Грея при $n = 27$.
+
+	\subsection{Сценарий 7. Заполнение мультимножеств по новой}
 	
+	Для удобства пользователя была добавлена функция заполнения универсума и мультимножеств заново без перезапуска программы. На рис.~\ref{fig:retry_sets} продемонстрирована работа механизма перезапуска и нового заполнения мультимножеств.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.85\textwidth]{retry_sets.png}
+		\caption{Новое заполнение мультимножеств}
+		\label{fig:retry_sets}
+	\end{figure}
+		
 	\newpage
 	\thispagestyle{empty}
 	\phantomsection
 	\addcontentsline{toc}{section}{Заключение}
 	{\LARGE\bf Заключение}\\
 	
-	В ходе лабораторной работы на языке C++20 разработан программный комплекс для генерации бинарного кода Грея и выполнения полного набора операций над мультимножествами. В рамках реализации спроектирован класс \texttt{MultiSet} на базе вектора кратностей, поддержаны ручной и автоматический режимы ввода, независимая генерация кратностей элементов универсума случайными числами от 1 до 10, а также корректная обработка краевого случая пустого универсума ($n = 0$). По критерию допустимого времени генерации ($\le 5$ с) максимальная разрядность кода Грея зафиксирована равной $n = 27$ со средним временем построения, равном 3.6 секунды. Реализованы все требуемые теоретико-множественные и арифметические операции, обеспечена строгая валидация пользовательского ввода и проведено тестирование, подтвердившее надежность и корректность выполнения программы.
+	В ходе лабораторной работы на языке C++20 разработан программный комплекс для генерации бинарного кода Грея и выполнения полного набора операций над мультимножествами. В рамках реализации спроектирован класс \texttt{MultiSet} на базе вектора кратностей с поддержкой ручного и автоматического режима ввода, независимая генерация кратностей элементов универсума случайными числами от 1 до 10, а также корректная обработка краевого случая пустого универсума ($n = 0$). По критерию допустимого времени генерации ($\le 5$ с) максимальная разрядность кода Грея зафиксирована равной $n = 27$ со средним временем построения, равным 3.6 секунды. В рамках разработанного программного модуля реализованы объединение, пересечение, теоретико-множественная и симметрическая разность, дополнение, а также арифметические сумма, разность, произведение и деление.
 	
 	{\bf Достоинства реализованного решения:}
 	\begin{itemize}
 		\item Высокая скорость доступа к элементам и линейная сложность вычисления операций над мультимножеством.
-		\item Лаконичность и безопасность кода благодаря алгоритмам STL (\texttt{std::transform})
+		\item Лаконичность и безопасность кода благодаря алгоритмам STL\\ (\texttt{std::transform})
 	\end{itemize}
 	
 	{\bf Недостатки решения:}
 	\begin{itemize}
 		\item Экспоненциальный расход памяти при росте разрядности кода Грея ($N = 2^n$).
-		\item Неэффективность плотного вектора для сильно разреженных мультимножеств.
+		\item Для сильно разреженных мультимножеств использование \texttt{vector} становится неэффективным из-за большого количества нулевых кратностей.
 	\end{itemize}
 	
 	{\bf Масштабирование алгоритма:}
-	Для работы с большими универсумами ($n \ge 30$) целесообразно заменить плотный вектор ассоциативным контейнером \texttt{unordered\_map<int, int>}, реализованный на хэш-таблице и не хранящей нулевых элементов. Также для ускорения поэлементной обработки возможно применение параллельных вычислений.
+	Для работы с большими универсумами целесообразно заменить плотный вектор ассоциативным контейнером, реализованным на хэш-таблице и не хранящим нулевых элементов. Также для ускорения поэлементной обработки возможно применение параллельных вычислений.
 	
 	\newpage
 	\phantomsection
@@ -496,6 +637,7 @@
 		class MultiSet
 		{
 			std::vector<int> counts;
+			
 			public:
 			MultiSet();
 			std::vector<int>::iterator begin()
@@ -506,6 +648,10 @@
 			{
 				return counts.size();
 			}
+			void clear()
+			{
+				counts.clear();
+			}
 			std::vector<int>::iterator end()
 			{
 				return counts.end();
@@ -514,8 +660,21 @@
 			{
 				return counts[pos];
 			}
-			void resize(size_t new_size, const int val){
+			void resize(size_t new_size, const int val)
+			{
 				counts.resize(new_size, val);
+			}
+			bool isBigSize()
+			{
+				int count = 0;
+				for (size_t i = 0; i < size(); i++)
+				{
+					if (count >= 32)
+					return true;
+					if (counts[i] > 0)
+					count++;
+				}
+				return false;
 			}
 		};
 		
@@ -582,6 +741,7 @@
 	}
 	
 	// разность: A n -B
+	// A \ B = A n (not B)
 	MultiSet difference(MultiSet &A, MultiSet &B)
 	{
 		MultiSet notB = complement(B);
@@ -647,6 +807,17 @@
 	\label{appendix:C}
 	
 	\begin{lstlisting}[caption={Файл точки входа и интерфейса main.cpp}, label={lst:main_cpp}]
+	// Реализовать программу генерации бинарного кода Грея для заполнения универсума мультмножеств (заданной пользователем разрядности). На основе универсума формируются два мультимножества двумя способами заполнения - вручную и автоматически (выбирает пользователь). Мощности множеств задает пользователь. В результате на экран выводятся результаты действий над множествами: объединение, пересечение, разность (оба варианта), симметрическая разность, дополнение (оба варианта), арифметические сумма, разность, произведение и деление. Кроме того, требуется реализовать защиту от некорректного пользовательского ввода и пользовательское меню.
+	// input_number()
+	// input_sequence()
+	
+	// union()
+	// insertion()
+	// difference()
+	// sym_difference()
+	// complement()
+	// operator+()
+	
 	#include <string>
 	#include <limits>
 	#include <iostream>
@@ -700,11 +871,6 @@
 		
 		for (int i = 1; i < total_steps; i++)
 		{
-			// n=8
-			// p_index = 1
-			// B[1]
-			// B=00000000
-			// B=01000000
 			int p_index = Q(i) - 1;
 			B ^= 1 << p_index;
 			target.push_back(B);
@@ -724,21 +890,22 @@
 		if (ms.size() == 0)
 		{
 			cout << "Мультимножество пустое!\n";
+			return;
 		}
 		
 		size_t limit = u.size();
-		bool is_truncated = false;
+		bool is_truncated = ms.isBigSize();
 		
-		if (u.size() > 32)
+		if (is_truncated)
 		{
 			cout << "\nМножество слишком большое для вывода, будут выведены первые 32 элемента:\n";
 			limit = 32;
-			is_truncated = true;
 		}
 		
 		bool first = true;
 		cout << "{";
-			for (size_t i = 0; i < limit; ++i)
+			int count = 0;
+			for (size_t i = 0; count < limit && i < u.size(); ++i)
 			{
 				if (ms[i] > 0)
 				{
@@ -748,6 +915,7 @@
 					printBinary(u[i], bitrate);
 					cout << "': " << ms[i];
 					first = false;
+					count++;
 				}
 			}
 			
@@ -763,14 +931,13 @@
 	
 	long long createUniverse(MultiSet &u)
 	{
-		srand(time(nullptr));
 		u.resize(U_SIZE, 0);
 		if (U_SIZE == 0)
 		return 0;
 		long long total_capacity = 0;
 		for (int i = 0; i < U_SIZE; ++i)
 		{
-			u[i] = 1 + rand() % 10; // случайное число от 1 до 10
+			u[i] = 1 + rand() % 10;
 			total_capacity += u[i];
 		}
 		return total_capacity;
@@ -791,7 +958,7 @@
 		while (current_capacity < target_capacity)
 		{
 			cout << "\nТекущая мощность: " << current_capacity << " из " << target_capacity << "\n";
-			int idx = getValidatedInt("Выберите номер элемента для добавления (нумерация от 1): ", 1, universe.size()) - 1;
+			int idx = getValidatedInt(format("Выберите номер элемента для добавления (от {} до {}): ", 1, universe.size()), 1, universe.size()) - 1;
 			
 			int remaining_in_u = multi_universe[idx] - ms[idx];
 			if (remaining_in_u <= 0)
@@ -807,6 +974,8 @@
 			ms[idx] += count;
 			current_capacity += count;
 		}
+		
+		cout << "==============================================\n";
 	}
 	
 	void fillAutomatically(MultiSet &ms, const vector<int> &universe, int target_capacity)
@@ -815,21 +984,27 @@
 		while (current_capacity < target_capacity)
 		{
 			int idx = rand() % U_SIZE;
-			if (ms[idx] < multi_universe[idx])
-			{
-				ms[idx]++;
-				current_capacity++;
-			}
+			int max_delta = min(multi_universe[idx] - ms[idx], target_capacity - current_capacity);
+			if (max_delta <= 0)
+			continue;
+			int delta = 1 + rand() % max_delta;
+			ms[idx] += delta;
+			current_capacity += delta;
 		}
+		cout << "\nАвтоматическое заполнение выполнено! \n";
+		cout << "==============================================\n";
 	}
 	
-	int main(int argc, char const *argv[])
+	int createMultiSets(MultiSet &A, MultiSet &B, vector<int> &universe)
 	{
 		// при bitrate = 28 время вычисления кода грея составило в среднем 7.3 секунды. при 27 - 3.6 сек.
+		A.clear();
+		B.clear();
+		universe.clear();
+		multi_universe.clear();
+		U_SIZE = 0;
 		int bitrate = getValidatedInt("Введите разрядность кода Грея (0-27): ", 0, 27);
 		auto start = chrono::steady_clock::now();
-		MultiSet A, B;
-		vector<int> universe;
 		if (bitrate == 0)
 		{
 			cout << "\nУниверсум пуст (мощность равна 0). Множества A и B автоматически оставлены пустыми.\n";
@@ -842,7 +1017,6 @@
 			
 			A.resize(U_SIZE, 0);
 			B.resize(U_SIZE, 0);
-			
 			long long total_u_capacity = createUniverse(multi_universe);
 			
 			auto end = chrono::steady_clock::now();
@@ -859,9 +1033,8 @@
 			else
 			upper_capacity = total_u_capacity;
 			
+			cout << "\n\n================ Заполнение A ================\n";
 			int capacityA = getValidatedInt(format("\nВведите мощность мультимножества A (от {} до {}): ", lower_capacity, upper_capacity),
-			lower_capacity, upper_capacity);
-			int capacityB = getValidatedInt(format("\nВведите мощность мультимножества B (от {} до {}): ", lower_capacity, upper_capacity),
 			lower_capacity, upper_capacity);
 			
 			if (capacityA > 0)
@@ -872,6 +1045,11 @@
 				else
 				fillAutomatically(A, universe, capacityA);
 			}
+			
+			cout << "\n\n================ Заполнение B ================\n";
+			int capacityB = getValidatedInt(format("\nВведите мощность мультимножества B (от {} до {}): ", lower_capacity, upper_capacity),
+			lower_capacity, upper_capacity);
+			
 			if (capacityB > 0)
 			{
 				int choiceB = getValidatedInt("\nВыберите способ заполнения множества B (1 - Вручную, 2 - Автоматически): ", 1, 2);
@@ -881,7 +1059,14 @@
 				fillAutomatically(B, universe, capacityB);
 			}
 		}
-		
+		return bitrate;
+	}
+	int main(int argc, char const *argv[])
+	{
+		srand(time(nullptr));
+		MultiSet A, B;
+		vector<int> universe;
+		int bitrate = createMultiSets(A, B, universe);
 		while (true)
 		{
 			cout << "\n\n================ Главное меню ================\n";
@@ -902,8 +1087,21 @@
 			
 			if (menuChoice == 0)
 			{
-				cout << "Программа завершена.\n";
-				break;
+				cout << "\n\n========== Вы хотите начать заново? ==========\n";
+				cout << "0. Выход\n";
+				cout << "1. Начать заново\n";
+				cout << "==============================================\n";
+				menuChoice = getValidatedInt("Выберите действие: ", 0, 1);
+				if (menuChoice == 1)
+				{
+					bitrate = createMultiSets(A, B, universe);
+					continue;
+				}
+				else
+				{
+					cout << "Программа завершена.\n";
+					break;
+				}
 			}
 			
 			MultiSet result;
@@ -984,7 +1182,6 @@
 		
 		return 0;
 	}
-	
 	\end{lstlisting}
 	
 	\clearpage

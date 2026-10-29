@@ -3,20 +3,21 @@
 \contentsline {section}{\numberline {1}Математическое описание}{5}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Понятие множества, мультимножества и универсума}{5}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Теоретико-множественные и арифметические операции}{6}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3}Алгоритм генерации бинарного кода Грея}{8}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.3}Алгоритм генерации бинарного кода Грея}{7}{subsection.1.3}%
 \contentsline {section}{\numberline {2}Особенности реализации}{9}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Архитектура программного комплекса и структуры данных}{9}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Спецификация функций и методов}{9}{subsection.2.2}%
-\contentsline {section}{\numberline {3}Результаты работы}{14}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Сценарий 1. Тестирование краевого случая: пустой универсум ($n = 0$)}{14}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Сценарий 2. Тестирование защиты от некорректного пользовательского ввода}{16}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Сценарий 3. Генерация универсума и заполнение мультимножеств}{17}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Сценарий 4. Проверка теоретико-множественных операций (пункты меню 2--6)}{18}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}Сценарий 5. Проверка арифметических операций \\ (пункты меню 7--10)}{20}{subsection.3.5}%
-\contentsline {subsection}{\numberline {3.6}Сценарий 6. Тестирование при большой разрядности и ограничение вывода}{22}{subsection.3.6}%
-\contentsline {section}{Заключение}{23}{section*.3}%
-\contentsline {section}{Список литературы.}{24}{section*.4}%
-\contentsline {section}{Приложение А. Заголовочный файл MultiSet.hpp}{25}{section*.6}%
-\contentsline {section}{Приложение Б. Файл реализации MultiSet.cpp}{27}{section*.7}%
-\contentsline {section}{Приложение В. Файл точки входа и интерфейса main.cpp}{30}{section*.8}%
-\contentsline {section}{Приложение Г. Скрипт сборки CMakeLists.txt}{38}{section*.9}%
+\contentsline {section}{\numberline {3}Результаты работы}{17}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Сценарий 1. Пустой универсум ($n = 0$)}{17}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Сценарий 2. Некорректный пользовательский ввод}{18}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Сценарий 3. Генерация универсума и заполнение мультимножеств}{19}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Сценарий 4. Теоретико-множественные операции (пункты меню 2--6)}{22}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Сценарий 5. Арифметические операции \\ (пункты меню 7--10)}{24}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Сценарий 6. Большая разрядность кода грея и ограничение вывода}{26}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}Сценарий 7. Заполнение мультимножеств по новой}{26}{subsection.3.7}%
+\contentsline {section}{Заключение}{28}{section*.7}%
+\contentsline {section}{Список литературы.}{29}{section*.8}%
+\contentsline {section}{Приложение А. Заголовочный файл MultiSet.hpp}{30}{section*.10}%
+\contentsline {section}{Приложение Б. Файл реализации MultiSet.cpp}{32}{section*.11}%
+\contentsline {section}{Приложение В. Файл точки входа и интерфейса main.cpp}{35}{section*.12}%
+\contentsline {section}{Приложение Г. Скрипт сборки CMakeLists.txt}{44}{section*.13}%

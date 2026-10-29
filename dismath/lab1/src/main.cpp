@@ -179,7 +179,6 @@ void fillAutomatically(MultiSet &ms, const vector<int> &universe, int target_cap
         if (max_delta <= 0)
             continue;
         int delta = 1 + rand() % max_delta;
-        cout << delta << " ";
         ms[idx] += delta;
         current_capacity += delta;
     }
