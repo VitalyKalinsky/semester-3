@@ -10,12 +10,12 @@ MyWidget::MyWidget(QWidget *parent) : QWidget(parent)
 
     QFont font = helloLabel->font();
     font.setPointSize(20);
+    
     helloLabel->setFont(font);
-
     helloLabel->setGeometry(100, 70, 200, 45);
 
     exitButton = new QPushButton("Выход", this);
     exitButton->setGeometry(100, 160, 150, 40);
 
-    connect(exitButton, &QPushButton::clicked, qApp, &QApplication::quit);
+    connect(exitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
 }
