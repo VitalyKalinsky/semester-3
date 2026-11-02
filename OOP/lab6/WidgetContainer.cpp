@@ -14,7 +14,7 @@
 
 WidgetContainer::WidgetContainer(QWidget *parent) : QWidget(parent)
 {
-    this->setWindowTitle("Dynamic Widgets MetaObject Connector");
+    this->setWindowTitle("Соединитель штучек");
     this->setFixedSize(500, 600);
     auto *mainLayout = new QVBoxLayout(this);
 
@@ -27,6 +27,9 @@ WidgetContainer::WidgetContainer(QWidget *parent) : QWidget(parent)
 
     m_btnAdd = new QPushButton("Добавить виджет", this);
     mainLayout->addWidget(m_btnAdd);
+
+    m_btnRemove = new QPushButton("Удалить последний виджет", this);
+    mainLayout->addWidget(m_btnRemove);
 
     m_btnConnect = new QPushButton("Соединить все виджеты", this);
     mainLayout->addWidget(m_btnConnect);
@@ -46,6 +49,7 @@ WidgetContainer::WidgetContainer(QWidget *parent) : QWidget(parent)
     mainLayout->addWidget(scrollArea);
 
     connect(m_btnAdd, SIGNAL(clicked()), this, SLOT(addWidgetDynamically()));
+    connect(m_btnRemove, SIGNAL(clicked()), this, SLOT(removeLastWidget()));
     connect(m_btnConnect, SIGNAL(clicked()), this, SLOT(connectAllWidgets()));
     connect(m_btnDebug, SIGNAL(clicked()), this, SLOT(debugCheckConnections()));
 }
@@ -99,9 +103,34 @@ void WidgetContainer::addWidgetDynamically()
              << "\tTotal widgets:" << m_widgets.size();
 }
 
+void WidgetContainer::removeLastWidget()
+{
+    if (m_widgets.isEmpty())
+        return;
+
+    delete m_widgets.takeLast();
+}
+
 void WidgetContainer::connectAllWidgets()
 {
     qDebug() << "\n>>> Connecting widgets...";
+
+    int maxValue = 0;
+    for (QWidget *w : m_widgets)
+    {
+        int val = qobject_cast<QLabel *>(w) ? qobject_cast<QLabel *>(w)->text().toInt()
+                                            : w->property("value").toInt();
+        if (val > maxValue)
+            maxValue = val;
+    }
+
+    for (QWidget *w : m_widgets)
+    {
+        if (auto *lbl = qobject_cast<QLabel *>(w))
+            lbl->setNum(maxValue);
+        else
+            w->setProperty("value", maxValue);
+    }
 
     for (int i = 0; i < m_widgets.size(); ++i)
     {
