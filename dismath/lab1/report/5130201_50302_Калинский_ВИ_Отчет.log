@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.9.9)  29 OCT 2026 13:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.9.9)  2 NOV 2026 18:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1256,7 +1256,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `5130201_50302_Калинский_ВИ_Отч
 ет.out' has not changed.
-(rerunfilecheck)             Checksum: DBAFC9C77FE4236109443D8767CBC69E;7806.
+(rerunfilecheck)             Checksum: 0465C0886207A91CF3812B704C4ED3F7;7814.
  ) 
 Here is how much of TeX's memory you used:
  16423 strings out of 468133
@@ -1288,9 +1288,9 @@ r17.pfb><D:/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Program
 s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Programs/MiKTeX/fonts/ty
 pe1/public/amsfonts/symbols/msbm10.pfb>
 Output written on 5130201_50302_Калинский_ВИ_Отчет.pdf (44 page
-s, 687490 bytes).
+s, 686928 bytes).
 PDF statistics:
- 1817 PDF objects out of 2073 (max. 8388607)
+ 1816 PDF objects out of 2073 (max. 8388607)
  701 named destinations out of 1000 (max. 500000)
  217 words of extra memory for PDF output out of 10000 (max. 10000000)
 

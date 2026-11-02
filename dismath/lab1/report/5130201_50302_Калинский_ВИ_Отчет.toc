@@ -14,7 +14,7 @@
 \contentsline {subsection}{\numberline {3.4}Сценарий 4. Теоретико-множественные операции (пункты меню 2--6)}{22}{subsection.3.4}%
 \contentsline {subsection}{\numberline {3.5}Сценарий 5. Арифметические операции \\ (пункты меню 7--10)}{24}{subsection.3.5}%
 \contentsline {subsection}{\numberline {3.6}Сценарий 6. Большая разрядность кода грея и ограничение вывода}{26}{subsection.3.6}%
-\contentsline {subsection}{\numberline {3.7}Сценарий 7. Заполнение мультимножеств по новой}{26}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.7}Сценарий 7. Повторное заполнение мультимножеств}{26}{subsection.3.7}%
 \contentsline {section}{Заключение}{28}{section*.7}%
 \contentsline {section}{Список литературы.}{29}{section*.8}%
 \contentsline {section}{Приложение А. Заголовочный файл MultiSet.hpp}{30}{section*.10}%
