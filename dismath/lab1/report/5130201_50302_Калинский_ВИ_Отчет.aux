@@ -15,47 +15,99 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2}Особенности реализации}{9}{section.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Архитектура программного комплекса и структуры данных}{9}{subsection.2.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Спецификация функций и методов}{9}{subsection.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3}Результаты работы}{17}{section.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Сценарий 1. Пустой универсум ($n = 0$)}{17}{subsection.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Работа программы в режиме нулевой разрядности кода Грея ($n = 0$)}}{18}{figure.1}\protected@file@percent }
-\newlabel{fig:empty_universe}{{1}{18}{Работа программы в режиме нулевой разрядности кода Грея ($n = 0$)}{figure.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Сценарий 2. Некорректный пользовательский ввод}{18}{subsection.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Отработка защиты от некорректного пользовательского ввода}}{19}{figure.2}\protected@file@percent }
-\newlabel{fig:validation}{{2}{19}{Отработка защиты от некорректного пользовательского ввода}{figure.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Сценарий 3. Генерация универсума и заполнение мультимножеств}{19}{subsection.3.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Протокол генерации универсума и наполнения мультимножеств A и B}}{21}{figure.3}\protected@file@percent }
-\newlabel{fig:filling}{{3}{21}{Протокол генерации универсума и наполнения мультимножеств A и B}{figure.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Сценарий 4. Теоретико-множественные операции (пункты меню 2--6)}{22}{subsection.3.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Результаты выполнения теоретико-множественных операций (пункты меню 2--4)}}{23}{figure.4}\protected@file@percent }
-\newlabel{fig:set_ops1}{{4}{23}{Результаты выполнения теоретико-множественных операций (пункты меню 2--4)}{figure.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Результаты выполнения теоретико-множественных операций (пункты меню 5 и 6)}}{24}{figure.5}\protected@file@percent }
-\newlabel{fig:set_ops2}{{5}{24}{Результаты выполнения теоретико-множественных операций (пункты меню 5 и 6)}{figure.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Сценарий 5. Арифметические операции \\ (пункты меню 7--10)}{24}{subsection.3.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Результаты выполнения арифметических операций (пункты меню 7--10)}}{25}{figure.6}\protected@file@percent }
-\newlabel{fig:arithmetic_ops}{{6}{25}{Результаты выполнения арифметических операций (пункты меню 7--10)}{figure.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Сценарий 6. Большая разрядность кода грея и ограничение вывода}{26}{subsection.3.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Ограничение вывода до 32 элементов и замер времени генерации при больших $n$}}{26}{figure.7}\protected@file@percent }
-\newlabel{fig:large_universe}{{7}{26}{Ограничение вывода до 32 элементов и замер времени генерации при больших $n$}{figure.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.7}Сценарий 7. Повторное заполнение мультимножеств}{26}{subsection.3.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Новое заполнение мультимножеств}}{27}{figure.8}\protected@file@percent }
-\newlabel{fig:retry_sets}{{8}{27}{Новое заполнение мультимножеств}{figure.8}{}}
-\@writefile{toc}{\contentsline {section}{Заключение}{28}{section*.7}\protected@file@percent }
+\newlabel{lst:multiset_begin}{{1}{10}{Метод MultiSet::begin()}{lstlisting.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}Метод MultiSet::begin()}{10}{lstlisting.1}\protected@file@percent }
+\newlabel{lst:multiset_end}{{2}{10}{Метод MultiSet::end()}{lstlisting.2}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}Метод MultiSet::end()}{10}{lstlisting.2}\protected@file@percent }
+\newlabel{lst:multiset_size}{{3}{10}{Метод MultiSet::size()}{lstlisting.3}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}Метод MultiSet::size()}{10}{lstlisting.3}\protected@file@percent }
+\newlabel{lst:multiset_clear}{{4}{11}{Метод MultiSet::clear()}{lstlisting.4}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}Метод MultiSet::clear()}{11}{lstlisting.4}\protected@file@percent }
+\newlabel{lst:multiset_op_index}{{5}{11}{Оператор MultiSet::operator{[]}}{lstlisting.5}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5}Оператор MultiSet::operator{[]}}{11}{lstlisting.5}\protected@file@percent }
+\newlabel{lst:multiset_resize}{{6}{11}{Метод MultiSet::resize()}{lstlisting.6}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {6}Метод MultiSet::resize()}{11}{lstlisting.6}\protected@file@percent }
+\newlabel{lst:multiset_isbigsize}{{7}{12}{Метод MultiSet::isBigSize()}{lstlisting.7}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {7}Метод MultiSet::isBigSize()}{12}{lstlisting.7}\protected@file@percent }
+\newlabel{lst:func_q}{{8}{12}{Функция Q(int i)}{lstlisting.8}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {8}Функция Q(int i)}{12}{lstlisting.8}\protected@file@percent }
+\newlabel{lst:func_generate_gray_code}{{9}{13}{Функция generateGrayCode()}{lstlisting.9}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {9}Функция generateGrayCode()}{13}{lstlisting.9}\protected@file@percent }
+\newlabel{lst:func_get_validated_int}{{10}{14}{Функция getValidatedInt()}{lstlisting.10}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {10}Функция getValidatedInt()}{14}{lstlisting.10}\protected@file@percent }
+\newlabel{lst:func_create_universe}{{11}{14}{Функция createUniverse()}{lstlisting.11}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {11}Функция createUniverse()}{14}{lstlisting.11}\protected@file@percent }
+\newlabel{lst:func_print_binary}{{12}{15}{Функция printBinary()}{lstlisting.12}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {12}Функция printBinary()}{15}{lstlisting.12}\protected@file@percent }
+\newlabel{lst:func_print_multiset}{{13}{15}{Функция printMultiSet()}{lstlisting.13}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {13}Функция printMultiSet()}{15}{lstlisting.13}\protected@file@percent }
+\newlabel{lst:func_fill_manually}{{14}{17}{Функция fillManually()}{lstlisting.14}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {14}Функция fillManually()}{17}{lstlisting.14}\protected@file@percent }
+\newlabel{lst:func_fill_automatically}{{15}{18}{Функция fillAutomatically()}{lstlisting.15}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {15}Функция fillAutomatically()}{18}{lstlisting.15}\protected@file@percent }
+\newlabel{lst:func_create_multisets}{{16}{18}{Функция createMultiSets()}{lstlisting.16}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {16}Функция createMultiSets()}{18}{lstlisting.16}\protected@file@percent }
+\newlabel{lst:func_uni}{{17}{20}{Функция uni()}{lstlisting.17}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {17}Функция uni()}{20}{lstlisting.17}\protected@file@percent }
+\newlabel{lst:func_insertion}{{18}{21}{Функция insertion()}{lstlisting.18}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {18}Функция insertion()}{21}{lstlisting.18}\protected@file@percent }
+\newlabel{lst:func_complement}{{19}{21}{Функция complement()}{lstlisting.19}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {19}Функция complement()}{21}{lstlisting.19}\protected@file@percent }
+\newlabel{lst:func_difference}{{20}{21}{Функция difference()}{lstlisting.20}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {20}Функция difference()}{21}{lstlisting.20}\protected@file@percent }
+\newlabel{lst:func_sym_difference}{{21}{22}{Функция sym\_difference()}{lstlisting.21}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {21}Функция sym\_difference()}{22}{lstlisting.21}\protected@file@percent }
+\newlabel{lst:func_op_plus}{{22}{22}{Оператор operator+}{lstlisting.22}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {22}Оператор operator+}{22}{lstlisting.22}\protected@file@percent }
+\newlabel{lst:func_op_minus}{{23}{23}{Оператор operator-}{lstlisting.23}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {23}Оператор operator-}{23}{lstlisting.23}\protected@file@percent }
+\newlabel{lst:func_op_mul}{{24}{23}{Оператор operator*}{lstlisting.24}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {24}Оператор operator*}{23}{lstlisting.24}\protected@file@percent }
+\newlabel{lst:func_op_div}{{25}{24}{Оператор operator/}{lstlisting.25}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {25}Оператор operator/}{24}{lstlisting.25}\protected@file@percent }
+\newlabel{lst:func_main}{{26}{24}{Функция main()}{lstlisting.26}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {26}Функция main()}{24}{lstlisting.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Результаты работы}{28}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Сценарий 1. Пустой универсум ($n = 0$)}{28}{subsection.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Работа программы в режиме нулевой разрядности кода Грея ($n = 0$)}}{29}{figure.1}\protected@file@percent }
+\newlabel{fig:empty_universe}{{1}{29}{Работа программы в режиме нулевой разрядности кода Грея ($n = 0$)}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Сценарий 2. Некорректный пользовательский ввод}{29}{subsection.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Отработка защиты от некорректного пользовательского ввода}}{30}{figure.2}\protected@file@percent }
+\newlabel{fig:validation}{{2}{30}{Отработка защиты от некорректного пользовательского ввода}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Сценарий 3. Генерация универсума и заполнение мультимножеств}{30}{subsection.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Протокол генерации универсума и наполнения мультимножеств A и B}}{32}{figure.3}\protected@file@percent }
+\newlabel{fig:filling}{{3}{32}{Протокол генерации универсума и наполнения мультимножеств A и B}{figure.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Сценарий 4. Теоретико-множественные операции (пункты меню 2--6)}{33}{subsection.3.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Результаты выполнения теоретико-множественных операций (пункты меню 2--4)}}{34}{figure.4}\protected@file@percent }
+\newlabel{fig:set_ops1}{{4}{34}{Результаты выполнения теоретико-множественных операций (пункты меню 2--4)}{figure.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Результаты выполнения теоретико-множественных операций (пункты меню 5 и 6)}}{35}{figure.5}\protected@file@percent }
+\newlabel{fig:set_ops2}{{5}{35}{Результаты выполнения теоретико-множественных операций (пункты меню 5 и 6)}{figure.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Сценарий 5. Арифметические операции \\ (пункты меню 7--10)}{35}{subsection.3.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Результаты выполнения арифметических операций (пункты меню 7--10)}}{36}{figure.6}\protected@file@percent }
+\newlabel{fig:arithmetic_ops}{{6}{36}{Результаты выполнения арифметических операций (пункты меню 7--10)}{figure.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Сценарий 6. Большая разрядность кода грея и ограничение вывода}{37}{subsection.3.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Ограничение вывода до 32 элементов и замер времени генерации при больших $n$}}{37}{figure.7}\protected@file@percent }
+\newlabel{fig:large_universe}{{7}{37}{Ограничение вывода до 32 элементов и замер времени генерации при больших $n$}{figure.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.7}Сценарий 7. Повторное заполнение мультимножеств}{37}{subsection.3.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Новое заполнение мультимножеств}}{38}{figure.8}\protected@file@percent }
+\newlabel{fig:retry_sets}{{8}{38}{Новое заполнение мультимножеств}{figure.8}{}}
+\@writefile{toc}{\contentsline {section}{Заключение}{39}{section*.7}\protected@file@percent }
 \bibcite{novikov}{1}
-\@writefile{toc}{\contentsline {section}{Список литературы.}{29}{section*.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{Приложение А. Заголовочный файл MultiSet.hpp}{30}{section*.10}\protected@file@percent }
-\newlabel{appendix:A}{{3.7}{30}{Сценарий 7. Повторное заполнение мультимножеств}{section*.10}{}}
-\newlabel{lst:multiset_hpp}{{1}{30}{Заголовочный файл MultiSet.hpp}{lstlisting.1}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}Заголовочный файл MultiSet.hpp}{30}{lstlisting.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{Приложение Б. Файл реализации MultiSet.cpp}{32}{section*.11}\protected@file@percent }
-\newlabel{appendix:B}{{3.7}{32}{Сценарий 7. Повторное заполнение мультимножеств}{section*.11}{}}
-\newlabel{lst:multiset_cpp}{{2}{32}{Файл реализации MultiSet.cpp}{lstlisting.2}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}Файл реализации MultiSet.cpp}{32}{lstlisting.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{Приложение В. Файл точки входа и интерфейса main.cpp}{35}{section*.12}\protected@file@percent }
-\newlabel{appendix:C}{{3.7}{35}{Сценарий 7. Повторное заполнение мультимножеств}{section*.12}{}}
-\newlabel{lst:main_cpp}{{3}{35}{Файл точки входа и интерфейса main.cpp}{lstlisting.3}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}Файл точки входа и интерфейса main.cpp}{35}{lstlisting.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{Приложение Г. Скрипт сборки CMakeLists.txt}{44}{section*.13}\protected@file@percent }
-\newlabel{appendix:D}{{3.7}{44}{Сценарий 7. Повторное заполнение мультимножеств}{section*.13}{}}
-\newlabel{lst:cmakelists}{{4}{44}{Скрипт сборки CMakeLists.txt}{lstlisting.4}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}Скрипт сборки CMakeLists.txt}{44}{lstlisting.4}\protected@file@percent }
-\gdef \@abspage@last{44}
+\@writefile{toc}{\contentsline {section}{Список литературы.}{40}{section*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Приложение А. Заголовочный файл MultiSet.hpp}{41}{section*.10}\protected@file@percent }
+\newlabel{appendix:A}{{3.7}{41}{Сценарий 7. Повторное заполнение мультимножеств}{section*.10}{}}
+\newlabel{lst:multiset_hpp}{{27}{41}{Заголовочный файл MultiSet.hpp}{lstlisting.27}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {27}Заголовочный файл MultiSet.hpp}{41}{lstlisting.27}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Приложение Б. Файл реализации MultiSet.cpp}{43}{section*.11}\protected@file@percent }
+\newlabel{appendix:B}{{3.7}{43}{Сценарий 7. Повторное заполнение мультимножеств}{section*.11}{}}
+\newlabel{lst:multiset_cpp}{{28}{43}{Файл реализации MultiSet.cpp}{lstlisting.28}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {28}Файл реализации MultiSet.cpp}{43}{lstlisting.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Приложение В. Файл точки входа и интерфейса main.cpp}{46}{section*.12}\protected@file@percent }
+\newlabel{appendix:C}{{3.7}{46}{Сценарий 7. Повторное заполнение мультимножеств}{section*.12}{}}
+\newlabel{lst:main_cpp}{{29}{46}{Файл точки входа и интерфейса main.cpp}{lstlisting.29}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {29}Файл точки входа и интерфейса main.cpp}{46}{lstlisting.29}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Приложение Г. Скрипт сборки CMakeLists.txt}{55}{section*.13}\protected@file@percent }
+\newlabel{appendix:D}{{3.7}{55}{Сценарий 7. Повторное заполнение мультимножеств}{section*.13}{}}
+\newlabel{lst:cmakelists}{{30}{55}{Скрипт сборки CMakeLists.txt}{lstlisting.30}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {30}Скрипт сборки CMakeLists.txt}{55}{lstlisting.30}\protected@file@percent }
+\gdef \@abspage@last{55}

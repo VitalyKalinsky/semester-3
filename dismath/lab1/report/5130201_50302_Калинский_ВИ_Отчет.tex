@@ -276,19 +276,18 @@
 	
 	\subsubsection*{Методы класса MultiSet}
 	\begin{enumerate}[label=\arabic*.]
-		\item Конструктор \textbf{\texttt{MultiSet::MultiSet()}}
-		\begin{itemize}[leftmargin=*, noitemsep]
-			\item \textbf{Вход:} инициализация параметров функции.
-			\item \textbf{Выход:} инициализированный объект класса \texttt{MultiSet}.
-			\item \textbf{Описание:} конструктор по умолчанию; выделяет непрерывный блок памяти под вектор кратностей \texttt{counts} размера \texttt{U\_SIZE} и заполняет его нулями.
-		\end{itemize}
-		
 		\item \textbf{\texttt{std::vector<int>::iterator MultiSet::begin()}}
 		\begin{itemize}[leftmargin=*, noitemsep]
 			\item \textbf{Вход:} инициализация параметров функции.
 			\item \textbf{Выход:} итератор на начало вектора кратностей \texttt{counts}.
 			\item \textbf{Описание:} возвращает начальный итератор вектора кратностей.
 		\end{itemize}
+		\begin{lstlisting}[caption={Метод MultiSet::begin()}, label={lst:multiset_begin}]
+std::vector<int>::iterator begin()
+{
+    return counts.begin();
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{std::vector<int>::iterator MultiSet::end()}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -296,6 +295,12 @@
 			\item \textbf{Выход:} итератор на позицию за последним элементом вектора кратностей.
 			\item \textbf{Описание:} возвращает конечный итератор вектора кратностей.
 		\end{itemize}
+		\begin{lstlisting}[caption={Метод MultiSet::end()}, label={lst:multiset_end}]
+std::vector<int>::iterator end()
+{
+    return counts.end();
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{int MultiSet::size()}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -303,6 +308,12 @@
 			\item \textbf{Выход:} целое число типа \texttt{int} -- размер вектора кратностей.
 			\item \textbf{Описание:} возвращает физическое количество ячеек во внутреннем векторе \texttt{counts}, равное мощности носителя универсума.
 		\end{itemize}
+		\begin{lstlisting}[caption={Метод MultiSet::size()}, label={lst:multiset_size}]
+int size()
+{
+    return counts.size();
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{void MultiSet::clear()}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -310,6 +321,12 @@
 			\item \textbf{Выход:} отсутствует (\texttt{void}).
 			\item \textbf{Описание:} полностью очищает внутренний вектор кратностей \texttt{counts}, обнуляя его размер.
 		\end{itemize}
+		\begin{lstlisting}[caption={Метод MultiSet::clear()}, label={lst:multiset_clear}]
+void clear()
+{
+    counts.clear();
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{int\& MultiSet::operator[](size\_t pos)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -317,6 +334,12 @@
 			\item \textbf{Выход:} ссылка \texttt{int\&} на значение кратности элемента.
 			\item \textbf{Описание:} предоставляет прямой доступ по индексу к кратности элемента мультимножества для чтения и модификации.
 		\end{itemize}
+		\begin{lstlisting}[caption={Оператор MultiSet::operator{[]}}, label={lst:multiset_op_index}]
+int &operator[](size_t pos)
+{
+    return counts[pos];
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{void MultiSet::resize(size\_t new\_size, const int val)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -324,6 +347,12 @@
 			\item \textbf{Выход:} изменение внутреннего вектора кратностей.
 			\item \textbf{Описание:} перераспределяет память контейнера под размер \texttt{new\_size}, заполняя новые ячейки значением \texttt{val}.
 		\end{itemize}
+		\begin{lstlisting}[caption={Метод MultiSet::resize()}, label={lst:multiset_resize}]
+void resize(size_t new_size, const int val)
+{
+    counts.resize(new_size, val);
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{bool MultiSet::isBigSize()}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -331,6 +360,20 @@
 			\item \textbf{Выход:} превышает ли количество ненулевых кратностей 32 (тип bool).
 			\item \textbf{Описание:} выполняет подсчет элементов с ненулевой кратностью ($\alpha_i > 0$); если их количество превышает либо равно 32, возвращает \texttt{true}, инициируя безопасное усечение консольного вывода.
 		\end{itemize}
+		\begin{lstlisting}[caption={Метод MultiSet::isBigSize()}, label={lst:multiset_isbigsize}]
+bool isBigSize()
+{
+    int count = 0;
+    for (size_t i = 0; i < size(); i++)
+    {
+        if (count >= 32)
+            return true;
+        if (counts[i] > 0)
+            count++;
+    }
+    return false;
+}
+		\end{lstlisting}
 	\end{enumerate}
 	
 	\subsubsection*{Функции генерации, кодирования и валидации}
@@ -341,6 +384,19 @@
 			\item \textbf{Выход:} целое число $q \ge 1$ -- номер позиции младшей единицы.
 			\item \textbf{Описание:} определяет номер позиции младшей единицы (начиная с 1) в двоичном представлении числа $i$ путём циклического деления на 2 до получения нечетного остатка.
 		\end{itemize}
+		\begin{lstlisting}[caption={Функция Q(int i)}, label={lst:func_q}]
+int Q(int i)
+{
+    int q = 1;
+    int j = i;
+    while (j % 2 == 0)
+    {
+        j = j / 2;
+        q = q + 1;
+    }
+    return q;
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{void generateGrayCode(int n, vector<int> \&target)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -348,6 +404,23 @@
 			\item \textbf{Выход:} заполненный вектор кодовых слов \texttt{target} длины $2^n$.
 			\item \textbf{Описание:} формирует $n$-разрядную последовательность бинарного кода Грея, начиная с 0 и инвертируя бит с индексом $Q(i) - 1$ на каждом $i$-м шаге.
 		\end{itemize}
+		\begin{lstlisting}[caption={Функция generateGrayCode()}, label={lst:func_generate_gray_code}]
+void generateGrayCode(int n, vector<int> &target)
+{
+    target.clear();
+    int B = 0;
+    target.push_back(B);
+
+    int total_steps = 1 << n;
+
+    for (int i = 1; i < total_steps; i++)
+    {
+        int p_index = Q(i) - 1;
+        B ^= 1 << p_index;
+        target.push_back(B);
+    }
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{int getValidatedInt(const string \&prompt, int min\_val, int max\_val)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -355,6 +428,24 @@
 			\item \textbf{Выход:} целое число типа \texttt{int} от пользователя.
 			\item \textbf{Описание:} выводит приглашение, считывает число и проверяет, попадает ли значение в диапазон $[\text{min\_val}, \text{max\_val}]$; в случае некорректного ввода очищает буфер и запрашивает число повторно.
 		\end{itemize}
+		\begin{lstlisting}[caption={Функция getValidatedInt()}, label={lst:func_get_validated_int}]
+int getValidatedInt(const string &prompt = "", int min_val = 0, int max_val = numeric_limits<int>::max())
+{
+    int value;
+    while (true)
+    {
+        cout << prompt;
+        if (cin >> value && value >= min_val && value <= max_val)
+        {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return value;
+        }
+        cout << "Ошибка ввода! Пожалуйста, введите корректное число от " << min_val << " до " << max_val << ".\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{long long createUniverse(MultiSet \&u)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -362,6 +453,21 @@
 			\item \textbf{Выход:} суммарная ёмкость универсума типа \texttt{long long}.
 			\item \textbf{Описание:} изменяет размер контейнера \texttt{u} под \texttt{U\_SIZE} $=2^N$ и заполняет кратность каждого элемента случайным числом от 1 до 10.
 		\end{itemize}
+		\begin{lstlisting}[caption={Функция createUniverse()}, label={lst:func_create_universe}]
+long long createUniverse(MultiSet &u)
+{
+    u.resize(U_SIZE, 0);
+    if (U_SIZE == 0)
+        return 0;
+    long long total_capacity = 0;
+    for (int i = 0; i < U_SIZE; ++i)
+    {
+        u[i] = 1 + rand() % 10;
+        total_capacity += u[i];
+    }
+    return total_capacity;
+}
+		\end{lstlisting}
 	\end{enumerate}
 	
 	\subsubsection*{Функции консольного отображения и наполнения множеств}
@@ -372,6 +478,15 @@
 			\item \textbf{Выход:} прямой вывод в выходной поток .
 			\item \textbf{Описание:} побитово выводит целое число в двоичном формате заданной разрядности.
 		\end{itemize}
+		\begin{lstlisting}[caption={Функция printBinary()}, label={lst:func_print_binary}]
+void printBinary(int code, int bitrate)
+{
+    for (int i = bitrate - 1; i >= 0; i--)
+    {
+        cout << ((code >> i) & 1);
+    }
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{void printMultiSet(MultiSet \&ms, const vector<int> \\ \&u, int bitrate)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -379,6 +494,51 @@
 			\item \textbf{Выход:} прямой вывод в поток \texttt{std::cout}.
 			\item \textbf{Описание:} выводит элементы с ненулевой кратностью в виде пар вида \texttt{'код': кратность}; при срабатывании метода \texttt{ms.isBigSize()} выводит первые 32 ненулевых элемента и символ многоточия.
 		\end{itemize}
+		\begin{lstlisting}[caption={Функция printMultiSet()}, label={lst:func_print_multiset}]
+void printMultiSet(MultiSet &ms, const vector<int> &u, int bitrate)
+{
+    if (ms.size() == 0)
+    {
+        cout << "Мультимножество пустое!\n";
+        return;
+    }
+
+    size_t limit = u.size();
+    bool is_truncated = ms.isBigSize();
+
+    if (is_truncated)
+    {
+        cout << "\nМножество слишком большое для вывода, будут выведены первые 32 элемента:\n";
+        limit = 32;
+    }
+
+    bool first = true;
+    cout << "{";
+    int count = 0;
+    for (size_t i = 0; count < limit && i < u.size(); ++i)
+    {
+        if (ms[i] > 0)
+        {
+            if (!first)
+                cout << ", ";
+            cout << "'";
+            printBinary(u[i], bitrate);
+            cout << "': " << ms[i];
+            first = false;
+            count++;
+        }
+    }
+
+    if (is_truncated)
+    {
+        if (!first)
+            cout << ", ...";
+        else
+            cout << "...";
+    }
+    cout << "}\n";
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{void fillManually(MultiSet \&ms, const vector<int> \&universe, int bitrate, int target\_capacity)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -386,6 +546,42 @@
 			\item \textbf{Выход:} модифицированное мультимножество \texttt{ms}.
 			\item \textbf{Описание:} поэлементный выбор элементов по номеру и ввод кратностей с контролем остатка емкости каждого элемента в универсуме $U$.
 		\end{itemize}
+		\begin{lstlisting}[caption={Функция fillManually()}, label={lst:func_fill_manually}]
+void fillManually(MultiSet &ms, const vector<int> &universe, int bitrate, int target_capacity)
+{
+    int current_capacity = 0;
+
+    cout << "\nДоступные элементы универсума (код и максимальная кратность в U):\n";
+    for (int i = 0; i < universe.size(); ++i)
+    {
+        cout << i + 1 << ". [";
+        printBinary(universe[i], bitrate);
+        cout << "] — кратность в U: " << multi_universe[i] << "\n";
+    }
+
+    while (current_capacity < target_capacity)
+    {
+        cout << "\nТекущая мощность: " << current_capacity << " из " << target_capacity << "\n";
+        int idx = getValidatedInt(format("Выберите номер элемента для добавления (от {} до {}): ", 1, universe.size()), 1, universe.size()) - 1;
+
+        int remaining_in_u = multi_universe[idx] - ms[idx];
+        if (remaining_in_u <= 0)
+        {
+            cout << "Этот элемент недоступен (оставшаяся ёмкость в универсуме равна 0). Выберите другой элемент.\n";
+            continue;
+        }
+
+        int max_allowed = min(remaining_in_u, target_capacity - current_capacity);
+        string prompt = format("Введите кратность от 1 до {} (оставшаяся ёмкость в U: {}): ", max_allowed, remaining_in_u);
+        int count = getValidatedInt(prompt, 1, max_allowed);
+
+        ms[idx] += count;
+        current_capacity += count;
+    }
+
+    cout << "==============================================\n";
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{void fillAutomatically(MultiSet \&ms, const vector<int> \&universe, int target\_capacity)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -393,6 +589,24 @@
 			\item \textbf{Выход:} модифицированное мультимножество \texttt{ms}.
 			\item \textbf{Описание:} генерирует наполнение мультимножества, добавляя случайное число к $\Delta \in [1, \min(m_i - \alpha_i, \text{rem})]$ к случайному элементу мультимножества \texttt{ms} до достижения целевой мощности.
 		\end{itemize}
+		\begin{lstlisting}[caption={Функция fillAutomatically()}, label={lst:func_fill_automatically}]
+void fillAutomatically(MultiSet &ms, const vector<int> &universe, int target_capacity)
+{
+    int current_capacity = 0;
+    while (current_capacity < target_capacity)
+    {
+        int idx = rand() % U_SIZE;
+        int max_delta = min(multi_universe[idx] - ms[idx], target_capacity - current_capacity);
+        if (max_delta <= 0)
+            continue;
+        int delta = 1 + rand() % max_delta;
+        ms[idx] += delta;
+        current_capacity += delta;
+    }
+    cout << "\nАвтоматическое заполнение выполнено! \n";
+    cout << "==============================================\n";
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{int createMultiSets(MultiSet \&A, MultiSet \&B, \\ vector<int> \&universe)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -400,6 +614,74 @@
 			\item \textbf{Выход:} выбранная разрядность кода Грея \texttt{bitrate} типа \texttt{int}.
 			\item \textbf{Описание:} выполняет полный цикл начальной инициализации: очищает контейнеры, сбрасывает размер \texttt{U\_SIZE}, запрашивает разрядность $n$, генерирует код Грея и универсум $U$, после чего запускает процедуры заполнения множеств $A$ и $B$.
 		\end{itemize}
+		\begin{lstlisting}[caption={Функция createMultiSets()}, label={lst:func_create_multisets}]
+int createMultiSets(MultiSet &A, MultiSet &B, vector<int> &universe)
+{
+    // при bitrate = 28 время вычисления кода грея составило в среднем 7.3 секунды. при 27 - 3.6 сек.
+    A.clear();
+    B.clear();
+    universe.clear();
+    multi_universe.clear();
+    U_SIZE = 0;
+    int bitrate = getValidatedInt("Введите разрядность кода Грея (0-27): ", 0, 27);
+    auto start = chrono::steady_clock::now();
+    if (bitrate == 0)
+    {
+        cout << "\nУниверсум пуст (мощность равна 0). Множества A и B автоматически оставлены пустыми.\n";
+    }
+    else
+    {
+        universe.resize(1 << bitrate, 0);
+        generateGrayCode(bitrate, universe);
+        U_SIZE = universe.size();
+
+        A.resize(U_SIZE, 0);
+        B.resize(U_SIZE, 0);
+        long long total_u_capacity = createUniverse(multi_universe);
+
+        auto end = chrono::steady_clock::now();
+        chrono::duration<double> elapsed = end - start;
+        cout << "Количество кодов: " << U_SIZE << ". Прошло времени: " << elapsed.count() << " сек.\n";
+
+        cout << "\nСгенерированный универсум U: ";
+        printMultiSet(multi_universe, universe, bitrate);
+
+        int lower_capacity = 0;
+        int upper_capacity;
+        if (100LL < total_u_capacity)
+            upper_capacity = 100;
+        else
+            upper_capacity = total_u_capacity;
+
+        cout << "\n\n================ Заполнение A ================\n";
+        int capacityA = getValidatedInt(format("\nВведите мощность мультимножества A (от {} до {}): ", lower_capacity, upper_capacity),
+                                        lower_capacity, upper_capacity);
+
+        if (capacityA > 0)
+        {
+            int choiceA = getValidatedInt("\nВыберите способ заполнения множества A (1 - Вручную, 2 - Автоматически): ", 1, 2);
+            if (choiceA == 1)
+                fillManually(A, universe, bitrate, capacityA);
+            else
+                fillAutomatically(A, universe, capacityA);
+        }
+
+        cout << "\n\n================ Заполнение B ================\n";
+        int capacityB = getValidatedInt(format("\nВведите мощность мультимножества B (от {} до {}): ", lower_capacity, upper_capacity),
+                                        lower_capacity, upper_capacity);
+
+        if (capacityB > 0)
+        {
+            int choiceB = getValidatedInt("\nВыберите способ заполнения множества B (1 - Вручную, 2 - Автоматически): ", 1, 2);
+            if (choiceB == 1)
+                fillManually(B, universe, bitrate, capacityB);
+            else
+                fillAutomatically(B, universe, capacityB);
+        }
+    }
+    return bitrate;
+}
+		\end{lstlisting}
 	\end{enumerate}
 	
 	\subsubsection*{Операции над мультимножествами}
@@ -410,6 +692,15 @@
 			\item \textbf{Выход:} объект \texttt{MultiSet} -- объединение $A \cup B$.
 			\item \textbf{Описание:} вычисляет объединение по правилу $\max(a_i, b_i)$ с использованием алгоритма \texttt{std::transform}.
 		\end{itemize}
+		\begin{lstlisting}[caption={Функция uni()}, label={lst:func_uni}]
+MultiSet uni(MultiSet &A, MultiSet &B)
+{
+    MultiSet result;
+    transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
+              { return max(a, b); });
+    return result;
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{MultiSet insertion(MultiSet \&A, MultiSet \&B)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -417,6 +708,15 @@
 			\item \textbf{Выход:} объект \texttt{MultiSet} -- пересечение $A \cap B$.
 			\item \textbf{Описание:} вычисляет пересечение по правилу $\min(a_i, b_i)$ с использованием алгоритма \texttt{std::transform}.
 		\end{itemize}
+		\begin{lstlisting}[caption={Функция insertion()}, label={lst:func_insertion}]
+MultiSet insertion(MultiSet &A, MultiSet &B)
+{
+    MultiSet result;
+    transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
+              { return min(a, b); });
+    return result;
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{MultiSet complement(MultiSet \&A)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -424,6 +724,15 @@
 			\item \textbf{Выход:} объект \texttt{MultiSet} -- дополнение $\overline{A} = U \setminus A$.
 			\item \textbf{Описание:} вычисляет разность кратностей универсума и множества A ($m_i - a_i$) с помощью \texttt{std::transform}.
 		\end{itemize}
+		\begin{lstlisting}[caption={Функция complement()}, label={lst:func_complement}]
+MultiSet complement(MultiSet &A)
+{
+    MultiSet result;
+    transform(A.begin(), A.end(), multi_universe.begin(), result.begin(), [](int a, int m)
+              { return m - a; });
+    return result;
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{MultiSet difference(MultiSet \&A, MultiSet \&B)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -431,6 +740,13 @@
 			\item \textbf{Выход:} объект \texttt{MultiSet} -- теоретико-множественная разность $A \setminus B$.
 			\item \textbf{Описание:} реализует формулу $A \cap \overline{B}$ через композицию вызовов \texttt{insertion(A, complement(B))}.
 		\end{itemize}
+		\begin{lstlisting}[caption={Функция difference()}, label={lst:func_difference}]
+MultiSet difference(MultiSet &A, MultiSet &B)
+{
+    MultiSet notB = complement(B);
+    return insertion(A, notB);
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{MultiSet sym\_difference(MultiSet \&A, MultiSet \&B)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -438,6 +754,14 @@
 			\item \textbf{Выход:} объект \texttt{MultiSet} -- симметрическая разность $A \triangle B$.
 			\item \textbf{Описание:} вычисляет разность объединения и пересечения: \\ \texttt{difference(uni(A, B), insertion(A, B))}.
 		\end{itemize}
+		\begin{lstlisting}[caption={Функция sym\_difference()}, label={lst:func_sym_difference}]
+MultiSet sym_difference(MultiSet &A, MultiSet &B)
+{
+    MultiSet AuB = uni(A, B);
+    MultiSet AnB = insertion(A, B);
+    return difference(AuB, AnB);
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{MultiSet operator+(MultiSet \&A, MultiSet \&B)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -445,6 +769,18 @@
 			\item \textbf{Выход:} объект \texttt{MultiSet} -- арифметическая сумма $A + B$.
 			\item \textbf{Описание:} в два прохода \texttt{std::transform} рассчитывает сумму кратностей $a_i + b_i$ и ограничивает результат емкостью универсума $\min(a_i + b_i, m_i)$.
 		\end{itemize}
+		\begin{lstlisting}[caption={Оператор operator+}, label={lst:func_op_plus}]
+MultiSet operator+(MultiSet &A, MultiSet &B)
+{
+    MultiSet result;
+    transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
+              { return a + b; });
+
+    transform(result.begin(), result.end(), multi_universe.begin(), result.begin(), [](int sum, int m)
+              { return min(sum, m); });
+    return result;
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{MultiSet operator-(MultiSet \&A, MultiSet \&B)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -452,6 +788,15 @@
 			\item \textbf{Выход:} объект \texttt{MultiSet} -- арифметическая разность $A - B$.
 			\item \textbf{Описание:} вычисляет неотрицательную разность кратностей $\max(0, a_i - b_i)$ через \texttt{std::transform}.
 		\end{itemize}
+		\begin{lstlisting}[caption={Оператор operator-}, label={lst:func_op_minus}]
+MultiSet operator-(MultiSet &A, MultiSet &B)
+{
+    MultiSet result;
+    transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
+              { return max(0, a - b); });
+    return result;
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{MultiSet operator*(MultiSet \&A, MultiSet \&B)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -459,6 +804,17 @@
 			\item \textbf{Выход:} объект \texttt{MultiSet} -- арифметическое произведение $A \cdot B$.
 			\item \textbf{Описание:} поэлементно перемножает кратности с отсечением по емкости универсума $\min(a_i \cdot b_i, m_i)$.
 		\end{itemize}
+		\begin{lstlisting}[caption={Оператор operator*}, label={lst:func_op_mul}]
+MultiSet operator*(MultiSet &A, MultiSet &B)
+{
+    MultiSet result;
+    for (int i = 0; i < U_SIZE; i++)
+    {
+        result[i] = min(A[i] * B[i], multi_universe[i]);
+    }
+    return result;
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{MultiSet operator/(MultiSet \&A, MultiSet \&B)}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -466,6 +822,15 @@
 			\item \textbf{Выход:} объект \texttt{MultiSet} -- результат арифметического деления $A : B$.
 			\item \textbf{Описание:} выполняет целочисленное деление $\lfloor a_i / b_i \rfloor$; при нулевом делителе ($b_i = 0$) возвращает 0.
 		\end{itemize}
+		\begin{lstlisting}[caption={Оператор operator/}, label={lst:func_op_div}]
+MultiSet operator/(MultiSet &A, MultiSet &B)
+{
+    MultiSet result;
+    transform(A.begin(), A.end(), B.begin(), result.begin(), [](int a, int b)
+              { return (b == 0) ? 0 : (a / b); });
+    return result;
+}
+		\end{lstlisting}
 		
 		\item \textbf{\texttt{int main(int argc, char const *argv[])}}
 		\begin{itemize}[leftmargin=*, noitemsep]
@@ -473,6 +838,129 @@
 			\item \textbf{Выход:} код возврата процесса \texttt{0}.
 			\item \textbf{Описание:} точка входа в программу; выполняет запуск генератора псевдослучайных чисел, координирует вызовы подсистемы перезапуска \texttt{createMultiSets} и цикл интерактивного меню операций.
 		\end{itemize}
+		\begin{lstlisting}[caption={Функция main()}, label={lst:func_main}]
+int main(int argc, char const *argv[])
+{
+    srand(time(nullptr));
+    MultiSet A, B;
+    vector<int> universe;
+    int bitrate = createMultiSets(A, B, universe);
+    while (true)
+    {
+        cout << "\n\n================ Главное меню ================\n";
+        cout << "0. Выход\n";
+        cout << "1. Показать исходные мультимножества\n";
+        cout << "2. Объединение (A u B)\n";
+        cout << "3. Пересечение (A n B)\n";
+        cout << "4. Разность (A \\ B и B \\ A)\n";
+        cout << "5. Симметрическая разность (A /\\ B)\n";
+        cout << "6. Дополнение (U \\ A и U \\ B)\n";
+        cout << "7. Арифметическая сумма\n";
+        cout << "8. Арифметическая разность\n";
+        cout << "9. Арифметическое произведение\n";
+        cout << "10. Арифметическое деление\n";
+        cout << "==============================================\n";
+
+        int menuChoice = getValidatedInt("Выберите действие: ", 0, 10);
+
+        if (menuChoice == 0)
+        {
+            cout << "\n\n========== Вы хотите начать заново? ==========\n";
+            cout << "0. Выход\n";
+            cout << "1. Начать заново\n";
+            cout << "==============================================\n";
+            menuChoice = getValidatedInt("Выберите действие: ", 0, 1);
+            if (menuChoice == 1)
+            {
+                bitrate = createMultiSets(A, B, universe);
+                continue;
+            }
+            else
+            {
+                cout << "Программа завершена.\n";
+                break;
+            }
+        }
+
+        MultiSet result;
+
+        switch (menuChoice)
+        {
+        case 1:
+            cout << "\nМультимножество A: ";
+            printMultiSet(A, universe, bitrate);
+            cout << "Мультимножество B: ";
+            printMultiSet(B, universe, bitrate);
+            cout << "Универсум: ";
+            printMultiSet(multi_universe, universe, bitrate);
+            break;
+        case 2:
+            result = uni(A, B);
+            cout << "Объединение (A u B): ";
+            printMultiSet(result, universe, bitrate);
+            break;
+        case 3:
+            result = insertion(A, B);
+            cout << "Пересечение (A n B): ";
+            printMultiSet(result, universe, bitrate);
+            break;
+        case 4:
+            result = difference(A, B);
+            cout << "Разность (A \\ B): ";
+            printMultiSet(result, universe, bitrate);
+
+            result = difference(B, A);
+            cout << "Разность (B \\ A): ";
+            printMultiSet(result, universe, bitrate);
+            break;
+        case 5:
+            result = sym_difference(A, B);
+            cout << "Симметрическая разность (A /\\ B): ";
+            printMultiSet(result, universe, bitrate);
+            break;
+        case 6:
+            result = complement(A);
+            cout << "Дополнение (U \\ A): ";
+            printMultiSet(result, universe, bitrate);
+
+            result = complement(B);
+            cout << "Дополнение (U \\ B): ";
+            printMultiSet(result, universe, bitrate);
+            break;
+        case 7:
+            result = A + B;
+            cout << "Арифметическая сумма (A + B): ";
+            printMultiSet(result, universe, bitrate);
+            break;
+        case 8:
+            result = A - B;
+            cout << "Арифметическая разность (A - B): ";
+            printMultiSet(result, universe, bitrate);
+
+            result = B - A;
+            cout << "Арифметическая разность (B - A): ";
+            printMultiSet(result, universe, bitrate);
+            break;
+        case 9:
+            result = A * B;
+            cout << "Арифметическое произведение (A * B): ";
+            printMultiSet(result, universe, bitrate);
+            break;
+        case 10:
+            result = A / B;
+            cout << "Арифметическое деление (A / B): ";
+            printMultiSet(result, universe, bitrate);
+
+            result = B / A;
+            cout << "Арифметическое деление (B / A): ";
+            printMultiSet(result, universe, bitrate);
+            break;
+        }
+    }
+
+    return 0;
+}
+		\end{lstlisting}
 	\end{enumerate}
 	Полный исходный код каждого файла проекта вынесен в отдельные приложения:
 	\begin{itemize}
