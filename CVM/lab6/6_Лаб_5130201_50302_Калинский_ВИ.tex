@@ -1,0 +1,392 @@
+\documentclass[14pt, a4paper]{extarticle}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage[left = 3cm, right = 1cm, top = 2cm, bottom = 2cm]{geometry}
+\setlength\parindent{12.5mm} 
+\linespread{1.3}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wrapfig}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	citecolor=blue,
+	urlcolor=blue, 
+	linkcolor=blue,
+	pdfencoding=auto
+}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage[htt]{hyphenat}
+\usepackage{tabularx}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.97,0.97,0.97}
+
+\lstset{ 
+	language=C++,
+	backgroundcolor=\color{backcolour},
+	commentstyle=\color{codegreen}\itshape,
+	keywordstyle=\color{blue}\bfseries,
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,
+	captionpos=t,
+	keepspaces=true,                 
+	numbers=left,
+	numbersep=10pt,
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=4,
+	frame=single,
+	rulecolor=\color{black!30},
+	extendedchars=\true
+}
+
+\newcommand{\tab}{\hspace{12.5mm}}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\begin{document}
+	\thispagestyle{empty}
+	\begin{center}
+		\hspace{0.2cm}МИНИСТЕРСТВО НАУКИ И ВЫСШЕГО ОБРАЗОВАНИЯ РОССИЙСКОЙ ФЕДЕРАЦИИ\\
+		Федеральное государственное автономное образовательное\\
+		учреждение высшего образования\\
+		{\bf <<Санкт-Петербургский политехнический\\
+			университет Петра Великого>>}\\
+		Институт компьютерных наук и кибербезопасности\\
+		Высшая школа технологий искусственного интеллекта\\
+		02.03.01\_03 Технологии машинного обучения и искусственного интеллекта\\
+		\vspace{3cm}
+		\Large\bf{
+			Отчёт о выполнении лабораторной работы №6\\
+			Основы архитектуры ЦВМ\\[1cm]
+		}
+	\end{center}
+	\vspace{2cm}
+	\begin{flushleft}
+		{\bf Выполнил:}\\
+		Cтудент группы 5130201/50302 \hfill
+		\line(1,0){4cm} \quad Калинский В.И.\\
+		{\bf Принял:}\\
+		К.т.н., доцент, доцент ВШТИИ и КОЦ ИИ \hfill
+		\line(1,0){3 cm} \quad Вербова Н.М.\\[0.5cm]
+		{ \hfill<<\rule{1cm}{0.5pt}>>\rule{2cm}{0.5pt}\hspace{3pt}2026 г.}
+	\end{flushleft}
+	\vspace{1cm}
+	\begin{center}
+		Санкт-Петербург, 2026
+	\end{center}
+	\newpage
+
+	\noindent \textbf{Цель работы:}
+	
+	Познакомиться с системой процессорных команд и способами использования этих команд. Освоить методику изучения регистровой модели, системы команд и способов адресации с использованием экранного отладчика среды Visual Studio.
+	\\\\
+	\noindent \textbf{Постановка задачи (вариант 2-8):}
+	
+	Для группы 50302 в соответствии с методическими указаниями задан вариант 2-8: массив \texttt{int iMas[10]}, итератор \texttt{unsigned int i}. В цикле \texttt{for (i = 0; i < 9; i++)} реализуется вычисление элементов массива: если $i \ge 4$, то $iMas[i] = 13 \cdot i + 7$, иначе $iMas[i] = (i \cdot 8) \oplus 12$. В подготовительной части исследуется прямое и косвенное присваивание констант различной длины: 12, 12345, 12345678, \texttt{0x123456789ABCDE} и \texttt{0xAB12} через указатель \texttt{pI = \&iMas[2]}.
+	\\\\
+	\noindent \textbf{1. Исходная программа и сопоставление с дизассемблером}
+	
+	В соответствии с шагом 1 методики в программе-шаблоне циклический фрагмент заменён кодом варианта 2-8 (листинг 1).
+	
+	\begin{lstlisting}[caption={Исходная программа (вариант 2-8, глобальные переменные)}]
+int iMas[10];
+int *pI;
+unsigned int i;
+
+int main() {
+	iMas[3] = 12;
+	iMas[4] = 12345;
+	iMas[5] = 12345678;
+	iMas[6] = 0x123456789ABCDE;
+
+	pI = &iMas[2];
+	*pI = 0xAB12;
+
+	for (i = 0; i < 9; i++) {
+		if (i >= 4)
+			iMas[i] = 13 * i + 7;
+		else
+			iMas[i] = (i * 8) ^ 0xC;
+	}
+	return 0;
+}\end{lstlisting}
+
+	Программа оттранслирована в среде Visual Studio. В режиме отладки (окно Disassembly) получен машинный код (листинг 2) с сопоставлением инструкциям языка Си.
+
+	\begin{lstlisting}[language={[x86masm]Assembler}, caption={Дизассемблированный код с сопоставлением инструкциям Си}]
+; --- Пролог функции main ---
+push   rbp              ; Сохранение базового регистра кадра
+push   rdi              ; Сохранение регистра rdi
+sub    rsp, 0E8h        ; Выделение стекового пространства под локальные нужды
+lea    rbp, [rsp+20h]   ; Установка базового указателя кадра
+
+; 6: iMas[3] = 12;
+mov    eax, 4           ; Загрузка размера элемента int (4 байта)
+imul   rax, rax, 3      ; Вычисление смещения: 3 * 4 = 12 (0x0C) байт
+lea    rcx, [iMas]      ; Получение базового адреса массива iMas (07FF630CDC240h)
+mov    dword ptr [rcx+rax], 0Ch ; Запись 4-байтовой константы 12 по адресу rcx+rax
+
+; 7: iMas[4] = 12345;
+mov    eax, 4           ; Размер элемента
+imul   rax, rax, 4      ; Смещение элемента: 4 * 4 = 16 (0x10) байт
+lea    rcx, [iMas]      ; Базовый адрес массива iMas
+mov    dword ptr [rcx+rax], 3039h ; Запись константы 12345 (0x3039)
+
+; 8: iMas[5] = 12345678;
+mov    eax, 4           ; Размер элемента
+imul   rax, rax, 5      ; Смещение элемента: 5 * 4 = 20 (0x14) байт
+lea    rcx, [iMas]      ; Базовый адрес массива iMas
+mov    dword ptr [rcx+rax], 0BC614Eh ; Запись константы 12345678 (0x00BC614E)
+
+; 9: iMas[6] = 0x123456789ABCDE;
+mov    eax, 4           ; Размер элемента
+imul   rax, rax, 6      ; Смещение элемента: 6 * 4 = 24 (0x18) байта
+lea    rcx, [iMas]      ; Базовый адрес массива iMas
+mov    dword ptr [rcx+rax], 789ABCDEh ; Усечение до 32 бит: запись младших 4 байт
+
+; 11: pI = &iMas[2];
+mov    eax, 4           ; Размер элемента
+imul   rax, rax, 2      ; Смещение для индекса 2: 2 * 4 = 8 байт
+lea    rcx, [iMas]      ; Базовый адрес массива iMas
+add    rcx, rax         ; rcx = адрес элемента iMas[2]
+mov    rax, rcx         ; Перенос адреса в rax
+mov    qword ptr [pI], rax ; Запись 8-байтового адреса в указатель pI
+
+; 12: *pI = 0xAB12;
+mov    rax, qword ptr [pI] ; Считывание адреса из pI в регистр rax
+mov    dword ptr [rax], 0AB12h ; Косвенная запись константы 0xAB12 по адресу в rax
+
+; 14: for (i = 0; i < 9; i++) {
+mov    dword ptr [i], 0 ; i = 0 (инициализация счетчика цикла)
+jmp    main+0BCh        ; Безусловный переход к проверке условия цикла
+
+main+0CEh:              ; Шаг цикла (i++)
+mov    eax, dword ptr [i] ; Загрузка текущего i в eax
+inc    eax                ; Инкремент значения (i + 1)
+mov    dword ptr [i], eax ; Сохранение обновленного i обратно в память
+
+main+0BCh:              ; Проверка условия продолжения цикла (i < 9)
+cmp    dword ptr [i], 9 ; Сравнение i с константой 9
+jae    main+108h        ; Если i >= 9, выход из цикла (беззнаковый переход)
+
+; 15: if (i >= 4)
+cmp    dword ptr [i], 4 ; Сравнение счетчика i с числом 4
+jb     main+0EAh        ; Если i < 4, переход в ветку else (беззнаковый переход)
+
+; 16: iMas[i] = 13 * i + 7;
+imul   eax, dword ptr [i], 0Dh ; eax = i * 13 (0x0D)
+add    eax, 7           ; eax = 13 * i + 7
+mov    ecx, dword ptr [i] ; Загрузка индекса i в ecx
+lea    rdx, [iMas]      ; Базовый адрес начала массива в rdx
+mov    dword ptr [rdx+rcx*4], eax ; Запись в массив: База + Индекс * 4
+jmp    main+106h        ; Обход ветки else
+
+; 18: else iMas[i] = (i * 8) ^ 0xC;
+main+0EAh:
+mov    eax, dword ptr [i] ; Загрузка i в eax
+shl    eax, 3           ; Умножение на 8 сдвигом влево на 3 бита
+xor    eax, 0Ch         ; Побитовое исключающее ИЛИ с константой 12 (0x0C)
+mov    ecx, dword ptr [i] ; Загрузка индекса i в ecx
+lea    rdx, [iMas]      ; Базовый адрес начала массива в rdx
+mov    dword ptr [rdx+rcx*4], eax ; Запись в массив: База + Индекс * 4
+
+main+106h:              ; Конец тела цикла
+jmp    main+0CEh        ; Переход к следующей итерации (на шаг i++)
+
+; 21: return 0;
+main+108h:
+xor    eax, eax         ; Код возврата 0
+lea    rsp, [rbp+0C8h]  ; Восстановление стека
+pop    rdi              ; Восстановление сохранённых регистров
+pop    rbp              ; Восстановление базового указателя
+ret                     ; Возврат из функции
+	\end{lstlisting}
+
+	\noindent \textbf{2. Список переменных и карта памяти}
+	
+	Переменные \texttt{iMas}, \texttt{pI}, \texttt{i} объявлены вне функций (глобально) и размещены компилятором в статической памяти данных. Их адреса постоянны и зафиксированы отладчиком (таблица \ref{tab:mem_map}).
+	
+	\begin{table}[H]
+		\centering
+		\caption{Список переменных и карта памяти программы} \label{tab:mem_map}
+		\begin{tabularx}{\textwidth}{|l|c|c|c|X|}
+			\hline
+			\textbf{Имя} & \textbf{Класс} & \textbf{Тип} & \textbf{Размер} & \textbf{Адрес в памяти} \\ \hline
+			\texttt{iMas[0..9]} & глобальная & \texttt{int[10]} & 40 байт & \texttt{0x07FF630CDC240} -- \texttt{0x07FF630CDC267} \\ \hline
+			\texttt{pI} & глобальная & \texttt{int*} & 8 байт & \texttt{0x07FF630CDC268} -- \texttt{0x07FF630CDC26F} \\ \hline
+			\texttt{i} & глобальная & \texttt{unsigned int} & 4 байта & \texttt{0x07FF630CDC270} -- \texttt{0x07FF630CDC273} \\ \hline
+		\end{tabularx}
+	\end{table}
+
+	Переменные расположены последовательно: массив \texttt{iMas} занимает 40 байт ($28_{16}$), следом 8-байтовый указатель \texttt{pI}, затем 4-байтовый счетчик \texttt{i}.
+	\\\\
+	\noindent \textbf{3. Анализ команд обращения к переменным}
+	
+	В таблице \ref{tab:instructions_analysis} систематизированы все команды, обращающиеся к переменным программы, с указанием числа операндов и способов их адресации.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Команды обращения к переменным программы} \label{tab:instructions_analysis}
+		\begin{tabularx}{\textwidth}{|p{5.2cm}|c|c|X|X|}
+			\hline
+			\textbf{Команда ассемблера} & \textbf{Перем.} & \textbf{Оп.} & \textbf{Операнд 1 (приёмник)} & \textbf{Операнд 2 (источник)} \\ \hline
+			\texttt{mov [rcx+rax], 0Ch} & \texttt{iMas[3]} & 2 & Базово-индексная & Непосредственная \\ \hline
+			\texttt{mov [rcx+rax], 3039h} & \texttt{iMas[4]} & 2 & Базово-индексная & Непосредственная \\ \hline
+			\texttt{mov [rcx+rax], 0BC614Eh} & \texttt{iMas[5]} & 2 & Базово-индексная & Непосредственная \\ \hline
+			\texttt{mov [rcx+rax], 789ABCDEh} & \texttt{iMas[6]} & 2 & Базово-индексная & Непосредственная \\ \hline
+			\texttt{mov qword ptr [pI], rax} & \texttt{pI} & 2 & Прямая к памяти & Регистровая \\ \hline
+			\texttt{mov rax, qword ptr [pI]} & \texttt{pI} & 2 & Регистровая & Прямая к памяти \\ \hline
+			\texttt{mov dword ptr [rax], 0AB12h} & \texttt{iMas[2]} & 2 & Косвенно-регистровая & Непосредственная \\ \hline
+			\texttt{mov dword ptr [i], 0} & \texttt{i} & 2 & Прямая к памяти & Непосредственная \\ \hline
+			\texttt{mov eax, dword ptr [i]} & \texttt{i} & 2 & Регистровая & Прямая к памяти \\ \hline
+			\texttt{mov dword ptr [i], eax} & \texttt{i} & 2 & Прямая к памяти & Регистровая \\ \hline
+			\texttt{cmp dword ptr [i], 9} & \texttt{i} & 2 & Прямая к памяти & Непосредственная \\ \hline
+			\texttt{cmp dword ptr [i], 4} & \texttt{i} & 2 & Прямая к памяти & Непосредственная \\ \hline
+			\texttt{imul eax, dword ptr [i], 0Dh} & \texttt{i} & 3 & Регистровая & Прямая и непоср. \\ \hline
+			\texttt{mov ecx, dword ptr [i]} & \texttt{i} & 2 & Регистровая & Прямая к памяти \\ \hline
+			\texttt{mov [rdx+rcx*4], eax} & \texttt{iMas[i]} & 2 & Масштабно-индексная & Регистровая \\ \hline
+		\end{tabularx}
+	\end{table}
+
+	\noindent \textbf{4. Многокомпонентная адресация данных}
+	
+	Многокомпонентная масштабно-индексная адресация использована в команде записи в массив в теле цикла:
+	\begin{equation*}
+		\texttt{mov dword ptr [rdx+rcx*4], eax} \quad (\text{машинный код: } \texttt{89 04 8A})
+	\end{equation*}
+	Значения отдельных компонент исполнительного адреса:
+	\begin{itemize}[noitemsep]
+		\item \textbf{База (Base):} регистр \texttt{rdx} --- содержит базовый адрес начала массива \texttt{iMas} (\texttt{0x07FF630CDC240});
+		\item \textbf{Индекс (Index):} регистр \texttt{rcx} --- содержит значение переменной \texttt{i} ($0 \le i < 9$);
+		\item \textbf{Масштаб (Scale):} коэффициент 4 --- соответствует размеру типа \texttt{sizeof(int) = 4} байта;
+		\item \textbf{Смещение (Displacement):} отсутствует (равно 0).
+	\end{itemize}
+	Исполнительный адрес вычисляется аппаратно за один такт: $EA = rdx + rcx \cdot 4$.
+	\\\\
+	\noindent \textbf{5. Способы адресации в командах перехода}
+	
+	Во всех командах ветвления компилятор применил \textbf{относительную адресацию} (\texttt{rel8}): адрес перехода не хранится целиком, а задаётся знаковым смещением относительно счётчика команд следующей инструкции ($\text{Target} = \text{IP} + \text{offset}$):
+	\begin{itemize}[noitemsep]
+		\item \texttt{EB 0E (jmp main+0BCh)}: безусловный короткий переход на проверку условия;
+		\item \texttt{73 43 (jae main+108h)}: беззнаковый переход при выходе из цикла ($i \ge 9$);
+		\item \texttt{72 1C (jb main+0EAh)}: беззнаковый переход в ветку \texttt{else} при $i < 4$ (по флагу $CF = 1$);
+		\item \texttt{EB 1C (jmp main+106h)}: безусловный переход в обход ветки \texttt{else};
+		\item \texttt{EB A6 (jmp main+0CEh)}: безусловный переход на шаг цикла со смещением \texttt{0xA6} ($-90$).
+	\end{itemize}
+
+	\noindent \textbf{6. Модификация программы: доступ через указатель и локальные переменные}
+	
+	В соответствии с шагом 10 методики доступ к массиву изменён на последовательное обращение через указатель \texttt{pMas} (листинг 3).
+	
+	\begin{lstlisting}[caption={Модифицированная программа с доступом через указатель}]
+int iMas[10];
+int *pI;
+unsigned int i;
+
+int main() {
+	iMas[3] = 12;
+	iMas[4] = 12345;
+	iMas[5] = 12345678;
+	iMas[6] = 0x123456789ABCDE;
+
+	pI = &iMas[2];
+	*pI = 0xAB12;
+
+	int *pMas = iMas;
+	for (i = 0; i < 9; i++, pMas++) {
+		if (i >= 4)
+			*pMas = 13 * i + 7;
+		else
+			*pMas = (i * 8) ^ 0xC;
+	}
+	return 0;
+}
+	\end{lstlisting}
+
+	Дизассемблированный фрагмент модифицированного цикла:
+	\begin{lstlisting}[language={[x86masm]Assembler}, caption={Дизассемблерный код цикла при работе через указатель}]
+; Инициализация указателя перед циклом:
+lea    rax, [iMas]             ; Получение адреса начала массива
+mov    qword ptr [pMas], rax   ; Сохранение адреса в локальный указатель pMas
+
+; Шаг цикла (i++, pMas++):
+mov    eax, dword ptr [i]      ; Загрузка счетчика i
+inc    eax                     ; i++
+mov    dword ptr [i], eax      ; Сохранение обновленного i
+mov    rax, qword ptr [pMas]   ; Загрузка адреса из pMas
+add    rax, 4                  ; Инкремент адреса на 4 байта (размер int)
+mov    qword ptr [pMas], rax   ; Сохранение нового адреса в pMas
+
+; Запись в массив в ветках then и else (*pMas = ...):
+mov    rcx, qword ptr [pMas]   ; Загрузка адреса текущего элемента из pMas в rcx
+mov    dword ptr [rcx], eax    ; Простая косвенно-регистровая адресация [rcx]!\end{lstlisting}
+
+	\noindent \textbf{Сравнение способов адресации:}
+	\begin{enumerate}[noitemsep]
+		\item \textbf{Индекс против указателя:} При доступе по индексу процессор на каждом шаге вычисляет формулу $rdx + rcx \cdot 4$ командой \texttt{mov [rdx+rcx*4], eax} (машинный код \texttt{89 04 8A}, 3 байта, содержит SIB-байт). При доступе через указатель запись выполняется короткой командой косвенно-регистровой адресации \texttt{mov [rcx], eax} (код \texttt{89 01}, 2 байта, без SIB-байта), а шаг к следующему элементу сводится к простому сложению \texttt{add rax, 4}.
+		\item \textbf{Глобальное против локального размещения:} Глобальные переменные размещены в статической памяти и адресуются по фиксированным смещениям. Локальные переменные размещаются в стеке и адресуются со смещением относительно регистра базы кадра: \texttt{[rbp-offset]}.
+	\end{enumerate}
+
+	\noindent \textbf{Выводы:}
+	
+	В ходе лабораторной работы изучена система команд и способы адресации процессоров архитектуры x86. Проанализировано размещение глобальных данных в памяти, составлена карта памяти. Установлено, что при обращении к элементам массива по индексу используется многокомпонентная масштабно-индексная адресация с масштабом 4 (размер типа \texttt{int}). Замена индексации на указатель упрощает команду записи до короткой косвенно-регистровой (\texttt{mov [rcx], eax}) без вычисления адреса на каждой итерации. Проверка условий беззнаковых переменных (\texttt{unsigned}) транслируется в беззнаковые переходы (\texttt{jb}, \texttt{jae}), а умножение на степень двойки ($i \cdot 8$) компилятор эффективно заменяет побитовым сдвигом влево (\texttt{shl eax, 3}).
+
+	%КАРТИНКИ
+	%\begin{figure}[H]
+	%	\centering
+	%	\includegraphics[width=0.85\textwidth]{install_deb.png}
+	%	\caption{Начало установки гостевой ОС Debian 12}
+	%	\label{fig:vbox_setup}
+	%\end{figure}
+
+	%---------------------------------------------------------------------------------
+	%ССЫЛКИ НА САЙТ
+
+	%\href{https://www.virtualbox.org/wiki/Downloads}{официального сайта VirtualBox}
+
+	%---------------------------------------------------------------------------------
+	%ССЫЛКА НА ПРИЛОЖЕНИЕ
+
+	%\texttt{zlib}\cite{zlib_docs}
+
+	%---------------------------------------------------------------------------------
+	%ССЫЛКА НА РИСУНОК
+
+	%показано на рис. \ref{fig:vbox_setup}
+
+	%---------------------------------------------------------------------------------
+	%ТАБЛИЦА С ПЕРЕВОДОМ НА СЛЕДУЮЩУЮ СТРАНИЦУ
+
+	%\begin{longtable}{|l|p{0.75\textwidth}|}
+	%	\caption{Функции библиотеки ncurses, используемые в TUI} \label{tab:ncurses_funcs} \\
+	%	\hline
+	%	\textbf{Функция} & \textbf{Назначение и описание алгоритма работы} \\ \hline
+	%	\endhead
+	%	\texttt{initscr()} & Инициализирует библиотеку, выделяет память под внутренние структуры окна и переводит терминал ОС в графический режим. \\ \hline
+	%	\texttt{cbreak()} & Отключает строковую буферизацию терминала, позволяя программе мгновенно реагировать на нажатия клавиш без ожидания \texttt{Enter}. \\ \hline
+	%	\texttt{noecho()} & Отключает автоматический вывод (эхо) вводимых пользователем символов на экран, позволяя программе самой управлять отрисовкой. \\ \hline
+	%	\texttt{clear()} & Очищает виртуальный экран для подготовки к отрисовке нового кадра меню. \\ \hline
+	%	\texttt{move(y, x)} & Осуществляет абсолютное позиционирование курсора по координатам \texttt{Y} (строка) и \texttt{X} (столбец). \\ \hline
+	%	\texttt{printw()} & Аналог функции \texttt{printf} для \texttt{ncurses}: выводит отформатированный текст в текущей позиции курсора. \\ \hline
+	%	\texttt{getch()} & Ожидает и считывает код нажатой пользователем клавиши (включая стрелки навигации и функциональные клавиши). \\ \hline
+	%	\texttt{getnstr()} & Безопасно считывает строку от пользователя с аппаратным ограничением максимального количества символов (защита от переполнения). \\ \hline
+	%	\texttt{scanw()} & Аналог функции \texttt{scanf}, считывает форматированный ввод пользователя (применяется для ввода числовых данных). \\ \hline
+	%	\texttt{endwin()} & Выгружает библиотеку из памяти, восстанавливает историю команд и возвращает терминал в стандартный режим работы ОС. \\ \hline
+	%\end{longtable}
+	%---------------------------------------------------------------------------------
+
+\end{document}

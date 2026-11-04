@@ -1,0 +1,80 @@
+     1: int iMas[10];
+     2: int *pI;
+     3: unsigned int i;
+     4: 
+     5: int main() {
+00007FF630CD1720 40 55                push        rbp                                  ; Сохранение базового регистра кадра
+00007FF630CD1722 57                   push        rdi                                  ; Сохранение регистра rdi
+00007FF630CD1723 48 81 EC E8 00 00 00 sub         rsp,0E8h                             ; Выделение памяти в стеке под локальные нужды
+00007FF630CD172A 48 8D 6C 24 20       lea         rbp,[rsp+20h]                        ; Установка базового указателя кадра
+00007FF630CD172F 48 8D 0D CA F8 00 00 lea         rcx,[__B952A550_main@cpp (07FF630CE1000h)] ; Служебный вызов отладчика
+00007FF630CD1736 E8 3A FC FF FF       call        __CheckForDebuggerJustMyCode (07FF630CD1375h) ; Проверка режима Just My Code
+00007FF630CD173B 90                   nop                                              ; Выравнивание
+     6: 	iMas[3] = 12;
+00007FF630CD173C B8 04 00 00 00       mov         eax,4                                ; Размер элемента (4 байта для int)
+00007FF630CD1741 48 6B C0 03          imul        rax,rax,3                            ; Смещение элемента: 3 * 4 = 12 (0x0C) байт
+00007FF630CD1745 48 8D 0D F4 AA 00 00 lea         rcx,[iMas (07FF630CDC240h)]          ; Загрузка адреса массива в rcx
+00007FF630CD174C C7 04 01 0C 00 00 00 mov         dword ptr [rcx+rax],0Ch              ; Базово-индексная запись константы 12
+     7: 	iMas[4] = 12345;
+00007FF630CD1753 B8 04 00 00 00       mov         eax,4                                ; Размер элемента
+00007FF630CD1758 48 6B C0 04          imul        rax,rax,4                            ; Смещение элемента: 4 * 4 = 16 (0x10) байт
+00007FF630CD175C 48 8D 0D DD AA 00 00 lea         rcx,[iMas (07FF630CDC240h)]          ; Базовый адрес массива iMas
+00007FF630CD1763 C7 04 01 39 30 00 00 mov         dword ptr [rcx+rax],3039h            ; Запись 2-байтовой константы 12345
+     8: 	iMas[5] = 12345678;
+00007FF630CD176A B8 04 00 00 00       mov         eax,4                                ; Размер элемента
+00007FF630CD176F 48 6B C0 05          imul        rax,rax,5                            ; Смещение элемента: 5 * 4 = 20 (0x14) байт
+00007FF630CD1773 48 8D 0D C6 AA 00 00 lea         rcx,[iMas (07FF630CDC240h)]          ; Базовый адрес массива iMas
+00007FF630CD177A C7 04 01 4E 61 BC 00 mov         dword ptr [rcx+rax],0BC614Eh         ; Запись 4-байтовой константы 12345678
+     9: 	iMas[6] = 0x123456789ABCDE;
+00007FF630CD1781 B8 04 00 00 00       mov         eax,4                                ; Размер элемента
+00007FF630CD1786 48 6B C0 06          imul        rax,rax,6                            ; Смещение элемента: 6 * 4 = 24 (0x18) байта
+00007FF630CD178A 48 8D 0D AF AA 00 00 lea         rcx,[iMas (07FF630CDC240h)]          ; Базовый адрес массива iMas
+00007FF630CD1791 C7 04 01 DE BC 9A 78 mov         dword ptr [rcx+rax],789ABCDEh        ; Запись младших 32 бит (усечение константы)
+    10: 
+    11: 	pI = &iMas[2];
+00007FF630CD1798 B8 04 00 00 00       mov         eax,4                                ; Размер элемента
+00007FF630CD179D 48 6B C0 02          imul        rax,rax,2                            ; Смещение для индекса 2: 2 * 4 = 8 байт
+00007FF630CD17A1 48 8D 0D 98 AA 00 00 lea         rcx,[iMas (07FF630CDC240h)]          ; Базовый адрес массива iMas
+00007FF630CD17A8 48 03 C8             add         rcx,rax                              ; rcx = адрес элемента iMas[2]
+00007FF630CD17AB 48 8B C1             mov         rax,rcx                              ; Перенос адреса в rax
+00007FF630CD17AE 48 89 05 B3 AA 00 00 mov         qword ptr [pI (07FF630CDC268h)],rax  ; Сохранение адреса в указатель pI (8 байт)
+    12: 	*pI = 0xAB12;
+00007FF630CD17B5 48 8B 05 AC AA 00 00 mov         rax,qword ptr [pI (07FF630CDC268h)]  ; Считывание адреса из указателя pI в rax
+00007FF630CD17BC C7 00 12 AB 00 00    mov         dword ptr [rax],0AB12h               ; Косвенная запись константы 0xAB12 по адресу в rax
+    13: 
+    14: 	for (i = 0; i < 9; i++) {
+00007FF630CD17C2 C7 05 A4 AA 00 00 00 00 00 00 mov         dword ptr [i (07FF630CDC270h)],0 ; Инициализация счетчика цикла: i = 0
+00007FF630CD17CC EB 0E                jmp         main+0BCh (07FF630CD17DCh)           ; Безусловный переход к проверке условия цикла
+00007FF630CD17CE 8B 05 9C AA 00 00    mov         eax,dword ptr [i (07FF630CDC270h)]   ; Загрузка значения i в eax
+00007FF630CD17D4 FF C0                inc         eax                                  ; Инкремент счетчика (i++)
+00007FF630CD17D6 89 05 94 AA 00 00    mov         dword ptr [i (07FF630CDC270h)],eax   ; Сохранение обновленного i
+00007FF630CD17DC 83 3D 8D AA 00 00 09 cmp         dword ptr [i (07FF630CDC270h)],9     ; Сравнение i с 9
+00007FF630CD17E3 73 43                jae         main+108h (07FF630CD1828h)           ; Если i >= 9, выход из цикла (беззнаковый переход)
+    15: 		if (i >= 4)
+00007FF630CD17E5 83 3D 84 AA 00 00 04 cmp         dword ptr [i (07FF630CDC270h)],4     ; Сравнение i с 4
+00007FF630CD17EC 72 1C                jb          main+0EAh (07FF630CD180Ah)           ; Если i < 4, переход в ветку else (jb, CF=1)
+    16: 			iMas[i] = 13 * i + 7;
+00007FF630CD17EE 6B 05 7B AA 00 00 0D imul        eax,dword ptr [i (07FF630CDC270h)],0Dh ; eax = i * 13 (0x0D)
+00007FF630CD17F5 83 C0 07             add         eax,7                                ; eax = 13 * i + 7
+00007FF630CD17F8 8B 0D 72 AA 00 00    mov         ecx,dword ptr [i (07FF630CDC270h)]   ; Загрузка индекса i в ecx
+00007FF630CD17FE 48 8D 15 3B AA 00 00 lea         rdx,[iMas (07FF630CDC240h)]          ; Базовый адрес массива в rdx
+00007FF630CD1805 89 04 8A             mov         dword ptr [rdx+rcx*4],eax            ; Запись в массив: База + Индекс * 4 (код 89 04 8A)
+00007FF630CD1808 EB 1C                jmp         main+106h (07FF630CD1826h)           ; Обход ветки else
+    17: 		else
+    18: 			iMas[i] = (i * 8) ^ 0xC;
+00007FF630CD180A 8B 05 60 AA 00 00    mov         eax,dword ptr [i (07FF630CDC270h)]   ; Загрузка i в eax
+00007FF630CD1810 C1 E0 03             shl         eax,3                                ; Умножение на 8 сдвигом влево на 3 бита
+00007FF630CD1813 83 F0 0C             xor         eax,0Ch                              ; Побитовое исключающее ИЛИ с константой 12
+00007FF630CD1816 8B 0D 54 AA 00 00    mov         ecx,dword ptr [i (07FF630CDC270h)]   ; Загрузка индекса i в ecx
+00007FF630CD181C 48 8D 15 1D AA 00 00 lea         rdx,[iMas (07FF630CDC240h)]          ; Базовый адрес массива в rdx
+00007FF630CD1823 89 04 8A             mov         dword ptr [rdx+rcx*4],eax            ; Запись в массив: База + Индекс * 4 (код 89 04 8A)
+    19: 	}
+00007FF630CD1826 EB A6                jmp         main+0AEh (07FF630CD17CEh)           ; Переход к следующей итерации (на шаг цикла)
+    20: 
+    21: 	return 0;
+00007FF630CD1828 33 C0                xor         eax,eax                              ; Код возврата функции 0 (return 0)
+    22: }
+00007FF630CD182A 48 8D A5 C8 00 00 00 lea         rsp,[rbp+0C8h]                       ; Восстановление указателя стека
+00007FF630CD1831 5F                   pop         rdi                                  ; Восстановление регистра rdi
+00007FF630CD1832 5D                   pop         rbp                                  ; Восстановление базового указателя кадра rbp
+00007FF630CD1833 C3                   ret                                              ; Возврат из функции
