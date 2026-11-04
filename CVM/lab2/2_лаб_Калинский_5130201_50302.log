@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.9.9)  8 OCT 2026 13:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.9.9)  4 NOV 2026 11:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./5130201_50302_Калинский_ВИ_Отчет.tex
-(5130201_50302_Калинский_ВИ_Отчет.tex
+**./2_лаб_Калинский_5130201_50302.tex
+(2_лаб_Калинский_5130201_50302.tex
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-08-13>
 (D:\Programs\MiKTeX\tex/latex/extsizes\extarticle.cls
@@ -704,11 +704,11 @@ Package: array 2025/06/08 v2.6j Tabular extension package (FMi)
 File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count330
 )
-(5130201_50302_Калинский_ВИ_Отчет.aux
+(2_лаб_Калинский_5130201_50302.aux
 Package babel Info: 'russian' activates 'russian' shorthands.
 (babel)             Reported on input line 8.
 )
-\openout1 = `5130201_50302_Калинский_ВИ_Отчет.aux'.
+\openout1 = `2_лаб_Калинский_5130201_50302.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 62.
 LaTeX Font Info:    ... okay on input line 62.
@@ -767,10 +767,10 @@ LaTeX Info: Redefining \th on input line 62.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package hyperref Info: Link coloring ON on input line 62.
-(5130201_50302_Калинский_ВИ_Отчет.out)
-(5130201_50302_Калинский_ВИ_Отчет.out)
+(2_лаб_Калинский_5130201_50302.out)
+(2_лаб_Калинский_5130201_50302.out)
 \@outlinefile=\write3
-\openout3 = `5130201_50302_Калинский_ВИ_Отчет.out'.
+\openout3 = `2_лаб_Калинский_5130201_50302.out'.
 
 
 (D:\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
@@ -1010,7 +1010,7 @@ s been already used, duplicate ignored
 l.201 
        <./3.png>]
 
-[7] (5130201_50302_Калинский_ВИ_Отчет.aux)
+[7] (2_лаб_Калинский_5130201_50302.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-08-13>
@@ -1019,26 +1019,26 @@ L3 programming layer <2025-08-13>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package rerunfilecheck Info: File `5130201_50302_Калинский_ВИ_Отч
-ет.out' has not changed.
+Package rerunfilecheck Info: File `2_лаб_Калинский_5130201_50302.ou
+t' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
  15301 strings out of 468133
- 233521 string characters out of 5443219
- 841319 words of memory out of 5000000
+ 233381 string characters out of 5443219
+ 841305 words of memory out of 5000000
  43692 multiletter control sequences out of 15000+600000
  633920 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,11n,79p,1317b,463s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,11n,79p,1310b,463s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\labx20
 74.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\la
 bx1440.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi60
 0\larm1440.pk><D:/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><D:
 /Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/Programs/MiKTeX/f
 onts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on 5130201_50302_Калинский_ВИ_Отчет.pdf (7 pages
-, 177326 bytes).
+Output written on 2_лаб_Калинский_5130201_50302.pdf (7 pages, 17732
+6 bytes).
 PDF statistics:
  230 PDF objects out of 1000 (max. 8388607)
  14 named destinations out of 1000 (max. 500000)

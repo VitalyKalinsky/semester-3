@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.9.9)  17 OCT 2026 10:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.9.9)  4 NOV 2026 11:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./5130201_50302_Калинский_ВИ_Отчет.tex
-(5130201_50302_Калинский_ВИ_Отчет.tex
+**./3_лаб_Калинский_5130201_50302.tex
+(3_лаб_Калинский_5130201_50302.tex
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-08-13>
 (D:\Programs\MiKTeX\tex/latex/extsizes\extarticle.cls
@@ -704,11 +704,11 @@ Package: array 2025/06/08 v2.6j Tabular extension package (FMi)
 File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count330
 )
-(5130201_50302_Калинский_ВИ_Отчет.aux
+(3_лаб_Калинский_5130201_50302.aux
 Package babel Info: 'russian' activates 'russian' shorthands.
 (babel)             Reported on input line 8.
 )
-\openout1 = `5130201_50302_Калинский_ВИ_Отчет.aux'.
+\openout1 = `3_лаб_Калинский_5130201_50302.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 62.
 LaTeX Font Info:    ... okay on input line 62.
@@ -767,10 +767,10 @@ LaTeX Info: Redefining \th on input line 62.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package hyperref Info: Link coloring ON on input line 62.
-(5130201_50302_Калинский_ВИ_Отчет.out)
-(5130201_50302_Калинский_ВИ_Отчет.out)
+(3_лаб_Калинский_5130201_50302.out)
+(3_лаб_Калинский_5130201_50302.out)
 \@outlinefile=\write3
-\openout3 = `5130201_50302_Калинский_ВИ_Отчет.out'.
+\openout3 = `3_лаб_Калинский_5130201_50302.out'.
 
 
 (D:\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
@@ -934,31 +934,32 @@ File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 ) [1
 
 {C:/Users/kalin/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 96--99
+Underfull \hbox (badness 10000) in paragraph at lines 97--100
 
  []
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 100
+LaTeX Font Info:    Trying to load font information for U+msa on input line 101
 .
 (D:\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 100
+LaTeX Font Info:    Trying to load font information for U+msb on input line 101
 .
 
 (D:\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (2.86833pt too wide) in paragraph at lines 156--157
-[]\T2A/cmr/m/n/14.4 �� ��-����-��-��� ��-��-��-��-��� ���� ���-�� ��-��-��-�� �
-���-��-��� ��-�����-
+Overfull \hbox (1.94829pt too wide) in paragraph at lines 101--103
+\T2A/cmr/m/n/14.4 ���-��-�� ���-�-�� ��-��-��: $\OML/cmm/m/it/14.4 m \OMS/cmsy/
+m/n/14.4 ^^U j [][] \OML/cmm/m/it/14.4 K[]\OMS/cmsy/m/n/14.4 j \OT1/cmr/m/n/14.
+4 = \OMS/cmsy/m/n/14.4 j [][] \OT1/cmr/m/n/14.4 5\OMS/cmsy/m/n/14.4 j \OT1/cmr/
+m/n/14.4 = 2\OML/cmm/m/it/14.4 :\OT1/cmr/m/n/14.4 32 =\OML/cmm/m/it/14.4 > m \O
+T1/cmr/m/n/14.4 = 3[]$\T2A/cmr/m/n/14.4 .
  []
 
-<4-1.png, id=14, 606.76688pt x 258.9675pt>
-File: 4-1.png Graphic file (type png)
-<use 4-1.png>
-Package pdftex.def Info: 4-1.png  used on input line 164.
-(pdftex.def)             Requested size: 362.77264pt x 154.83241pt.
+
+Package hyperref Warning: Suppressing empty link on input line 161.
+
 
 
 [2
@@ -966,65 +967,110 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.168 
-      ]
-<p4-3.png, id=35, 514.92375pt x 496.85625pt>
-File: p4-3.png Graphic file (type png)
-<use p4-3.png>
-Package pdftex.def Info: p4-3.png  used on input line 189.
-(pdftex.def)             Requested size: 338.58632pt x 326.7131pt.
+l.172 \end{center}
+                  ]
+<3-1.png, id=28, 441.14813pt x 496.10344pt>
+File: 3-1.png Graphic file (type png)
+<use 3-1.png>
+Package pdftex.def Info: 3-1.png  used on input line 267.
+(pdftex.def)             Requested size: 338.58632pt x 380.78206pt.
 
 
-[3
+[3]
+<p11.png, id=38, 542.025pt x 583.42969pt>
+File: p11.png Graphic file (type png)
+<use p11.png>
+Package pdftex.def Info: p11.png  used on input line 276.
+(pdftex.def)             Requested size: 338.58632pt x 364.4646pt.
+
+
+[4
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.193 
-      
-pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has
- been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.193 
-       <./4-1.png>]
-<4-2.png, id=44, 558.58687pt x 537.50812pt>
-File: 4-2.png Graphic file (type png)
-<use 4-2.png>
-Package pdftex.def Info: 4-2.png  used on input line 196.
-(pdftex.def)             Requested size: 362.77264pt x 349.09727pt.
+l.280 
+       <./3-1.png>]
+<3-2.png, id=46, 610.53094pt x 527.72156pt>
+File: 3-2.png Graphic file (type png)
+<use 3-2.png>
+Package pdftex.def Info: 3-2.png  used on input line 283.
+(pdftex.def)             Requested size: 338.58632pt x 292.67152pt.
 
 
-[4
+[5
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.200 
-       <./p4-3.png>]
+l.287 
+       <./p11.png>]
+<oscilscheme.png, id=54, 546.54187pt x 419.31656pt>
+File: oscilscheme.png Graphic file (type png)
+<use oscilscheme.png>
+Package pdftex.def Info: oscilscheme.png  used on input line 292.
+(pdftex.def)             Requested size: 338.58632pt x 259.76883pt.
+<oscillog1.png, id=55, 369.63094pt x 265.74281pt>
+File: oscillog1.png Graphic file (type png)
+<use oscillog1.png>
+Package pdftex.def Info: oscillog1.png  used on input line 299.
+(pdftex.def)             Requested size: 338.58632pt x 243.42397pt.
 
-[5
+
+[6
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.209 
-       <./4-2.png>]
-<4-3.png, id=57, 568.37344pt x 536.0025pt>
-File: 4-3.png Graphic file (type png)
-<use 4-3.png>
-Package pdftex.def Info: 4-3.png  used on input line 212.
-(pdftex.def)             Requested size: 362.77264pt x 342.1244pt.
+l.303 
+       <./3-2.png>]
 
-
-[6
+[7
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.265 \end{document}
-                     <./4-3.png>]
-(5130201_50302_Калинский_ВИ_Отчет.aux)
+l.307 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.307 
+       <./oscilscheme.png> <./oscillog1.png>]
+<3-3.png, id=71, 615.0478pt x 529.98pt>
+File: 3-3.png Graphic file (type png)
+<use 3-3.png>
+Package pdftex.def Info: 3-3.png  used on input line 310.
+(pdftex.def)             Requested size: 338.58632pt x 291.75674pt.
+
+
+LaTeX Warning: Command \cyrs invalid in math mode on input line 317.
+
+
+LaTeX Warning: Command \cyrch invalid in math mode on input line 317.
+
+Missing character: There is no � in font cmr10!
+Missing character: There is no � in font cmr10!
+
+LaTeX Warning: Command \cyrs invalid in math mode on input line 317.
+
+
+LaTeX Warning: Command \cyrch invalid in math mode on input line 317.
+
+Missing character: There is no � in font cmr10!
+Missing character: There is no � in font cmr10!
+
+
+[8
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.363 \end{document}
+                     <./3-3.png>]
+
+[9] (3_лаб_Калинский_5130201_50302.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-08-13>
@@ -1033,35 +1079,34 @@ L3 programming layer <2025-08-13>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package rerunfilecheck Info: File `5130201_50302_Калинский_ВИ_Отч
-ет.out' has not changed.
+Package rerunfilecheck Info: File `3_лаб_Калинский_5130201_50302.ou
+t' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 15359 strings out of 468133
- 234303 string characters out of 5443219
- 845319 words of memory out of 5000000
- 43739 multiletter control sequences out of 15000+600000
- 642130 words of font info for 82 fonts, out of 8000000 for 9000
+ 15376 strings out of 468133
+ 234435 string characters out of 5443219
+ 854305 words of memory out of 5000000
+ 43753 multiletter control sequences out of 15000+600000
+ 641789 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,10n,79p,1442b,463s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
-1440.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\
-larm1000.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi
-600\labx1200.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a
-/dpi600\larm1200.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh
--t2a/dpi600\labx2074.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/l
-h/lh-t2a/dpi600\labx1440.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfo
-ur/lh/lh-t2a/dpi600\larm1440.pk><D:/Programs/MiKTeX/fonts/type1/public/amsfonts
-/cm/cmmi10.pfb><D:/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><D
-:/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><D:/Programs/MiKTeX/
-fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Programs/MiKTeX/fonts/type1/public
-/amsfonts/cm/cmr12.pfb><D:/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.
-pfb><D:/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on 5130201_50302_Калинский_ВИ_Отчет.pdf (6 pages
-, 243099 bytes).
+ 75i,10n,79p,1539b,535s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\labx12
+00.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\la
+rm1200.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi60
+0\larm1000.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/d
+pi600\labx2074.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t
+2a/dpi600\labx1440.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/
+lh-t2a/dpi600\larm1440.pk><D:/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
+mi10.pfb><D:/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><D:/Prog
+rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><D:/Programs/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmr10.pfb><D:/Programs/MiKTeX/fonts/type1/public/amsfo
+nts/cm/cmr12.pfb><D:/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><D
+:/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on 3_лаб_Калинский_5130201_50302.pdf (9 pages, 28963
+3 bytes).
 PDF statistics:
- 274 PDF objects out of 1000 (max. 8388607)
- 13 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 295 PDF objects out of 1000 (max. 8388607)
+ 17 named destinations out of 1000 (max. 500000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
