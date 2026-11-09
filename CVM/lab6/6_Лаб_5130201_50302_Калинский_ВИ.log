@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.9.9)  4 NOV 2026 20:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.9.9)  5 NOV 2026 14:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -700,9 +700,15 @@ File: lstlang1.sty 2024/09/23 1.10c listings language file
 (D:\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
 )
+(D:\Programs\MiKTeX\tex/latex/colortbl\colortbl.sty
+Package: colortbl 2026/05/01 v1.0l Color table columns (DPC)
+\everycr=\toks34
+\minrowclearance=\skip62
+\rownum=\count330
+)
 (D:\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count330
+\l__color_backend_stack_int=\count331
 )
 (6_Р›Р°Р±_5130201_50302_РљР°Р»РёРЅСЃРєРёР№_Р’Р.aux
 Package babel Info: 'russian' activates 'russian' shorthands.
@@ -710,27 +716,27 @@ Package babel Info: 'russian' activates 'russian' shorthands.
 )
 \openout1 = `6_Р›Р°Р±_5130201_50302_РљР°Р»РёРЅСЃРєРёР№_Р’Р.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Info: Redefining \th on input line 60.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 112.
+LaTeX Font Info:    ... okay on input line 112.
+LaTeX Info: Redefining \th on input line 112.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -766,7 +772,7 @@ LaTeX Info: Redefining \th on input line 60.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 60.
+Package hyperref Info: Link coloring ON on input line 112.
 (6_Р›Р°Р±_5130201_50302_РљР°Р»РёРЅСЃРєРёР№_Р’Р.out)
 (6_Р›Р°Р±_5130201_50302_РљР°Р»РёРЅСЃРєРёР№_Р’Р.out)
 \@outlinefile=\write3
@@ -775,17 +781,17 @@ Package hyperref Info: Link coloring ON on input line 60.
 
 (D:\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count331
+\scratchcounter=\count332
 \scratchdimen=\dimen189
 \scratchbox=\box68
-\nofMPsegments=\count332
-\nofMParguments=\count333
-\everyMPshowfont=\toks34
-\MPscratchCnt=\count334
+\nofMPsegments=\count333
+\nofMParguments=\count334
+\everyMPshowfont=\toks35
+\MPscratchCnt=\count335
 \MPscratchDim=\dimen190
-\MPnumerator=\count335
-\makeMPintoPDFobject=\count336
-\everyMPtoPDFconversion=\toks35
+\MPnumerator=\count336
+\makeMPintoPDFobject=\count337
+\everyMPtoPDFconversion=\toks36
 ) (D:\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -794,138 +800,139 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 (D:\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-\c@lstlisting=\count337
+\c@lstlisting=\count338
 LaTeX Font Info:    Trying to load font information for T2A+cmtt on input line 
-60.
+112.
 
 (D:\Programs\MiKTeX\tex/latex/cyrillic\t2acmtt.fd
 File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 )
 
 LaTeX Font Warning: Font shape `T2A/cmtt/m/scsl' undefined
-(Font)              using `T2A/cmtt/m/sc' instead on input line 60.
+(Font)              using `T2A/cmtt/m/sc' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/b/n' undefined
-(Font)              using `T2A/cmtt/m/n' instead on input line 60.
+(Font)              using `T2A/cmtt/m/n' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/b/it' undefined
-(Font)              using `T2A/cmtt/b/n' instead on input line 60.
+(Font)              using `T2A/cmtt/b/n' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/b/sl' undefined
-(Font)              using `T2A/cmtt/b/it' instead on input line 60.
+(Font)              using `T2A/cmtt/b/it' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/b/scit' undefined
-(Font)              using `T2A/cmtt/b/sc' instead on input line 60.
+(Font)              using `T2A/cmtt/b/sc' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/b/sc' undefined
-(Font)              using `T2A/cmtt/b/n' instead on input line 60.
+(Font)              using `T2A/cmtt/b/n' instead on input line 112.
 
 LaTeX Font Info:    Font shape `T2A/cmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `T2A/cmtt/m/n' tried instead on input line 60.
+(Font)              Font shape `T2A/cmtt/m/n' tried instead on input line 112.
 LaTeX Font Info:    Font shape `T2A/cmtt/bx/it' in size <14.4> not available
-(Font)              Font shape `T2A/cmtt/m/it' tried instead on input line 60.
+(Font)              Font shape `T2A/cmtt/m/it' tried instead on input line 112.
+
 
 LaTeX Font Warning: Font shape `T2A/cmtt/bx/sl' undefined
-(Font)              using `T2A/cmtt/bx/it' instead on input line 60.
+(Font)              using `T2A/cmtt/bx/it' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/bx/scit' undefined
-(Font)              using `T2A/cmtt/bx/sc' instead on input line 60.
+(Font)              using `T2A/cmtt/bx/sc' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/bx/sc' undefined
-(Font)              using `T2A/cmtt/bx/n' instead on input line 60.
+(Font)              using `T2A/cmtt/bx/n' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/sbx/sc' undefined
-(Font)              using `T2A/cmtt/bx/sc' instead on input line 60.
+(Font)              using `T2A/cmtt/bx/sc' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/sbx/n' undefined
-(Font)              using `T2A/cmtt/bx/n' instead on input line 60.
+(Font)              using `T2A/cmtt/bx/n' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/sbx/it' undefined
-(Font)              using `T2A/cmtt/bx/it' instead on input line 60.
+(Font)              using `T2A/cmtt/bx/it' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/bx/sl' undefined
-(Font)              using `T2A/cmtt/bx/it' instead on input line 60.
+(Font)              using `T2A/cmtt/bx/it' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/sbx/it' undefined
-(Font)              using `T2A/cmtt/bx/it' instead on input line 60.
+(Font)              using `T2A/cmtt/bx/it' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/bx/scit' undefined
-(Font)              using `T2A/cmtt/bx/sc' instead on input line 60.
+(Font)              using `T2A/cmtt/bx/sc' instead on input line 112.
 
 LaTeX Font Info:    Font shape `T2A/cmtt/bx/sc' in size <14.4> not available
-(Font)              Font shape `T2A/cmtt/m/n' tried instead on input line 60.
+(Font)              Font shape `T2A/cmtt/m/n' tried instead on input line 112.
 
 LaTeX Font Warning: Font shape `T2A/cmtt/bc/sc' undefined
-(Font)              using `T2A/cmtt/c/sc' instead on input line 60.
+(Font)              using `T2A/cmtt/c/sc' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/c/n' undefined
-(Font)              using `T2A/cmtt/m/n' instead on input line 60.
+(Font)              using `T2A/cmtt/m/n' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/c/it' undefined
-(Font)              using `T2A/cmtt/c/n' instead on input line 60.
+(Font)              using `T2A/cmtt/c/n' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/c/sl' undefined
-(Font)              using `T2A/cmtt/c/it' instead on input line 60.
+(Font)              using `T2A/cmtt/c/it' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/c/scit' undefined
-(Font)              using `T2A/cmtt/c/sc' instead on input line 60.
+(Font)              using `T2A/cmtt/c/sc' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/c/sc' undefined
-(Font)              using `T2A/cmtt/c/n' instead on input line 60.
+(Font)              using `T2A/cmtt/c/n' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/lc/sc' undefined
-(Font)              using `T2A/cmtt/c/sc' instead on input line 60.
+(Font)              using `T2A/cmtt/c/sc' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/lc/n' undefined
-(Font)              using `T2A/cmtt/c/n' instead on input line 60.
+(Font)              using `T2A/cmtt/c/n' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/lc/it' undefined
-(Font)              using `T2A/cmtt/c/it' instead on input line 60.
+(Font)              using `T2A/cmtt/c/it' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/c/sl' undefined
-(Font)              using `T2A/cmtt/c/it' instead on input line 60.
+(Font)              using `T2A/cmtt/c/it' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/lc/it' undefined
-(Font)              using `T2A/cmtt/c/it' instead on input line 60.
+(Font)              using `T2A/cmtt/c/it' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/c/scit' undefined
-(Font)              using `T2A/cmtt/c/sc' instead on input line 60.
+(Font)              using `T2A/cmtt/c/sc' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/m/ui' undefined
-(Font)              using `T2A/cmtt/m/n' instead on input line 60.
+(Font)              using `T2A/cmtt/m/n' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/bx/ui' undefined
-(Font)              using `T2A/cmtt/bx/n' instead on input line 60.
+(Font)              using `T2A/cmtt/bx/n' instead on input line 112.
 
 
 LaTeX Font Warning: Font shape `T2A/cmtt/m/In' undefined
-(Font)              using `T2A/cmtt/m/n' instead on input line 60.
+(Font)              using `T2A/cmtt/m/n' instead on input line 112.
 
 
 
@@ -934,29 +941,29 @@ File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 ) [1
 
 {C:/Users/kalin/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 95--98
+Underfull \hbox (badness 10000) in paragraph at lines 147--150
 
  []
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 99.
-
+LaTeX Font Info:    Trying to load font information for U+msa on input line 151
+.
 (D:\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 99.
-
+LaTeX Font Info:    Trying to load font information for U+msb on input line 151
+.
 
 (D:\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 99--102
+Underfull \hbox (badness 10000) in paragraph at lines 151--154
 
  []
 
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 105.
+nput line 157.
 LaTeX Font Info:    Font shape `T2A/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T2A/cmtt/m/n' tried instead on input line 106.
+(Font)              Font shape `T2A/cmtt/m/n' tried instead on input line 158.
 
 
 [2] (D:\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
@@ -972,202 +979,263 @@ File: lstlang3.sty 2024/09/23 1.10c listings language file
 [3]
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 232--232
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 278--278
 []|\T2A/cmtt/c/sc/14.4 0x07FF630CDC240 \T2A/cmr/m/n/14.4 --
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 232--232
+Underfull \hbox (badness 10000) in paragraph at lines 278--278
 []|\T2A/cmtt/c/sc/14.4 0x07FF630CDC268 \T2A/cmr/m/n/14.4 --
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 232--232
+Underfull \hbox (badness 10000) in paragraph at lines 278--278
 []|\T2A/cmtt/c/sc/14.4 0x07FF630CDC270 \T2A/cmr/m/n/14.4 --
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 235--238
+Underfull \hbox (badness 10000) in paragraph at lines 281--284
 
  []
 
 
-Underfull \hbox (badness 4543) in paragraph at lines 262--262
+Underfull \hbox (badness 4543) in paragraph at lines 308--308
 []|\T2A/cmr/bx/n/14.4 Команда ас-сем-бле-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmr/bx/n/14.4 Операнд 1
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmr/bx/n/14.4 Операнд 2
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmr/m/n/14.4 Базово-
  []
 
 
-Overfull \hbox (15.48862pt too wide) in paragraph at lines 262--262
-[]|\T2A/cmr/m/n/14.4 Непосредственная| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmr/m/n/14.4 Базово-
  []
 
 
-Overfull \hbox (15.48862pt too wide) in paragraph at lines 262--262
-[]|\T2A/cmr/m/n/14.4 Непосредственная| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmtt/c/sc/14.4 mov [rcx+rax],
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmr/m/n/14.4 Базово-
  []
 
 
-Overfull \hbox (15.48862pt too wide) in paragraph at lines 262--262
-[]|\T2A/cmr/m/n/14.4 Непосредственная| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmtt/c/sc/14.4 mov [rcx+rax],
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmr/m/n/14.4 Базово-
  []
 
 
-Overfull \hbox (15.48862pt too wide) in paragraph at lines 262--262
-[]|\T2A/cmr/m/n/14.4 Непосредственная| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmtt/c/sc/14.4 mov qword ptr [pI],
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmtt/c/sc/14.4 mov rax, qword ptr
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmtt/c/sc/14.4 mov dword ptr [rax],
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmr/m/n/14.4 Косвенно-
  []
 
 
-Overfull \hbox (15.48862pt too wide) in paragraph at lines 262--262
-[]|\T2A/cmr/m/n/14.4 Непосредственная| 
- []
-
-
-Overfull \hbox (15.48862pt too wide) in paragraph at lines 262--262
-[]|\T2A/cmr/m/n/14.4 Непосредственная| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmtt/c/sc/14.4 mov eax, dword ptr
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmtt/c/sc/14.4 mov dword ptr [i],
  []
 
 
-Overfull \hbox (15.48862pt too wide) in paragraph at lines 262--262
-[]|\T2A/cmr/m/n/14.4 Непосредственная| 
- []
-
-
-Overfull \hbox (15.48862pt too wide) in paragraph at lines 262--262
-[]|\T2A/cmr/m/n/14.4 Непосредственная| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmtt/c/sc/14.4 imul eax, dword ptr
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmr/m/n/14.4 Прямая и
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmtt/c/sc/14.4 mov ecx, dword ptr
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--262
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
 []|\T2A/cmr/m/n/14.4 Масштабно-
  []
 
 
 
-[5
+[6
 pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.264 
+l.310 
       ]
-Overfull \vbox (6.5631pt too high) has occurred while \output is active []
 
-
-
-[6
+[7
 pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.264 
+l.314 
       ]
-Overfull \hbox (43.10568pt too wide) in paragraph at lines 275--276
+Underfull \hbox (badness 10000) in paragraph at lines 331--331
+[]|\T2A/cmtt/c/sc/14.4 48 81 EC E8 00
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 331--331
+[]|\T2A/cmtt/c/sc/14.4 lea
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 331--331
+[]|\T2A/cmtt/c/sc/14.4 83 3D 8D AA 00
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 331--331
+[]|\T2A/cmtt/c/sc/14.4 cmp dword ptr
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 331--331
+[]|\T2A/cmtt/c/sc/14.4 jae main+108h
+ []
+
+
+Overfull \hbox (4.74072pt too wide) in paragraph at lines 331--331
+\T2A/cmtt/c/sc/14.4 (07FF630CD1828hP)| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 335--343
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 345--364
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 345--364
+
+ []
+
+
+
+[8
+pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.364 
+      ]
+Underfull \hbox (badness 10000) in paragraph at lines 366--381
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 389--399
+
+ []
+
+
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 407--419
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 421--431
+
+ []
+
+
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 440--453
+
+ []
+
+
+Overfull \hbox (5.96358pt too wide) in paragraph at lines 455--464
+\T2A/cmtt/c/sc/14.4 next_-command_-address = IP + 0x43 = 07FF630CD1828h, ес-ли 
+со-блю-да-ет-ся
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 455--464
+
+ []
+
+
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 466--476
+
+ []
+
+
+Overfull \hbox (43.10568pt too wide) in paragraph at lines 497--498
 []\T2A/cmr/bx/n/14.4 Масштаб (Scale): \T2A/cmr/m/n/14.4 ко-эф-фи-ци-ент 4 --- с
 о-от-вет-ству-ет раз-ме-ру ти-па \T2A/cmtt/c/sc/14.4 sizeof(int)
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 278--281
+Underfull \hbox (badness 10000) in paragraph at lines 500--503
 
  []
 
 
-Overfull \hbox (20.15582pt too wide) in paragraph at lines 282--283
+
+[12]
+Overfull \hbox (20.15582pt too wide) in paragraph at lines 504--505
 \T2A/cmr/m/n/14.4 вым сме-ще-ни-ем от-но-си-тель-но счјт-чи-ка ко-манд сле-ду-ю
 -щей ин-струк-ции ($[] \OT1/cmr/m/n/14.4 =
  []
 
 
 
-[7]
+[13]
 
-[8]
-Overfull \hbox (12.31888pt too wide) in paragraph at lines 340--341
+[14]
+Overfull \hbox (12.31888pt too wide) in paragraph at lines 576--577
 \T2A/cmr/m/n/14.4 каж-дом ша-ге вы-чис-ля-ет фор-му-лу $\OML/cmm/m/it/14.4 rdx 
 \OT1/cmr/m/n/14.4 + \OML/cmm/m/it/14.4 rcx \OMS/cmsy/m/n/14.4 ^^A \OT1/cmr/m/n/
 14.4 4$ \T2A/cmr/m/n/14.4 ко-ман-дой \T2A/cmtt/c/sc/14.4 mov [rdx+rcx*4],
@@ -1175,7 +1243,9 @@ Overfull \hbox (12.31888pt too wide) in paragraph at lines 340--341
 
 
 
-[9] (6_Р›Р°Р±_5130201_50302_РљР°Р»РёРЅСЃРєРёР№_Р’Р.aux)
+[15]
+
+[16] (6_Р›Р°Р±_5130201_50302_РљР°Р»РёРЅСЃРєРёР№_Р’Р.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-08-13>
@@ -1189,29 +1259,30 @@ Package rerunfilecheck Info: File `6_Р›Р°Р±_5130201_50302_РљР°Р»РёРЅСЃРєРёР№_Р’
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 16087 strings out of 468133
- 241966 string characters out of 5443219
- 1442731 words of memory out of 5000000
- 44313 multiletter control sequences out of 15000+600000
- 637598 words of font info for 66 fonts, out of 8000000 for 9000
+ 16497 strings out of 468133
+ 247591 string characters out of 5443219
+ 1714757 words of memory out of 5000000
+ 44703 multiletter control sequences out of 15000+600000
+ 638400 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,10n,79p,1367b,1745s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,11n,79p,1367b,1745s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1440.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\
-lait1000.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi
-600\latt1000.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a
-/dpi600\larm0600.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh
--t2a/dpi600\latt1440.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/l
-h/lh-t2a/dpi600\labx2074.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfo
-ur/lh/lh-t2a/dpi600\labx1440.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/
-ljfour/lh/lh-t2a/dpi600\larm1440.pk><D:/Programs/MiKTeX/fonts/type1/public/amsf
-onts/cm/cmmi12.pfb><D:/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb
-><D:/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/Programs/MiKT
-eX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on 6_Р›Р°Р±_5130201_50302_РљР°Р»РёРЅСЃРєРёР№_Р’Р.pdf (9 pages, 
-239340 bytes).
+larm0800.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi
+600\lait1000.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a
+/dpi600\latt1000.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh
+-t2a/dpi600\larm0600.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfour/l
+h/lh-t2a/dpi600\latt1440.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/ljfo
+ur/lh/lh-t2a/dpi600\labx2074.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts/pk/
+ljfour/lh/lh-t2a/dpi600\labx1440.pk> <C:\Users\kalin\AppData\Local\MiKTeX\fonts
+/pk/ljfour/lh/lh-t2a/dpi600\larm1440.pk><D:/Programs/MiKTeX/fonts/type1/public/
+amsfonts/cm/cmmi12.pfb><D:/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10
+.pfb><D:/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/Programs/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on 6_Р›Р°Р±_5130201_50302_РљР°Р»РёРЅСЃРєРёР№_Р’Р.pdf (16 pages,
+ 308789 bytes).
 PDF statistics:
- 708 PDF objects out of 1000 (max. 8388607)
- 164 named destinations out of 1000 (max. 500000)
+ 868 PDF objects out of 1000 (max. 8388607)
+ 179 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

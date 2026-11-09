@@ -57,6 +57,58 @@
 \newcommand{\tab}{\hspace{12.5mm}}
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 
+\usepackage{colortbl}
+
+\definecolor{opcol}{RGB}{200, 240, 200}
+\definecolor{modcol}{RGB}{200, 225, 250}
+\definecolor{sibcol}{RGB}{255, 245, 190}
+\definecolor{dispcol}{RGB}{255, 215, 215}
+\definecolor{immcol}{RGB}{235, 215, 255}
+\definecolor{rexcol}{RGB}{240, 230, 210}
+
+\newcommand{\bytebox}[3]{%
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\rowcolor{#1}
+{\tiny 7} & {\tiny 6} & {\tiny 5} & {\tiny 4} & {\tiny 3} & {\tiny 2} & {\tiny 1} & {\tiny 0} \\ \hline
+#2 \\ \hline
+\multicolumn{8}{|c|}{\scriptsize #3} \\ \hline
+\end{tabular}%
+}
+
+\newcommand{\modrmbox}[5]{%
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\rowcolor{modcol}
+{\tiny 7} & {\tiny 6} & {\tiny 5} & {\tiny 4} & {\tiny 3} & {\tiny 2} & {\tiny 1} & {\tiny 0} \\ \hline
+#1 \\ \hline
+\multicolumn{2}{|c|}{\tiny #2} & \multicolumn{3}{c|}{\tiny #3} & \multicolumn{3}{c|}{\tiny #4} \\ \hline
+\multicolumn{8}{|c|}{\scriptsize #5} \\ \hline
+\end{tabular}%
+}
+
+\newcommand{\sibbox}[5]{%
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\rowcolor{sibcol}
+{\tiny 7} & {\tiny 6} & {\tiny 5} & {\tiny 4} & {\tiny 3} & {\tiny 2} & {\tiny 1} & {\tiny 0} \\ \hline
+#1 \\ \hline
+\multicolumn{2}{|c|}{\tiny #2} & \multicolumn{3}{c|}{\tiny #3} & \multicolumn{3}{c|}{\tiny #4} \\ \hline
+\multicolumn{8}{|c|}{\scriptsize #5} \\ \hline
+\end{tabular}%
+}
+
+\newcommand{\rexbox}[6]{%
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\rowcolor{rexcol}
+{\tiny 7} & {\tiny 6} & {\tiny 5} & {\tiny 4} & {\tiny 3} & {\tiny 2} & {\tiny 1} & {\tiny 0} \\ \hline
+#1 \\ \hline
+\multicolumn{4}{|c|}{\tiny 0100 (REX)} & {\tiny #2} & {\tiny #3} & {\tiny #4} & {\tiny #5} \\ \hline
+\multicolumn{8}{|c|}{\scriptsize #6} \\ \hline
+\end{tabular}%
+}
+
 \begin{document}
 	\thispagestyle{empty}
 	\begin{center}
@@ -128,94 +180,88 @@ int main() {
 	Программа оттранслирована в среде Visual Studio. В режиме отладки (окно Disassembly) получен машинный код (листинг 2) с сопоставлением инструкциям языка Си.
 
 	\begin{lstlisting}[language={[x86masm]Assembler}, caption={Дизассемблированный код с сопоставлением инструкциям Си}]
-; --- Пролог функции main ---
-push   rbp              ; Сохранение базового регистра кадра
-push   rdi              ; Сохранение регистра rdi
-sub    rsp, 0E8h        ; Выделение стекового пространства под локальные нужды
-lea    rbp, [rsp+20h]   ; Установка базового указателя кадра
-
-; 6: iMas[3] = 12;
-mov    eax, 4           ; Загрузка размера элемента int (4 байта)
-imul   rax, rax, 3      ; Вычисление смещения: 3 * 4 = 12 (0x0C) байт
-lea    rcx, [iMas]      ; Получение базового адреса массива iMas (07FF630CDC240h)
-mov    dword ptr [rcx+rax], 0Ch ; Запись 4-байтовой константы 12 по адресу rcx+rax
-
-; 7: iMas[4] = 12345;
-mov    eax, 4           ; Размер элемента
-imul   rax, rax, 4      ; Смещение элемента: 4 * 4 = 16 (0x10) байт
-lea    rcx, [iMas]      ; Базовый адрес массива iMas
-mov    dword ptr [rcx+rax], 3039h ; Запись константы 12345 (0x3039)
-
-; 8: iMas[5] = 12345678;
-mov    eax, 4           ; Размер элемента
-imul   rax, rax, 5      ; Смещение элемента: 5 * 4 = 20 (0x14) байт
-lea    rcx, [iMas]      ; Базовый адрес массива iMas
-mov    dword ptr [rcx+rax], 0BC614Eh ; Запись константы 12345678 (0x00BC614E)
-
-; 9: iMas[6] = 0x123456789ABCDE;
-mov    eax, 4           ; Размер элемента
-imul   rax, rax, 6      ; Смещение элемента: 6 * 4 = 24 (0x18) байта
-lea    rcx, [iMas]      ; Базовый адрес массива iMas
-mov    dword ptr [rcx+rax], 789ABCDEh ; Усечение до 32 бит: запись младших 4 байт
-
-; 11: pI = &iMas[2];
-mov    eax, 4           ; Размер элемента
-imul   rax, rax, 2      ; Смещение для индекса 2: 2 * 4 = 8 байт
-lea    rcx, [iMas]      ; Базовый адрес массива iMas
-add    rcx, rax         ; rcx = адрес элемента iMas[2]
-mov    rax, rcx         ; Перенос адреса в rax
-mov    qword ptr [pI], rax ; Запись 8-байтового адреса в указатель pI
-
-; 12: *pI = 0xAB12;
-mov    rax, qword ptr [pI] ; Считывание адреса из pI в регистр rax
-mov    dword ptr [rax], 0AB12h ; Косвенная запись константы 0xAB12 по адресу в rax
-
-; 14: for (i = 0; i < 9; i++) {
-mov    dword ptr [i], 0 ; i = 0 (инициализация счетчика цикла)
-jmp    main+0BCh        ; Безусловный переход к проверке условия цикла
-
-main+0CEh:              ; Шаг цикла (i++)
-mov    eax, dword ptr [i] ; Загрузка текущего i в eax
-inc    eax                ; Инкремент значения (i + 1)
-mov    dword ptr [i], eax ; Сохранение обновленного i обратно в память
-
-main+0BCh:              ; Проверка условия продолжения цикла (i < 9)
-cmp    dword ptr [i], 9 ; Сравнение i с константой 9
-jae    main+108h        ; Если i >= 9, выход из цикла (беззнаковый переход)
-
-; 15: if (i >= 4)
-cmp    dword ptr [i], 4 ; Сравнение счетчика i с числом 4
-jb     main+0EAh        ; Если i < 4, переход в ветку else (беззнаковый переход)
-
-; 16: iMas[i] = 13 * i + 7;
-imul   eax, dword ptr [i], 0Dh ; eax = i * 13 (0x0D)
-add    eax, 7           ; eax = 13 * i + 7
-mov    ecx, dword ptr [i] ; Загрузка индекса i в ecx
-lea    rdx, [iMas]      ; Базовый адрес начала массива в rdx
-mov    dword ptr [rdx+rcx*4], eax ; Запись в массив: База + Индекс * 4
-jmp    main+106h        ; Обход ветки else
-
-; 18: else iMas[i] = (i * 8) ^ 0xC;
-main+0EAh:
-mov    eax, dword ptr [i] ; Загрузка i в eax
-shl    eax, 3           ; Умножение на 8 сдвигом влево на 3 бита
-xor    eax, 0Ch         ; Побитовое исключающее ИЛИ с константой 12 (0x0C)
-mov    ecx, dword ptr [i] ; Загрузка индекса i в ecx
-lea    rdx, [iMas]      ; Базовый адрес начала массива в rdx
-mov    dword ptr [rdx+rcx*4], eax ; Запись в массив: База + Индекс * 4
-
-main+106h:              ; Конец тела цикла
-jmp    main+0CEh        ; Переход к следующей итерации (на шаг i++)
-
-; 21: return 0;
-main+108h:
-xor    eax, eax         ; Код возврата 0
-lea    rsp, [rbp+0C8h]  ; Восстановление стека
-pop    rdi              ; Восстановление сохранённых регистров
-pop    rbp              ; Восстановление базового указателя
-ret                     ; Возврат из функции
-	\end{lstlisting}
-
+     1: int iMas[10];
+2: int *pI;
+3: unsigned int i;
+4: 
+5: int main() {
+	00007FF630CD1720 40 55                push        rbp                                  ; Сохранение базового регистра кадра
+	00007FF630CD1722 57                   push        rdi                                  ; Сохранение регистра rdi
+	00007FF630CD1723 48 81 EC E8 00 00 00 sub         rsp,0E8h                             ; Выделение памяти в стеке под локальные нужды
+	00007FF630CD172A 48 8D 6C 24 20       lea         rbp,[rsp+20h]                        ; Установка базового указателя кадра
+	00007FF630CD172F 48 8D 0D CA F8 00 00 lea         rcx,[__B952A550_main@cpp (07FF630CE1000h)] ; Служебный вызов отладчика
+	00007FF630CD1736 E8 3A FC FF FF       call        __CheckForDebuggerJustMyCode (07FF630CD1375h) ; Проверка режима Just My Code
+	00007FF630CD173B 90                   nop                                              ; Выравнивание
+	6: 	iMas[3] = 12;
+	00007FF630CD173C B8 04 00 00 00       mov         eax,4                                ; Размер элемента (4 байта для int)
+	00007FF630CD1741 48 6B C0 03          imul        rax,rax,3                            ; Смещение элемента: 3 * 4 = 12 (0x0C) байт
+	00007FF630CD1745 48 8D 0D F4 AA 00 00 lea         rcx,[iMas (07FF630CDC240h)]          ; Загрузка адреса массива в rcx
+	00007FF630CD174C C7 04 01 0C 00 00 00 mov         dword ptr [rcx+rax],0Ch              ; Базово-индексная запись константы 12
+	7: 	iMas[4] = 12345;
+	00007FF630CD1753 B8 04 00 00 00       mov         eax,4                                ; Размер элемента
+	00007FF630CD1758 48 6B C0 04          imul        rax,rax,4                            ; Смещение элемента: 4 * 4 = 16 (0x10) байт
+	00007FF630CD175C 48 8D 0D DD AA 00 00 lea         rcx,[iMas (07FF630CDC240h)]          ; Базовый адрес массива iMas
+	00007FF630CD1763 C7 04 01 39 30 00 00 mov         dword ptr [rcx+rax],3039h            ; Запись 2-байтовой константы 12345
+	8: 	iMas[5] = 12345678;
+	00007FF630CD176A B8 04 00 00 00       mov         eax,4                                ; Размер элемента
+	00007FF630CD176F 48 6B C0 05          imul        rax,rax,5                            ; Смещение элемента: 5 * 4 = 20 (0x14) байт
+	00007FF630CD1773 48 8D 0D C6 AA 00 00 lea         rcx,[iMas (07FF630CDC240h)]          ; Базовый адрес массива iMas
+	00007FF630CD177A C7 04 01 4E 61 BC 00 mov         dword ptr [rcx+rax],0BC614Eh         ; Запись 4-байтовой константы 12345678
+	9: 	iMas[6] = 0x123456789ABCDE;
+	00007FF630CD1781 B8 04 00 00 00       mov         eax,4                                ; Размер элемента
+	00007FF630CD1786 48 6B C0 06          imul        rax,rax,6                            ; Смещение элемента: 6 * 4 = 24 (0x18) байта
+	00007FF630CD178A 48 8D 0D AF AA 00 00 lea         rcx,[iMas (07FF630CDC240h)]          ; Базовый адрес массива iMas
+	00007FF630CD1791 C7 04 01 DE BC 9A 78 mov         dword ptr [rcx+rax],789ABCDEh        ; Запись младших 32 бит (усечение константы)
+	10: 
+	11: 	pI = &iMas[2];
+	00007FF630CD1798 B8 04 00 00 00       mov         eax,4                                ; Размер элемента
+	00007FF630CD179D 48 6B C0 02          imul        rax,rax,2                            ; Смещение для индекса 2: 2 * 4 = 8 байт
+	00007FF630CD17A1 48 8D 0D 98 AA 00 00 lea         rcx,[iMas (07FF630CDC240h)]          ; Базовый адрес массива iMas
+	00007FF630CD17A8 48 03 C8             add         rcx,rax                              ; rcx = адрес элемента iMas[2]
+	00007FF630CD17AB 48 8B C1             mov         rax,rcx                              ; Перенос адреса в rax
+	00007FF630CD17AE 48 89 05 B3 AA 00 00 mov         qword ptr [pI (07FF630CDC268h)],rax  ; Сохранение адреса в указатель pI (8 байт)
+	12: 	*pI = 0xAB12;
+	00007FF630CD17B5 48 8B 05 AC AA 00 00 mov         rax,qword ptr [pI (07FF630CDC268h)]  ; Считывание адреса из указателя pI в rax
+	00007FF630CD17BC C7 00 12 AB 00 00    mov         dword ptr [rax],0AB12h               ; Косвенная запись константы 0xAB12 по адресу в rax
+	13: 
+	14: 	for (i = 0; i < 9; i++) {
+		00007FF630CD17C2 C7 05 A4 AA 00 00 00 00 00 00 mov         dword ptr [i (07FF630CDC270h)],0 ; Инициализация счетчика цикла: i = 0
+		00007FF630CD17CC EB 0E                jmp         main+0BCh (07FF630CD17DCh)           ; Безусловный переход к проверке условия цикла
+		00007FF630CD17CE 8B 05 9C AA 00 00    mov         eax,dword ptr [i (07FF630CDC270h)]   ; Загрузка значения i в eax
+		00007FF630CD17D4 FF C0                inc         eax                                  ; Инкремент счетчика (i++)
+		00007FF630CD17D6 89 05 94 AA 00 00    mov         dword ptr [i (07FF630CDC270h)],eax   ; Сохранение обновленного i
+		00007FF630CD17DC 83 3D 8D AA 00 00 09 cmp         dword ptr [i (07FF630CDC270h)],9     ; Сравнение i с 9
+		00007FF630CD17E3 73 43                jae         main+108h (07FF630CD1828h)           ; Если i >= 9, выход из цикла (беззнаковый переход)
+		15: 		if (i >= 4)
+		00007FF630CD17E5 83 3D 84 AA 00 00 04 cmp         dword ptr [i (07FF630CDC270h)],4     ; Сравнение i с 4
+		00007FF630CD17EC 72 1C                jb          main+0EAh (07FF630CD180Ah)           ; Если i < 4, переход в ветку else (jb, CF=1)
+		16: 			iMas[i] = 13 * i + 7;
+		00007FF630CD17EE 6B 05 7B AA 00 00 0D imul        eax,dword ptr [i (07FF630CDC270h)],0Dh ; eax = i * 13 (0x0D)
+		00007FF630CD17F5 83 C0 07             add         eax,7                                ; eax = 13 * i + 7
+		00007FF630CD17F8 8B 0D 72 AA 00 00    mov         ecx,dword ptr [i (07FF630CDC270h)]   ; Загрузка индекса i в ecx
+		00007FF630CD17FE 48 8D 15 3B AA 00 00 lea         rdx,[iMas (07FF630CDC240h)]          ; Базовый адрес массива в rdx
+		00007FF630CD1805 89 04 8A             mov         dword ptr [rdx+rcx*4],eax            ; Запись в массив: База + Индекс * 4 (код 89 04 8A)
+		00007FF630CD1808 EB 1C                jmp         main+106h (07FF630CD1826h)           ; Обход ветки else
+		17: 		else
+		18: 			iMas[i] = (i * 8) ^ 0xC;
+		00007FF630CD180A 8B 05 60 AA 00 00    mov         eax,dword ptr [i (07FF630CDC270h)]   ; Загрузка i в eax
+		00007FF630CD1810 C1 E0 03             shl         eax,3                                ; Умножение на 8 сдвигом влево на 3 бита
+		00007FF630CD1813 83 F0 0C             xor         eax,0Ch                              ; Побитовое исключающее ИЛИ с константой 12
+		00007FF630CD1816 8B 0D 54 AA 00 00    mov         ecx,dword ptr [i (07FF630CDC270h)]   ; Загрузка индекса i в ecx
+		00007FF630CD181C 48 8D 15 1D AA 00 00 lea         rdx,[iMas (07FF630CDC240h)]          ; Базовый адрес массива в rdx
+		00007FF630CD1823 89 04 8A             mov         dword ptr [rdx+rcx*4],eax            ; Запись в массив: База + Индекс * 4 (код 89 04 8A)
+		19: 	}
+	00007FF630CD1826 EB A6                jmp         main+0AEh (07FF630CD17CEh)           ; Переход к следующей итерации (на шаг цикла)
+	20: 
+	21: 	return 0;
+	00007FF630CD1828 33 C0                xor         eax,eax                              ; Код возврата функции 0 (return 0)
+	22: }
+00007FF630CD182A 48 8D A5 C8 00 00 00 lea         rsp,[rbp+0C8h]                       ; Восстановление указателя стека
+00007FF630CD1831 5F                   pop         rdi                                  ; Восстановление регистра rdi
+00007FF630CD1832 5D                   pop         rbp                                  ; Восстановление базового указателя кадра rbp
+00007FF630CD1833 C3                   ret                                              ; Возврат из функции
+\end{lstlisting}
+     	
 	\noindent \textbf{2. Список переменных и карта памяти}
 	
 	Переменные \texttt{iMas}, \texttt{pI}, \texttt{i} объявлены вне функций (глобально) и размещены компилятором в статической памяти данных. Их адреса постоянны и зафиксированы отладчиком (таблица \ref{tab:mem_map}).
@@ -236,7 +282,7 @@ ret                     ; Возврат из функции
 	\\\\
 	\noindent \textbf{3. Анализ команд обращения к переменным}
 	
-	В таблице \ref{tab:instructions_analysis} систематизированы все команды, обращающиеся к переменным программы, с указанием числа операндов и способов их адресации.
+	В таблице \ref{tab:instructions_analysis} систематизированы все команды, обращающиеся к переменным программы, с указанием числа операндов и способов их адресации, а в таблице \ref{tab:machine_commands_10} -- 10 команд байтовых в ассемблере с расшифровкой.
 	
 	\begin{table}[H]
 		\centering
@@ -244,25 +290,201 @@ ret                     ; Возврат из функции
 		\begin{tabularx}{\textwidth}{|p{5.2cm}|c|c|X|X|}
 			\hline
 			\textbf{Команда ассемблера} & \textbf{Перем.} & \textbf{Оп.} & \textbf{Операнд 1 (приёмник)} & \textbf{Операнд 2 (источник)} \\ \hline
-			\texttt{mov [rcx+rax], 0Ch} & \texttt{iMas[3]} & 2 & Базово-индексная & Непосредственная \\ \hline
-			\texttt{mov [rcx+rax], 3039h} & \texttt{iMas[4]} & 2 & Базово-индексная & Непосредственная \\ \hline
-			\texttt{mov [rcx+rax], 0BC614Eh} & \texttt{iMas[5]} & 2 & Базово-индексная & Непосредственная \\ \hline
-			\texttt{mov [rcx+rax], 789ABCDEh} & \texttt{iMas[6]} & 2 & Базово-индексная & Непосредственная \\ \hline
-			\texttt{mov qword ptr [pI], rax} & \texttt{pI} & 2 & Прямая к памяти & Регистровая \\ \hline
-			\texttt{mov rax, qword ptr [pI]} & \texttt{pI} & 2 & Регистровая & Прямая к памяти \\ \hline
-			\texttt{mov dword ptr [rax], 0AB12h} & \texttt{iMas[2]} & 2 & Косвенно-регистровая & Непосредственная \\ \hline
-			\texttt{mov dword ptr [i], 0} & \texttt{i} & 2 & Прямая к памяти & Непосредственная \\ \hline
-			\texttt{mov eax, dword ptr [i]} & \texttt{i} & 2 & Регистровая & Прямая к памяти \\ \hline
-			\texttt{mov dword ptr [i], eax} & \texttt{i} & 2 & Прямая к памяти & Регистровая \\ \hline
-			\texttt{cmp dword ptr [i], 9} & \texttt{i} & 2 & Прямая к памяти & Непосредственная \\ \hline
-			\texttt{cmp dword ptr [i], 4} & \texttt{i} & 2 & Прямая к памяти & Непосредственная \\ \hline
+			\texttt{mov [rcx+rax], 0Ch} & \texttt{iMas[3]} & 2 & Базово-индексная & Непосредств. \\ \hline
+			\texttt{mov [rcx+rax], 3039h} & \texttt{iMas[4]} & 2 & Базово-индексная & Непосредств. \\ \hline
+			\texttt{mov [rcx+rax], 0BC614Eh} & \texttt{iMas[5]} & 2 & Базово-индексная & Непосредств. \\ \hline
+			\texttt{mov [rcx+rax], 789ABCDEh} & \texttt{iMas[6]} & 2 & Базово-индексная & Непосредств. \\ \hline
+			\texttt{mov qword ptr [pI], rax} & \texttt{pI} & 2 & Прямая & Регистровая \\ \hline
+			\texttt{mov rax, qword ptr [pI]} & \texttt{pI} & 2 & Регистровая & Прямая \\ \hline
+			\texttt{mov dword ptr [rax], 0AB12h} & \texttt{iMas[2]} & 2 & Косвенно-регистровая & Непосредств. \\ \hline
+			\texttt{mov dword ptr [i], 0} & \texttt{i} & 2 & Прямая & Непосредств. \\ \hline
+			\texttt{mov eax, dword ptr [i]} & \texttt{i} & 2 & Регистровая & Прямая \\ \hline
+			\texttt{mov dword ptr [i], eax} & \texttt{i} & 2 & Прямая & Регистровая \\ \hline
+			\texttt{cmp dword ptr [i], 9} & \texttt{i} & 2 & Прямая & Непосредств. \\ \hline
+			\texttt{cmp dword ptr [i], 4} & \texttt{i} & 2 & Прямая & Непосредств. \\ \hline
 			\texttt{imul eax, dword ptr [i], 0Dh} & \texttt{i} & 3 & Регистровая & Прямая и непоср. \\ \hline
-			\texttt{mov ecx, dword ptr [i]} & \texttt{i} & 2 & Регистровая & Прямая к памяти \\ \hline
+			\texttt{mov ecx, dword ptr [i]} & \texttt{i} & 2 & Регистровая & Прямая \\ \hline
 			\texttt{mov [rdx+rcx*4], eax} & \texttt{iMas[i]} & 2 & Масштабно-индексная & Регистровая \\ \hline
 		\end{tabularx}
 	\end{table}
 
-	\noindent \textbf{4. Многокомпонентная адресация данных}
+
+	\noindent \textbf{4. Рассмотрим каждую ассемблерную команду подробно (процессор x86)}\\[3mm]
+	Для 10 команд программы, систематизированных в таблице \ref{tab:machine_commands_10}, ниже представлен подробный побайтовый и побитовый разбор структуры машинного кода в соответствии с общим форматом команды архитектуры x86 (префиксы, код операции, байт ModR/M, байт SIB, поле смещения Displacement и непосредственный операнд Immediate).
+
+\begin{table}[H]
+	\centering
+	\caption{Примеры машинных команд и их байтового представления} \label{tab:machine_commands_10}
+	\begin{tabularx}{\textwidth}{|p{4.2cm}|p{4.2cm}|X|}
+		\hline
+		\textbf{Байт} & \textbf{Ассемблер} & \textbf{Пояснение} \\ \hline
+		\texttt{40 55} & \texttt{push rbp} & Сохранение регистра rbp \\ \hline
+		\texttt{48 81 EC E8 00 00 00} & \texttt{sub rsp, 0E8h} & Выделение стека \\ \hline
+		\texttt{B8 04 00 00 00} & \texttt{mov eax, 4} & Загрузка 4 в eax \\ \hline
+		\texttt{48 6B C0 03} & \texttt{imul rax, rax, 3} & Умножение rax на 3 \\ \hline
+		\texttt{48 8D 6C 24 20 } & \texttt{lea rbp,[rsp+20h] } & Загрузка адреса в rbp \\ \hline
+		\texttt{FF C0} & \texttt{inc eax} & Инкремент eax \\ \hline
+		\texttt{83 3D 8D AA 00 00 09} & \texttt{cmp dword ptr [i], 9} & Сравнение i с 9 \\ \hline
+		\texttt{73 43} & \texttt{jae main+108h (07FF630CD1828hP)} & Беззнаковый переход \\ \hline
+		\texttt{33 C0} & \texttt{xor eax, eax} & Обнуление eax \\ \hline
+		\texttt{C3} & \texttt{ret} & Возврат из функции \\ \hline
+	\end{tabularx}
+\end{table}
+
+	% --- 1. PUSH RBP ---
+	\noindent \textbf{\textcolor{red}{00007FF630CD1720}} \quad \textbf{\textcolor{codegreen}{40 55}} \quad \texttt{push rbp}\\[1.5mm]
+	\noindent \resizebox{0.52\textwidth}{!}{%
+	\rexbox{{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{0}{0}{0}{0}{REX (40h)} \quad
+	\bytebox{opcol}{{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 1}}{Opcode (55h)}
+	}\\[1.5mm]
+	\texttt{5xh - push}\\
+	\texttt{x5h - rbp}\\
+	Неявная адресация \\[4mm]
+
+	% --- 2. SUB RSP, 0E8h ---
+	\noindent \textbf{\textcolor{red}{00007FF630CD1723}} \quad \textbf{\textcolor{codegreen}{48 81 EC E8 00 00 00}} \quad \texttt{sub rsp, 0E8h}\\[1.5mm]
+	\noindent \resizebox{\textwidth}{!}{%
+	\rexbox{{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{W=1}{0}{0}{0}{REX.W (48h)} \quad
+	\bytebox{opcol}{{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 1}}{Opcode (81h)} \quad
+	\modrmbox{{\tiny 1}&{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 0}}{MOD=3}{REG=5}{R/M=4}{mod-reg-r/m (ECh)}
+	}
+	\\\\	
+	\noindent \resizebox{\textwidth}{!}{
+	\bytebox{immcol}{{\tiny 1}&{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{Imm0 (E8h)} \quad
+	\bytebox{immcol}{{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{Imm1 (00h)} \quad
+	\bytebox{immcol}{{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{Imm2 (00h)} \quad
+	\bytebox{immcol}{{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{Imm3 (00h)}
+	}\\[1.5mm]
+	\texttt{81 - SUB}\\
+	\texttt{MOD = 3 - регистровая адресация (R/M содержит номер регистра)}\\
+	\texttt{REG = 5 код операции SUB}\\
+	\texttt{R/M = 4 - rsp}\\
+	\texttt{Immediate = 000000E8h (выделение 232 байт в стековом кадре)}\\
+	Непосредственная адресация\\[4mm]
+
+	% --- 3. MOV EAX, 4 ---
+	\noindent \textbf{\textcolor{red}{00007FF630CD173C}} \quad \textbf{\textcolor{codegreen}{B8 04 00 00 00}} \quad \texttt{mov eax, 4}\\[1.5mm]
+	\noindent \resizebox{0.65\textwidth}{!}{%
+	\bytebox{opcol}{{\tiny 1}&{\tiny 0}&{\tiny 1}&{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{Opcode (B8h)} \quad
+	\bytebox{immcol}{{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 0}}{Imm0 (04h)} \quad
+}
+\\
+	\noindent \resizebox{0.85\textwidth}{!}{
+	\bytebox{immcol}{{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{Imm1 (00h)} \quad
+	\bytebox{immcol}{{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{Imm2 (00h)} \quad
+	\bytebox{immcol}{{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{Imm3 (00h)}
+	}\\[1.5mm]
+	\texttt{B8 - код mov}\\
+	\texttt{reg = 0 - eax}\\
+	\texttt{Immediate = 00000004h }\\
+	непосредственная адресация\\[4mm]
+
+	% --- 4. IMUL RAX, RAX, 3 ---
+	\noindent \textbf{\textcolor{red}{00007FF630CD1741}} \quad \textbf{\textcolor{codegreen}{48 6B C0 03}} \quad \texttt{imul rax, rax, 3}\\[1.5mm]
+	\noindent \resizebox{0.75\textwidth}{!}{%
+	\rexbox{{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{W=1}{0}{0}{0}{REX.W (48h)} \quad
+	\bytebox{opcol}{{\tiny 0}&{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 1}&{\tiny 1}}{Opcode (6Bh)} \quad
+}
+
+	\noindent \resizebox{0.75\textwidth}{!}{
+	\modrmbox{{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{MOD=3}{REG=0}{R/M=0}{mod-reg-r/m (C0h)} \quad
+	\bytebox{immcol}{{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 1}}{Imm (03h)}
+	}\\[1.5mm]
+	\texttt{6B - код imul}\\	
+	\texttt{MOD = 3 - регистровая адресация}\\
+	\texttt{REG = 0 - eax}\\
+	\texttt{R/M = 0 - eax}\\
+	\texttt{Immediate = 03h}\\
+	регистровая и непосредственная адресация\\[4mm]
+
+	% --- 5. LEA RBP, [RSP+20h] ---
+	\noindent \textbf{\textcolor{red}{00007FF630CD172A}} \quad \textbf{\textcolor{codegreen}{48 8D 6C 24 20}} \quad \texttt{lea rbp, [rsp+20h]}\\[1.5mm]
+	\noindent \resizebox{0.8\textwidth}{!}{%
+	\rexbox{{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{W=1}{0}{0}{0}{REX.W (48h)} \quad
+	\bytebox{opcol}{{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 1}}{Opcode (8Dh)} \quad
+}
+
+	\noindent \resizebox{\textwidth}{!}{
+	\modrmbox{{\tiny 0}&{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 0}}{MOD=1}{REG=5}{R/M=4}{mod-reg-r/m (6Ch)} \quad
+	\sibbox{{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 0}}{Scale=0}{Index=4}{Base=4}{SIB (24h)} \quad
+	\bytebox{dispcol}{{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{Disp (20h)}
+	}\\[1.5mm]
+	\texttt{8D - LEA}\\
+	\texttt{MOD = 1 - адресация памяти со смещением disp8}\\
+	\texttt{REG = 5 - rbp}\\
+	\texttt{R/M = 4 - смотрим SIB}\\
+	\texttt{Scale = 0 (x1), Index = 4, Base = 4}\\
+	\texttt{Displacement = 20h (смещение +32 байта)}\\
+	косвенная регистровая адресация со смещением\\[4mm]
+
+	% --- 6. INC EAX ---
+	\noindent \textbf{\textcolor{red}{00007FF630CD17D4}} \quad \textbf{\textcolor{codegreen}{FF C0}} \quad \texttt{inc eax}\\[1.5mm]
+	\noindent \resizebox{0.52\textwidth}{!}{%
+	\bytebox{opcol}{{\tiny 1}&{\tiny 1}&{\tiny 1}&{\tiny 1}&{\tiny 1}&{\tiny 1}&{\tiny 1}&{\tiny 1}}{Opcode (FFh)} \quad
+	\modrmbox{{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{MOD=3}{REG=0}{R/M=0}{mod-reg-r/m (C0h)}
+	}\\[1.5mm]
+	\texttt{FF - INC}\\
+	\texttt{MOD = 3 - регистровая адресация}\\
+	\texttt{REG = 0}\\
+	\texttt{R/M = 0 - eax}\\
+	регистровая адресация\\[4mm]
+
+	% --- 7. CMP DWORD PTR [I], 9 ---
+	\noindent \textbf{\textcolor{red}{00007FF630CD17DC}} \quad \textbf{\textcolor{codegreen}{83 3D 8D AA 00 00 09}} \quad \texttt{cmp dword ptr [i], 9}\\[1.5mm]
+	\noindent \resizebox{\textwidth}{!}{%
+	\bytebox{opcol}{{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 1}}{Opcode (83h)} \quad
+	\modrmbox{{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 1}&{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 1}}{MOD=0}{REG=7}{R/M=5}{mod-reg-r/m (3Dh)} \quad
+	\bytebox{dispcol}{{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 1}}{Disp0 (8Dh)} \quad
+}
+
+\noindent \resizebox{\textwidth}{!}{
+	\bytebox{dispcol}{{\tiny 1}&{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 1}&{\tiny 0}}{Disp1 (AAh)} \quad
+	\bytebox{dispcol}{{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{Disp2 (00h)} \quad
+	\bytebox{dispcol}{{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{Disp3 (00h)} \quad
+	\bytebox{immcol}{{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 1}}{Immediate (09h)}
+	}\\[1.5mm]
+	\texttt{83 - CMP}\\
+	\texttt{MOD = 0 - displacement содержит адрес переменной в памяти}\\
+	\texttt{REG = 7 - CMP}\\
+	\texttt{R/M = 5 ebx}\\
+	\texttt{Displacement = 0000AA8Dh}\\
+	\texttt{Immediate = 09h}\\
+	прямая адресация памяти и непосредственная адресация\\[4mm]
+
+	% --- 8. JAE ---
+	\noindent \textbf{\textcolor{red}{00007FF630CD17E3}} \quad \textbf{\textcolor{codegreen}{73 43}} \quad \texttt{jae main+108h (07FF630CD1828h)}\\[1.5mm]
+	\noindent \resizebox{0.52\textwidth}{!}{%
+	\bytebox{opcol}{{\tiny 0}&{\tiny 1}&{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 1}}{Opcode (73h)} \quad
+	\bytebox{dispcol}{{\tiny 0}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 1}}{Displacement (43h)}
+	}\\[1.5mm]
+	\texttt{73 cb - JAE}\\
+	\texttt{IP = 00007FF630CD17E5h (адрес следующей команды)}\\
+	\texttt{next\_command\_address = IP + 0x43 = 07FF630CD1828h, если соблюдается условие ($i \ge 9$)}\\
+	относительная адресация\\[4mm]
+
+	% --- 9. XOR EAX, EAX ---
+	\noindent \textbf{\textcolor{red}{00007FF630CD1828}} \quad \textbf{\textcolor{codegreen}{33 C0}} \quad \texttt{xor eax, eax}\\[1.5mm]
+	\noindent \resizebox{0.52\textwidth}{!}{%
+	\bytebox{opcol}{{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 1}}{Opcode (33h)} \quad
+	\modrmbox{{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}}{MOD=3}{REG=0}{R/M=0}{mod-reg-r/m (C0h)}
+	}\\[1.5mm]
+	\texttt{33 - XOR}\\
+	\texttt{MOD = 3 - регистровая адресация (R/M содержит номер регистра)}\\
+	\texttt{REG = 0 - eax}\\
+	\texttt{R/M = 0 - eax}\\
+	регистровая адресация\\[4mm]
+
+	% --- 10. RET ---
+	\noindent \textbf{\textcolor{red}{00007FF630CD1833}} \quad \textbf{\textcolor{codegreen}{C3}} \quad \texttt{ret}\\[1.5mm]
+	\noindent \resizebox{0.28\textwidth}{!}{%
+	\bytebox{opcol}{{\tiny 1}&{\tiny 1}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 0}&{\tiny 1}&{\tiny 1}}{Opcode (C3h)}
+	}\\[1.5mm]
+	\texttt{C3 - RET}\\
+	неявная адресация
+
+
+
+	\noindent \textbf{5. Многокомпонентная адресация данных}
 	
 	Многокомпонентная масштабно-индексная адресация использована в команде записи в массив в теле цикла:
 	\begin{equation*}
@@ -277,7 +499,7 @@ ret                     ; Возврат из функции
 	\end{itemize}
 	Исполнительный адрес вычисляется аппаратно за один такт: $EA = rdx + rcx \cdot 4$.
 	\\\\
-	\noindent \textbf{5. Способы адресации в командах перехода}
+	\noindent \textbf{6. Способы адресации в командах перехода}
 	
 	Во всех командах ветвления компилятор применил \textbf{относительную адресацию} (\texttt{rel8}): адрес перехода не хранится целиком, а задаётся знаковым смещением относительно счётчика команд следующей инструкции ($\text{Target} = \text{IP} + \text{offset}$):
 	\begin{itemize}[noitemsep]
@@ -288,7 +510,7 @@ ret                     ; Возврат из функции
 		\item \texttt{EB A6 (jmp main+0CEh)}: безусловный переход на шаг цикла со смещением \texttt{0xA6} ($-90$).
 	\end{itemize}
 
-	\noindent \textbf{6. Модификация программы: доступ через указатель и локальные переменные}
+	\noindent \textbf{7. Модификация программы: доступ через указатель и локальные переменные}
 	
 	В соответствии с шагом 10 методики доступ к массиву изменён на последовательное обращение через указатель \texttt{pMas} (листинг 3).
 	
@@ -319,21 +541,35 @@ int main() {
 
 	Дизассемблированный фрагмент модифицированного цикла:
 	\begin{lstlisting}[language={[x86masm]Assembler}, caption={Дизассемблерный код цикла при работе через указатель}]
-; Инициализация указателя перед циклом:
-lea    rax, [iMas]             ; Получение адреса начала массива
-mov    qword ptr [pMas], rax   ; Сохранение адреса в локальный указатель pMas
-
-; Шаг цикла (i++, pMas++):
-mov    eax, dword ptr [i]      ; Загрузка счетчика i
-inc    eax                     ; i++
-mov    dword ptr [i], eax      ; Сохранение обновленного i
-mov    rax, qword ptr [pMas]   ; Загрузка адреса из pMas
-add    rax, 4                  ; Инкремент адреса на 4 байта (размер int)
-mov    qword ptr [pMas], rax   ; Сохранение нового адреса в pMas
-
-; Запись в массив в ветках then и else (*pMas = ...):
-mov    rcx, qword ptr [pMas]   ; Загрузка адреса текущего элемента из pMas в rcx
-mov    dword ptr [rcx], eax    ; Простая косвенно-регистровая адресация [rcx]!\end{lstlisting}
+00007FF721F317C2 48 8D 05 77 AA 00 00 lea         rax,[iMas (07FF721F3C240h)]          ; Получение адреса начала массива iMas
+00007FF721F317C9 48 89 45 08          mov         qword ptr [pMas],rax                 ; Сохранение адреса в локальный указатель pMas
+15: 	for (i = 0; i < 9; i++, pMas++) {
+	00007FF721F317CD C7 05 99 AA 00 00 00 00 00 00 mov         dword ptr [i (07FF721F3C270h)],0 ; Инициализация счетчика цикла: i = 0
+	00007FF721F317D7 EB 1A                jmp         main+0D3h (07FF721F317F3h)           ; Безусловный переход к проверке условия цикла
+	00007FF721F317D9 8B 05 91 AA 00 00    mov         eax,dword ptr [i (07FF721F3C270h)]   ; Загрузка значения i в eax
+	00007FF721F317DF FF C0                inc         eax                                  ; Инкремент счетчика (i++)
+	00007FF721F317E1 89 05 89 AA 00 00    mov         dword ptr [i (07FF721F3C270h)],eax   ; Сохранение обновленного i
+	00007FF721F317E7 48 8B 45 08          mov         rax,qword ptr [pMas]                 ; Загрузка адреса текущего элемента из pMas
+	00007FF721F317EB 48 83 C0 04          add         rax,4                                ; Инкремент указателя на 4 байта (pMas++)
+	00007FF721F317EF 48 89 45 08          mov         qword ptr [pMas],rax                 ; Сохранение нового адреса в pMas
+	00007FF721F317F3 83 3D 76 AA 00 00 09 cmp         dword ptr [i (07FF721F3C270h)],9     ; Сравнение i с 9
+	00007FF721F317FA 73 2F                jae         main+10Bh (07FF721F3182Bh)           ; Если i >= 9, выход из цикла (беззнаковый переход)
+	16: 		if (i >= 4)
+	00007FF721F317FC 83 3D 6D AA 00 00 04 cmp         dword ptr [i (07FF721F3C270h)],4     ; Сравнение i с 4
+	00007FF721F31803 72 12                jb          main+0F7h (07FF721F31817h)           ; Если i < 4, переход в ветку else (jb, CF=1)
+	17: 			*pMas = 13 * i + 7;
+	00007FF721F31805 6B 05 64 AA 00 00 0D imul        eax,dword ptr [i (07FF721F3C270h)],0Dh ; eax = i * 13 (0x0D)
+	00007FF721F3180C 83 C0 07             add         eax,7                                ; eax = 13 * i + 7
+	00007FF721F3180F 48 8B 4D 08          mov         rcx,qword ptr [pMas]                 ; Загрузка адреса элемента из указателя pMas в rcx
+	00007FF721F31813 89 01                mov         dword ptr [rcx],eax                  ; Косвенно-регистровая запись [rcx] (код 89 01)
+	00007FF721F31815 EB 12                jmp         main+109h (07FF721F31829h)           ; Обход ветки else
+	18: 		else
+	19: 			*pMas = (i * 8) ^ 0xC;
+	00007FF721F31817 8B 05 53 AA 00 00    mov         eax,dword ptr [i (07FF721F3C270h)]   ; Загрузка i в eax
+	00007FF721F3181D C1 E0 03             shl         eax,3                                ; Умножение на 8 сдвигом влево на 3 бита
+	00007FF721F31820 83 F0 0C             xor         eax,0Ch                              ; Побитовое исключающее ИЛИ с константой 12
+	00007FF721F31823 48 8B 4D 08          mov         rcx,qword ptr [pMas]                 ; Загрузка адреса элемента из указателя pMas в rcx
+	00007FF721F31827 89 01                mov         dword ptr [rcx],eax                  ; Косвенно-регистровая запись [rcx] (код 89 01)\end{lstlisting}
 
 	\noindent \textbf{Сравнение способов адресации:}
 	\begin{enumerate}[noitemsep]
