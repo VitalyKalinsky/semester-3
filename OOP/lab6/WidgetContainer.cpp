@@ -31,6 +31,12 @@ WidgetContainer::WidgetContainer(QWidget *parent) : QWidget(parent)
     m_btnRemove = new QPushButton("Удалить последний виджет", this);
     mainLayout->addWidget(m_btnRemove);
 
+    m_removeSelector = new QComboBox(this);
+    mainLayout->addWidget(m_removeSelector);
+
+    m_btnRemoveSelected = new QPushButton("Удалить выбранный виджет", this);
+    mainLayout->addWidget(m_btnRemoveSelected);
+
     m_btnConnect = new QPushButton("Соединить все виджеты", this);
     mainLayout->addWidget(m_btnConnect);
 
@@ -50,6 +56,7 @@ WidgetContainer::WidgetContainer(QWidget *parent) : QWidget(parent)
 
     connect(m_btnAdd, SIGNAL(clicked()), this, SLOT(addWidgetDynamically()));
     connect(m_btnRemove, SIGNAL(clicked()), this, SLOT(removeLastWidget()));
+    connect(m_btnRemoveSelected, SIGNAL(clicked()), this, SLOT(removeSelectedWidget()));
     connect(m_btnConnect, SIGNAL(clicked()), this, SLOT(connectAllWidgets()));
     connect(m_btnDebug, SIGNAL(clicked()), this, SLOT(debugCheckConnections()));
 }
@@ -59,6 +66,7 @@ void WidgetContainer::addWidgetDynamically()
     WidgetType selectedType = static_cast<WidgetType>(m_typeSelector->currentData().toInt());
 
     QWidget *newWidget = nullptr;
+    QString typeName;
 
     switch (selectedType)
     {
@@ -67,6 +75,7 @@ void WidgetContainer::addWidgetDynamically()
         auto *slider = new QSlider(Qt::Horizontal, this);
         slider->setRange(0, 100);
         newWidget = slider;
+        typeName = "Slider";
         break;
     }
     case WidgetType::ScrollBar:
@@ -74,6 +83,7 @@ void WidgetContainer::addWidgetDynamically()
         auto *scrollBar = new QScrollBar(Qt::Horizontal, this);
         scrollBar->setRange(0, 100);
         newWidget = scrollBar;
+        typeName = "ScrollBar";
         break;
     }
     case WidgetType::SpinBox:
@@ -81,12 +91,14 @@ void WidgetContainer::addWidgetDynamically()
         auto *spinBox = new QSpinBox(this);
         spinBox->setRange(0, 100);
         newWidget = spinBox;
+        typeName = "SpinBox";
         break;
     }
     case WidgetType::Label:
     {
         auto *label = new QLabel("0", this);
         newWidget = label;
+        typeName = "Label";
         break;
     }
     default:
@@ -96,10 +108,21 @@ void WidgetContainer::addWidgetDynamically()
     if (!newWidget)
         return;
 
+    QString name = QString("%1_%2").arg(typeName).arg(++m_widgetCounter);
+    newWidget->setObjectName(name);
+
+    auto *itemWidget = new QWidget(this);
+    auto *itemLayout = new QHBoxLayout(itemWidget);
+    itemLayout->setContentsMargins(0, 0, 0, 0);
+    itemLayout->addWidget(new QLabel(name + ":", itemWidget));
+    itemLayout->addWidget(newWidget);
+
     m_widgets.append(newWidget);
-    m_widgetsLayout->addWidget(newWidget);
+    m_widgetsLayout->addWidget(itemWidget);
+    m_removeSelector->addItem(name, QVariant::fromValue(static_cast<void *>(newWidget)));
 
     qDebug() << "\tAdded:" << newWidget->metaObject()->className()
+             << "Name:" << name
              << "\tTotal widgets:" << m_widgets.size();
 }
 
@@ -108,7 +131,25 @@ void WidgetContainer::removeLastWidget()
     if (m_widgets.isEmpty())
         return;
 
-    delete m_widgets.takeLast();
+    QWidget *w = m_widgets.takeLast();
+    int idx = m_removeSelector->findData(QVariant::fromValue(static_cast<void *>(w)));
+    if (idx != -1)
+        m_removeSelector->removeItem(idx);
+
+    delete w->parentWidget();
+}
+
+void WidgetContainer::removeSelectedWidget()
+{
+    if (m_removeSelector->currentIndex() == -1)
+        return;
+
+    auto *w = static_cast<QWidget *>(m_removeSelector->currentData().value<void *>());
+    m_removeSelector->removeItem(m_removeSelector->currentIndex());
+    m_widgets.removeOne(w);
+
+    if (w)
+        delete w->parentWidget();
 }
 
 void WidgetContainer::connectAllWidgets()
@@ -193,7 +234,8 @@ void WidgetContainer::debugCheckConnections()
     for (int i = 0; i < m_widgets.size(); ++i)
     {
         QWidget *w = m_widgets[i];
-        qDebug() << "\n--- Object #" << i + 1 << ":" << w->metaObject()->className() << "address:" << w << "---";
+        qDebug() << "\n--- Object #" << i + 1 << ":" << w->metaObject()->className()
+                 << "name:" << w->objectName() << "address:" << w << "---";
 
         w->dumpObjectInfo();
     }

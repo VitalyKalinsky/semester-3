@@ -20,9 +20,11 @@ public:
     };
     explicit WidgetContainer(QWidget *parent = nullptr);
     ~WidgetContainer() override = default;
+
 public slots:
     void addWidgetDynamically();
     void removeLastWidget();
+    void removeSelectedWidget();
     void connectAllWidgets();
     void debugCheckConnections();
 
@@ -35,4 +37,8 @@ private:
     QPushButton *m_btnConnect;
     QPushButton *m_btnDebug;
     QVBoxLayout *m_widgetsLayout;
+
+    QComboBox *m_removeSelector;
+    QPushButton *m_btnRemoveSelected;
+    int m_widgetCounter = 0;
 };
